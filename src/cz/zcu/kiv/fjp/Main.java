@@ -1,4 +1,4 @@
-package compiler;
+package cz.zcu.kiv.fjp;
 
 public class Main {
 
