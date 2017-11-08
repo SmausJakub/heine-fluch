@@ -143,7 +143,7 @@ compound_statement
 
 repetitive_statement
     :
-    while_statement | repeat_statement | for_statement
+    while_statement | repeat_statement | do_while_statement | for_statement
     ;
 
 conditional_statement
@@ -154,6 +154,11 @@ conditional_statement
 while_statement
     :
     WHILE expression DO statement
+    ;
+
+do_while_statement
+    :
+    DO statement WHILE expression
     ;
 
 repeat_statement
