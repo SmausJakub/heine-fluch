@@ -133,7 +133,7 @@ procedure_statement
 
 structured_statement
     :
-    compound_statement | repetitive_statement | conditional_statement
+    ( compound_statement | repetitive_statement | conditional_statement )
     ;
 
 compound_statement
@@ -143,17 +143,22 @@ compound_statement
 
 repetitive_statement
     :
-    while_statement | repeat_statement | for_statement
+    ( while_do_statement | do_while_statement | repeat_statement | for_statement )
     ;
 
 conditional_statement
     :
-    if_statement | case_statement
+    ( if_statement | case_statement )
     ;
 
-while_statement
+while_do_statement
     :
     WHILE expression DO statement
+    ;
+
+do_while_statement
+    :
+    DO statement WHILE expression
     ;
 
 repeat_statement
@@ -190,7 +195,7 @@ case_label_list
 
 type
     :
-	STR | REAL | INTEGER | BOOLEAN
+	( STR | REAL | INTEGER | BOOLEAN )
     ;
 
 expression
@@ -210,22 +215,22 @@ term
 
 
 factor
-    : number | string | identifier | LPAREN expression RPAREN
+    : ( number | string | identifier | LPAREN expression RPAREN )
     ;
 
 relational_operator
     :
-    EQUAL | NOT_EQUAL | LT | LE | GT | GE
+    ( EQUAL | NOT_EQUAL | LT | LE | GT | GE )
     ;
 
 addition_operator
     :
-    PLUS | MINUS | OR
+    ( PLUS | MINUS | OR )
     ;
 
 multiplication_operator
     :
-    MULTIPLY | DIVIDE | AND
+    ( MULTIPLY | DIVIDE | AND )
     ;
 
 string
@@ -235,7 +240,7 @@ string
 
 number
     :
-    integer_number | real_number
+    ( integer_number | real_number )
     ;
 
 integer_number
@@ -266,7 +271,7 @@ digit
 
 sign
     :
-    PLUS | MINUS
+    ( PLUS | MINUS )
     ;
 
 
