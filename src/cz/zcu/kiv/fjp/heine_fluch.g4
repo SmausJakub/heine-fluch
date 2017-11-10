@@ -108,7 +108,12 @@ statement
 
 simple_statement
     :
-    ( assignment_statement | procedure_statement | goto_statement | ternary_statement )
+    ( assignment_statement | procedure_statement | goto_statement | ternary_statement | io_statement )
+    ;
+
+io_statement
+   :
+   ( WRITE | READ ) identifier
    ;
 
 ternary_statement
@@ -163,7 +168,7 @@ do_while_statement
 
 repeat_statement
     :
-    REPEAT statement_sequence UNTIL expression
+    REPEAT statement UNTIL expression
     ;
 
 for_statement
@@ -210,7 +215,7 @@ simple_expression
 
 term
     :
-    factor ( multiplication_operator factor )*
+    negation_operator* factor ( multiplication_operator negation_operator* factor )*
     ;
 
 
@@ -231,6 +236,11 @@ addition_operator
 multiplication_operator
     :
     ( MULTIPLY | DIVIDE | AND )
+    ;
+
+negation_operator
+    :
+    NEGATE
     ;
 
 string
@@ -537,6 +547,13 @@ CALL
     : C A L L
     ;
 
+READ
+    : R E A D
+    ;
+
+WRITE
+    : W R I T E
+    ;
 
 /**
 * SYMBOLS
@@ -640,6 +657,10 @@ TERNARY_ONE
 
 TERNARY_TWO
     : ':'
+    ;
+
+NEGATE
+    : '!'
     ;
 
 
