@@ -1,4 +1,4 @@
-grammar heine_fluch;
+grammar Pascal0Like;
 
 
 /**
