@@ -1,9 +1,7 @@
 package cz.zcu.kiv.fjp;
 
 
-
-import cz.zcu.kiv.fjp.compiler.Pascal0LikeVisitorImpl;
-import cz.zcu.kiv.fjp.compiler.symbol.SymbolMap;
+import cz.zcu.kiv.fjp.compiler.Visitor;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -24,10 +22,8 @@ public class Main {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             Pascal0LikeParser parser = new Pascal0LikeParser(tokens);
             ParseTree tree = parser.program();
-            Pascal0LikeVisitorImpl visitor = new Pascal0LikeVisitorImpl();
+            Visitor visitor = new Visitor();
             visitor.visit(tree);
-
-            System.out.println(SymbolMap.getSymbolMap().toString());
 
         }else {
             System.out.println("Nazev programu nebyl zadan. Zadejte prosim nazev souboru");

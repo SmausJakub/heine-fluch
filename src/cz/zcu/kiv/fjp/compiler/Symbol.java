@@ -1,4 +1,4 @@
-package cz.zcu.kiv.fjp.compiler.symbol;
+package cz.zcu.kiv.fjp.compiler;
 
 public class Symbol {
 
