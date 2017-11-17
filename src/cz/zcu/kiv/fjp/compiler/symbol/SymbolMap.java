@@ -1,4 +1,4 @@
-package cz.zcu.kiv.fjp.compiler;
+package cz.zcu.kiv.fjp.compiler.symbol;
 
 import java.util.HashMap;
 
