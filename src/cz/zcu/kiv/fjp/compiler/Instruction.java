@@ -3,11 +3,13 @@ package cz.zcu.kiv.fjp.compiler;
 public class Instruction {
 
 
+    private int index;
     private String instructionCode;
     private int level;
     private int operand;
 
-    public Instruction(String instructionCode, int level, int operand) {
+    public Instruction(int index, String instructionCode, int level, int operand) {
+        this.index = index;
         this.instructionCode = instructionCode;
         this.level = level;
         this.operand = operand;
@@ -23,6 +25,10 @@ public class Instruction {
 
     public int getOperand() {
         return operand;
+    }
+
+    public int getIndex() {
+        return index;
     }
 
 

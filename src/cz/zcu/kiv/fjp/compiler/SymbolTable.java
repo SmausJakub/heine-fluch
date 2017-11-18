@@ -6,10 +6,15 @@ public class SymbolTable {
 
     private HashMap<String, AParsable> symbolTable;
 
+    private SymbolTable instance = new SymbolTable();
 
     private SymbolTable() {
 
         symbolTable = new HashMap<String, AParsable>();
+    }
+
+    public SymbolTable getInstance() {
+        return instance;
     }
 
     public void addItem(String name, AParsable item) {
