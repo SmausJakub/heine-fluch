@@ -1,5 +1,13 @@
 package cz.zcu.kiv.fjp.compiler;
 
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class InstructionHandler {
 
     private InstructionHandler instance = new InstructionHandler();
@@ -11,7 +19,7 @@ public class InstructionHandler {
         return instance;
     }
 
-    public Instruction parseInstruction(String input) {
+    private Instruction parseInstruction(String input) {
 
 
         // TODO kontrola argumentu
@@ -24,6 +32,24 @@ public class InstructionHandler {
         int operand = Integer.parseInt(ins[3]);
 
         return new Instruction(index, insCode, level, operand);
+
+    }
+
+    public List<Instruction> parseFile(File file) throws IOException {
+
+        List<Instruction> list = new ArrayList<Instruction>();
+        FileReader fileReader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            Instruction i = parseInstruction(line);
+            list.add(i);
+        }
+
+        fileReader.close();
+
+        return list;
 
     }
 
