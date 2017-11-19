@@ -4,13 +4,13 @@ import cz.zcu.kiv.fjp.enums.StatementType;
 
 public abstract class AbstractStatement {
 
-    private StatementType type;
+    private StatementType statementType;
 
-    public AbstractStatement(StatementType type) {
-        this.type = type;
+    public AbstractStatement(StatementType statementType) {
+        this.statementType = statementType;
     }
 
-    public StatementType getType() {
-        return type;
+    public StatementType getStatementType() {
+        return statementType;
     }
 }

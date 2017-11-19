@@ -4,14 +4,14 @@ import cz.zcu.kiv.fjp.enums.ExpressionType;
 
 public class AbstractExpression {
 
-    private ExpressionType type;
+    private ExpressionType expressionType;
 
-    public AbstractExpression(ExpressionType type) {
-        this.type = type;
+    public AbstractExpression(ExpressionType expressionType) {
+        this.expressionType = expressionType;
     }
 
-    public ExpressionType getType() {
-        return type;
+    public ExpressionType getExpressionType() {
+        return expressionType;
     }
 
 

@@ -13,4 +13,21 @@ public class DeclarationProcedure extends AbstractDeclaration {
     public DeclarationProcedure() {
         super(DeclarationType.PROCEDURE);
     }
+
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public Block getProcedureBlock() {
+        return procedureBlock;
+    }
+
+    public void setProcedureBlock(Block procedureBlock) {
+        this.procedureBlock = procedureBlock;
+    }
 }

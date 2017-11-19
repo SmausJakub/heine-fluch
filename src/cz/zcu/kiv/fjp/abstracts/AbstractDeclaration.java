@@ -4,13 +4,13 @@ import cz.zcu.kiv.fjp.enums.DeclarationType;
 
 public class AbstractDeclaration {
 
-    private DeclarationType type;
+    private DeclarationType declarationType;
 
-    public AbstractDeclaration(DeclarationType type) {
-        this.type = type;
+    public AbstractDeclaration(DeclarationType declarationType) {
+        this.declarationType = declarationType;
     }
 
-    public DeclarationType getType() {
-        return type;
+    public DeclarationType getDeclarationType() {
+        return declarationType;
     }
 }

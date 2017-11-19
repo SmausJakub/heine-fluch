@@ -209,7 +209,7 @@ atom
     :
     INT #intAtom
     | FLOAT  #realAtom
-    | (TRUE | FALSE) #booleanAtom
+    | b=(TRUE | FALSE) #booleanAtom
     | IDENT #idAtom
     | STRING #stringAtom
     ;

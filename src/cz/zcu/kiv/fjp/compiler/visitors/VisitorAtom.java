@@ -32,12 +32,17 @@ public class VisitorAtom extends Pascal0LikeBaseVisitor<AbstractAtom> {
     public AbstractAtom visitBooleanAtom(Pascal0LikeParser.BooleanAtomContext ctx) {
         AtomBoolean atom = new AtomBoolean();
 
-        String text = ctx.getText();
-        if (text.equalsIgnoreCase("true")) {
-            atom.setBool(true);
-        } else {
-            atom.setBool(false);
+        switch (ctx.b.getType()) {
+            case Pascal0LikeParser.TRUE: {
+                atom.setBool(true);
+                break;
+            }
+            case Pascal0LikeParser.FALSE: {
+                atom.setBool(false);
+                break;
+            }
         }
+
 
         return atom;
     }

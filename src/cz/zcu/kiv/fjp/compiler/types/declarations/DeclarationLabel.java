@@ -15,4 +15,11 @@ public class DeclarationLabel extends AbstractDeclaration {
     }
 
 
+    public List<Label> getLabelList() {
+        return labelList;
+    }
+
+    public void setLabelList(List<Label> labelList) {
+        this.labelList = labelList;
+    }
 }

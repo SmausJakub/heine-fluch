@@ -16,4 +16,20 @@ public class DeclarationVariableParalel extends AbstractDeclaration {
     public DeclarationVariableParalel() {
         super(DeclarationType.VARIABLE_PARALEL);
     }
+
+    public List<Variable> getVariableList() {
+        return variableList;
+    }
+
+    public void setVariableList(List<Variable> variableList) {
+        this.variableList = variableList;
+    }
+
+    public List<AbstractExpression> getExpressionList() {
+        return expressionList;
+    }
+
+    public void setExpressionList(List<AbstractExpression> expressionList) {
+        this.expressionList = expressionList;
+    }
 }

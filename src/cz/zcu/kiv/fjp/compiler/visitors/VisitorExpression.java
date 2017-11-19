@@ -47,19 +47,16 @@ public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression
         expressionLogic.setLeftExpression(leftExpression);
         expressionLogic.setRightExpression(rightExpression);
 
-        OperatorLogic operator = null;
         switch (ctx.op.getType()) {
             case Pascal0LikeParser.AND: {
-                operator = OperatorLogic.AND;
+                expressionLogic.setOperator(OperatorLogic.AND);
                 break;
             }
             case Pascal0LikeParser.OR: {
-                operator = OperatorLogic.OR;
+                expressionLogic.setOperator(OperatorLogic.OR);
                 break;
             }
         }
-
-        expressionLogic.setOperator(operator);
 
         return expressionLogic;
 
@@ -75,20 +72,16 @@ public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression
         expressionMultiplication.setLeftExpression(leftExpression);
         expressionMultiplication.setRightExpression(rightExpression);
 
-        OperatorMultiplication operator = null;
-
         switch (ctx.op.getType()) {
             case Pascal0LikeParser.MULTIPLY: {
-                operator = OperatorMultiplication.MULTIPLY;
+                expressionMultiplication.setOperator(OperatorMultiplication.MULTIPLY);
                 break;
             }
             case Pascal0LikeParser.DIVIDE: {
-                operator = OperatorMultiplication.DIVIDE;
+                expressionMultiplication.setOperator(OperatorMultiplication.DIVIDE);
                 break;
             }
         }
-
-        expressionMultiplication.setOperator(operator);
 
         return expressionMultiplication;
 
@@ -118,22 +111,18 @@ public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression
         expressionAdditive.setLeftExpression(leftExpression);
         expressionAdditive.setRightExpression(rightExpression);
 
-        OperatorAddition operator = null;
-
         switch (ctx.op.getType()) {
 
             case Pascal0LikeParser.PLUS: {
-                operator = OperatorAddition.PLUS;
+                expressionAdditive.setOperator(OperatorAddition.PLUS);
                 break;
             }
             case Pascal0LikeParser.MINUS: {
-                operator = OperatorAddition.MINUS;
+                expressionAdditive.setOperator(OperatorAddition.MINUS);
                 break;
             }
 
         }
-
-        expressionAdditive.setOperator(operator);
 
 
         return expressionAdditive;
@@ -149,37 +138,33 @@ public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression
         expressionRelational.setLeftExpression(leftExpression);
         expressionRelational.setRightExpression(rightExpression);
 
-        OperatorRelation operator = null;
-
         switch (ctx.op.getType()) {
 
             case Pascal0LikeParser.EQUAL: {
-                operator = OperatorRelation.EQUAL;
+                expressionRelational.setOperator(OperatorRelation.EQUAL);
                 break;
             }
             case Pascal0LikeParser.NOT_EQUAL: {
-                operator = OperatorRelation.NOT_EQUAL;
+                expressionRelational.setOperator(OperatorRelation.NOT_EQUAL);
                 break;
             }
             case Pascal0LikeParser.LE: {
-                operator = OperatorRelation.LE;
+                expressionRelational.setOperator(OperatorRelation.LE);
                 break;
             }
             case Pascal0LikeParser.LT: {
-                operator = OperatorRelation.LT;
+                expressionRelational.setOperator(OperatorRelation.LT);
                 break;
             }
             case Pascal0LikeParser.GE: {
-                operator = OperatorRelation.GE;
+                expressionRelational.setOperator(OperatorRelation.GE);
                 break;
             }
             case Pascal0LikeParser.GT: {
-                operator = OperatorRelation.GT;
+                expressionRelational.setOperator(OperatorRelation.GT);
                 break;
             }
         }
-
-        expressionRelational.setOperator(operator);
 
         return expressionRelational;
     }

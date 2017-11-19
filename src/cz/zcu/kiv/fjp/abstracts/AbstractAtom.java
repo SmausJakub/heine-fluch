@@ -4,14 +4,14 @@ import cz.zcu.kiv.fjp.enums.AtomType;
 
 public class AbstractAtom {
 
-    private AtomType type;
+    private AtomType atomType;
 
-    public AbstractAtom(AtomType type) {
-        this.type = type;
+    public AbstractAtom(AtomType atomType) {
+        this.atomType = atomType;
     }
 
-    public AtomType getType() {
-        return type;
+    public AtomType getAtomType() {
+        return atomType;
     }
 
 }
