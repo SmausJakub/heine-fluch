@@ -1,19 +1,18 @@
-package cz.zcu.kiv.fjp.compiler.types.Statements;
+package cz.zcu.kiv.fjp.compiler.types.statements;
 
 import cz.zcu.kiv.fjp.abstracts.AbstractExpression;
 import cz.zcu.kiv.fjp.abstracts.AbstractStatement;
 import cz.zcu.kiv.fjp.enums.StatementType;
 
-public class StatementIf extends AbstractStatement {
+public class StatementDoWhile extends AbstractStatement {
+
 
     private AbstractExpression expression;
 
     private AbstractStatement statement;
 
-    private AbstractStatement elseStatement;
-
-    public StatementIf() {
-        super(StatementType.IF);
+    public StatementDoWhile() {
+        super(StatementType.DO_WHILE);
     }
 
     public AbstractExpression getExpression() {
@@ -30,13 +29,5 @@ public class StatementIf extends AbstractStatement {
 
     public void setStatement(AbstractStatement statement) {
         this.statement = statement;
-    }
-
-    public AbstractStatement getElseStatement() {
-        return elseStatement;
-    }
-
-    public void setElseStatement(AbstractStatement elseStatement) {
-        this.elseStatement = elseStatement;
     }
 }

@@ -1,4 +1,4 @@
-package cz.zcu.kiv.fjp.compiler.types.Statements;
+package cz.zcu.kiv.fjp.compiler.types.statements;
 
 import cz.zcu.kiv.fjp.abstracts.AbstractStatement;
 import cz.zcu.kiv.fjp.enums.IOType;

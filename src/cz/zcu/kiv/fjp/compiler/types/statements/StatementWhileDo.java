@@ -1,18 +1,17 @@
-package cz.zcu.kiv.fjp.compiler.types.Statements;
+package cz.zcu.kiv.fjp.compiler.types.statements;
 
 import cz.zcu.kiv.fjp.abstracts.AbstractExpression;
 import cz.zcu.kiv.fjp.abstracts.AbstractStatement;
 import cz.zcu.kiv.fjp.enums.StatementType;
 
-public class StatementDoWhile extends AbstractStatement {
-
+public class StatementWhileDo extends AbstractStatement {
 
     private AbstractExpression expression;
 
     private AbstractStatement statement;
 
-    public StatementDoWhile() {
-        super(StatementType.DO_WHILE);
+    public StatementWhileDo() {
+        super(StatementType.WHILE_DO);
     }
 
     public AbstractExpression getExpression() {
