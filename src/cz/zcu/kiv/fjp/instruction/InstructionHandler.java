@@ -55,7 +55,7 @@ public class InstructionHandler {
 
     public List<Instruction> parseFile(File file) throws IOException {
 
-        List<Instruction> list = new ArrayList<cz.zcu.kiv.fjp.instruction.Instruction>();
+        List<Instruction> list = new ArrayList<Instruction>();
         FileReader fileReader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
