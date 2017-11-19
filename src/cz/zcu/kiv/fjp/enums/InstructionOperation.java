@@ -1,6 +1,6 @@
-package cz.zcu.kiv.fjp.compiler;
+package cz.zcu.kiv.fjp.enums;
 
-public enum EOperation {
+public enum InstructionOperation {
 
 
     NEG("NEG", 1),
@@ -21,7 +21,7 @@ public enum EOperation {
     private String name;
     private int code;
 
-    EOperation(String name, int code) {
+    InstructionOperation(String name, int code) {
         this.name = name;
         this.code = code;
     }

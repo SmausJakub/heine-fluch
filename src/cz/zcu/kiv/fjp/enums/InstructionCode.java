@@ -1,6 +1,6 @@
-package cz.zcu.kiv.fjp.compiler;
+package cz.zcu.kiv.fjp.enums;
 
-public enum EInstruction {
+public enum InstructionCode {
 
     LIT("LIT", 0),
     OPR("OPR", 1),
@@ -26,7 +26,7 @@ public enum EInstruction {
     private String name;
     private int code;
 
-    EInstruction(String name, int code) {
+    InstructionCode(String name, int code) {
         this.code = code;
         this.name = name;
     }

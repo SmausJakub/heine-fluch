@@ -1,4 +1,4 @@
-package cz.zcu.kiv.fjp.compiler;
+package cz.zcu.kiv.fjp.instruction;
 
 public class Instruction {
 
@@ -29,6 +29,12 @@ public class Instruction {
 
     public int getIndex() {
         return index;
+    }
+
+    public String toString() {
+
+        return (index + "\t" + instructionCode + "\t" + level + " " + operand + "\n");
+
     }
 
 

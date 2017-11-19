@@ -13,11 +13,6 @@ block
     : declaration_part statement_part
     ;
 
-identifier
-    :
-    IDENT
-    ;
-
 declaration_part
     :
    ( label_declaration_part | constant_declaration_part | variable_declaration_part | procedure_declaration_part)*
@@ -35,7 +30,7 @@ procedure_body
 
 procedure_heading
 	:
-	PROCEDURE identifier
+	PROCEDURE IDENT
     ;
 
 constant_declaration_part
@@ -45,12 +40,7 @@ constant_declaration_part
 
 constant_declaration
     :
-    identifier_list ASSIGN constant
-    ;
-
-constant
-    :
-    ( sign )? ( identifier | number) | string
+    identifier_list ASSIGN atom
     ;
 
 label_declaration_part
@@ -77,7 +67,7 @@ variable_paralel_declaration
 
 identifier_list
     :
-    identifier ( COMMA identifier )*
+    IDENT ( COMMA IDENT )*
     ;
 
 expression_list
@@ -87,7 +77,7 @@ expression_list
 
 label
     :
-    integer_number
+    INT
     ;
 
 
@@ -113,17 +103,17 @@ simple_statement
 
 io_statement
    :
-   ( WRITE | READ ) identifier
+   ( WRITE | READ ) IDENT
    ;
 
 ternary_statement
     :
-	identifier ASSIGN expression TERNARY_ONE expression TERNARY_TWO expression
+	IDENT ASSIGN expression TERNARY_ONE expression TERNARY_TWO expression
     ;
 
 assignment_statement
     :
-    identifier ASSIGN expression
+    IDENT ASSIGN expression
     ;
 
 goto_statement
@@ -133,7 +123,7 @@ goto_statement
 
 procedure_statement
     :
-    CALL identifier
+    CALL IDENT
     ;
 
 structured_statement
@@ -173,7 +163,7 @@ repeat_statement
 
 for_statement
     :
-    FOR identifier ASSIGN expression (TO | DOWNTO) expression DO statement
+    FOR IDENT ASSIGN expression (TO | DOWNTO) expression DO statement
     ;
 
 if_statement
@@ -195,7 +185,7 @@ case_limb
 
 case_label_list
     :
-    constant ( COMMA constant )*
+    atom ( COMMA atom )*
     ;
 
 type
@@ -205,84 +195,38 @@ type
 
 expression
     :
-    simple_expression ( relational_operator simple_expression )*
-    ;
+    MINUS expression #unaryExpr
+    | NOT expression #notExpr
+    | expression  op=( MULTIPLY | DIVIDE ) expression #multiplicationExpr
+    | expression  op=( PLUS | MINUS ) expression #additiveExpr
+    | expression op=( EQUAL | NOT_EQUAL | LT | LE | GT | GE ) expression #relationalExpr
+    | expression op=( AND | OR ) expression #logicExpr
+    | atom #atomExpr
+    | LPAREN expression RPAREN #parExpr
+     ;
 
-simple_expression
+atom
     :
-    ( sign )? term ( addition_operator term )*
+    INT #intAtom
+    | FLOAT  #realAtom
+    | (TRUE | FALSE) #booleanAtom
+    | IDENT #idAtom
+    | STRING #stringAtom
     ;
 
-term
-    :
-    negation_operator* factor ( multiplication_operator negation_operator* factor )*
+STRING
+    : '\'' ('\'\'' | ~ ('\''))* '\''
     ;
 
+INT
+ : [0-9]+
+ ;
 
-factor
-    : ( number | string | identifier | LPAREN expression RPAREN )
-    ;
+ FLOAT
+  : [0-9]+ '.' [0-9]*
+  | '.' [0-9]+
+  ;
 
-relational_operator
-    :
-    ( EQUAL | NOT_EQUAL | LT | LE | GT | GE )
-    ;
-
-addition_operator
-    :
-    ( PLUS | MINUS | OR )
-    ;
-
-multiplication_operator
-    :
-    ( MULTIPLY | DIVIDE | AND )
-    ;
-
-negation_operator
-    :
-    NEGATE
-    ;
-
-string
-    :
-    STRING_LITERAL
-    ;
-
-number
-    :
-    ( integer_number | real_number )
-    ;
-
-integer_number
-    :
-    digit_sequence
-    ;
-
-real_number
-    :
-    digit_sequence DOT ( unsigned_digit_sequence )* |
-    digit_sequence
-    ;
-
-digit_sequence
-    :
-    ( sign )? unsigned_digit_sequence
-    ;
-
-unsigned_digit_sequence
-    :
-    digit ( digit )*
-    ;
-
-digit
-    :
-    INT
-    ;
-
-sign
-    :
-    ( PLUS | MINUS )
-    ;
 
 
 
@@ -555,6 +499,20 @@ WRITE
     : W R I T E
     ;
 
+NOT
+    : N O T
+    ;
+
+TRUE
+    :
+    T R U E
+    ;
+
+FALSE
+    :
+    F A L S E
+    ;
+
 /**
 * SYMBOLS
 **/
@@ -659,25 +617,12 @@ TERNARY_TWO
     : ':'
     ;
 
-NEGATE
-    : '!'
-    ;
-
 
 
 
 IDENT
    : ('a' .. 'z' | 'A' .. 'Z') ('a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_')*
    ;
-
-INT
-   :
-   '0' .. '9'
-    ;
-
-STRING_LITERAL
-    : '\'' ('\'\'' | ~ ('\''))* '\''
-    ;
 
 
 WS

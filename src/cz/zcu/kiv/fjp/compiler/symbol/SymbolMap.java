@@ -1,15 +1,13 @@
-package cz.zcu.kiv.fjp.compiler;
+package cz.zcu.kiv.fjp.compiler.symbol;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class SymbolMap {
 
-    public static final String INTEGER_SYMBOL = "int";
-    public static final String REAL_SYMBOL = "double";
-    public static final String BOOLEAN_SYMBOL = "bool";
-    public static final String STRING_SYMBOL = "str";
 
-    private HashMap<Integer, Symbol> symbolMap;
+    private static SymbolMap instance = new SymbolMap();
+    private Map<Integer, Symbol> symbolMap;
 
     private SymbolMap() {
 
@@ -18,10 +16,10 @@ public class SymbolMap {
         int i = 0;
         symbolMap.put(++i, new Symbol("null", "nulsym"));
         symbolMap.put(++i, new Symbol("ident", "identsym"));
-        symbolMap.put(++i, new Symbol(INTEGER_SYMBOL, "intsym"));
-        symbolMap.put(++i, new Symbol(REAL_SYMBOL, "doublesym"));
-        symbolMap.put(++i, new Symbol(BOOLEAN_SYMBOL, "boolsym"));
-        symbolMap.put(++i, new Symbol(STRING_SYMBOL, "strsym"));
+        symbolMap.put(++i, new Symbol("int", "intsym"));
+        symbolMap.put(++i, new Symbol("double", "doublesym"));
+        symbolMap.put(++i, new Symbol("bool", "boolsym"));
+        symbolMap.put(++i, new Symbol("str", "strsym"));
         symbolMap.put(++i, new Symbol("+", "plussym"));
         symbolMap.put(++i, new Symbol("-", "minussym"));
         symbolMap.put(++i, new Symbol("*", "multsym"));
@@ -59,7 +57,7 @@ public class SymbolMap {
         symbolMap.put(++i, new Symbol("string", "stringsym"));
         symbolMap.put(++i, new Symbol("procedure", "proceduresym"));
         symbolMap.put(++i, new Symbol("else", "elsesym"));
-        symbolMap.put(++i, new Symbol("label", "labesym"));
+        symbolMap.put(++i, new Symbol("label", "labelsym"));
         symbolMap.put(++i, new Symbol("goto", "gotosym"));
         symbolMap.put(++i, new Symbol("read", "readsym"));
         symbolMap.put(++i, new Symbol("write", "writesym"));
@@ -71,6 +69,44 @@ public class SymbolMap {
         symbolMap.put(++i, new Symbol("and", "andsym"));
         symbolMap.put(++i, new Symbol("or", "orsym"));
     }
+
+    public static SymbolMap getInstance() {
+        return instance;
+    }
+
+    public Symbol getSymbolByIndex(int index) {
+        return symbolMap.get(index);
+    }
+
+    public Symbol getSymbolBySymbol(String symbol) {
+
+        for (Symbol s : symbolMap.values()) {
+
+            if (symbol.equalsIgnoreCase(s.getSymbol())) {
+                return s;
+            }
+
+        }
+
+        return null;
+
+    }
+
+    public Symbol getSymbolByName(String name) {
+
+        for (Symbol s : symbolMap.values()) {
+
+            if (name.equalsIgnoreCase(s.getName())) {
+                return s;
+            }
+
+        }
+
+        return null;
+
+    }
+
+
 }
 
 
