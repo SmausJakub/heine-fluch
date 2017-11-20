@@ -2,6 +2,7 @@ package cz.zcu.kiv.fjp;
 
 
 import cz.zcu.kiv.fjp.compiler.visitors.VisitorExpression;
+import cz.zcu.kiv.fjp.compiler.visitors.VisitorProgram;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -16,7 +17,7 @@ public class Main {
         System.out.println("PascaL0-like prekladac a interpret");
         System.out.println("Pouziti:");
         System.out.println("-h : zobraz napovedu");
-        System.out.println("-c [soubor] : preloz zdrojovy soubor jazyka PascaL0-like");
+        System.out.println("-c [vstupni soubor] [vystupni soubor] : preloz vstupni soubor jazyka PascaL0-like do vystupniho souboru");
         System.out.println("-i [soubor] : interpretuj instrukce PL/0");
 
     }
@@ -44,7 +45,7 @@ public class Main {
                     CommonTokenStream tokens = new CommonTokenStream(lexer);
                     Pascal0LikeParser parser = new Pascal0LikeParser(tokens);
                     ParseTree tree = parser.program();
-                    VisitorExpression visitor = new VisitorExpression();
+                    VisitorProgram visitor = new VisitorProgram();
                     visitor.visit(tree);
 
                 } else {

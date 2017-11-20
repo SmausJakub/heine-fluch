@@ -1,3 +1,6 @@
+integer x;
+integer y;
+
 begin
 
 if ((a < b) or (c = d)) and not f then

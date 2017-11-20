@@ -15,7 +15,10 @@ block
 
 declaration_part
     :
-   ( label_declaration_part | constant_declaration_part | variable_declaration_part | procedure_declaration_part)*
+   ( label_declaration_part
+   | constant_declaration_part
+   | variable_declaration_part
+   | procedure_declaration_part  )*
     ;
 
 procedure_declaration_part

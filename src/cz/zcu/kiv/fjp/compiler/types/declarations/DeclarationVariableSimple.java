@@ -42,4 +42,9 @@ public class DeclarationVariableSimple extends AbstractDeclaration {
     public void setInit(boolean init) {
         this.init = init;
     }
+
+    public String toString() {
+        return "init " + init ;
+    }
+
 }
