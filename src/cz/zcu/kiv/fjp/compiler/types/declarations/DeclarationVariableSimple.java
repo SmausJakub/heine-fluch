@@ -12,39 +12,30 @@ public class DeclarationVariableSimple extends AbstractDeclaration {
     private List<Variable> variableList;
     private List<AbstractExpression> expressionList;
 
-    private boolean init = false;
+    private boolean init;
 
 
-    public DeclarationVariableSimple() {
+    public DeclarationVariableSimple(boolean init) {
         super(DeclarationType.VARIABLE);
+        this.init = init;
     }
 
     public List<Variable> getVariableList() {
         return variableList;
     }
 
-    public void setVariableList(List<Variable> variableList) {
-        this.variableList = variableList;
-    }
-
     public List<AbstractExpression> getExpressionList() {
         return expressionList;
-    }
-
-    public void setExpressionList(List<AbstractExpression> expressionList) {
-        this.expressionList = expressionList;
     }
 
     public boolean isInit() {
         return init;
     }
 
-    public void setInit(boolean init) {
-        this.init = init;
+    @Override
+    public String toString() {
+        return "Variable Simple";
     }
 
-    public String toString() {
-        return "init " + init ;
-    }
 
 }

@@ -20,15 +20,13 @@ public class DeclarationConstant extends AbstractDeclaration {
         return variableList;
     }
 
-    public void setVariableList(List<Variable> variableList) {
-        this.variableList = variableList;
-    }
-
     public AbstractAtom getValue() {
         return value;
     }
 
-    public void setValue(AbstractAtom value) {
-        this.value = value;
+    @Override
+    public String toString() {
+        return "Constant";
     }
+
 }

@@ -15,10 +15,10 @@ block
 
 declaration_part
     :
-   ( label_declaration_part
+    (label_declaration_part
    | constant_declaration_part
    | variable_declaration_part
-   | procedure_declaration_part  )*
+   | procedure_declaration_part)*
     ;
 
 procedure_declaration_part
@@ -38,34 +38,19 @@ procedure_heading
 
 constant_declaration_part
     :
-    CONST type constant_declaration SEMI ( constant_declaration SEMI )*
-    ;
-
-constant_declaration
-    :
-    identifier_list ASSIGN atom
+    CONST type identifier_list ASSIGN atom SEMI ( identifier_list ASSIGN atom SEMI )*
     ;
 
 label_declaration_part
     :
-    LABEL label ( COMMA label )* SEMI
+    LABEL INT ( COMMA INT )* SEMI
     ;
 
 variable_declaration_part
     :
-    variable_simple_declaration  SEMI |
-    variable_paralel_declaration SEMI
-    ;
-
-variable_simple_declaration
-    :
-    type identifier_list ASSIGN expression_list |
-    type identifier_list
-    ;
-
-variable_paralel_declaration
-    :
-    type identifier_list ASSIGN LBRACK expression_list RBRACK
+    type identifier_list ASSIGN expression_list SEMI #varSimpleAs |
+    type identifier_list  SEMI #varSimpleUnAs |
+    type identifier_list ASSIGN LBRACK expression_list RBRACK SEMI #varParalel
     ;
 
 identifier_list
@@ -78,31 +63,16 @@ expression_list
     expression ( COMMA expression )*
     ;
 
-label
-    :
-    INT
-    ;
-
 
 statement_part
     :
-    BEGIN statement_sequence END
-    ;
-
-statement_sequence
-    :
-    statement* ( SEMI statement )*
+    BEGIN statement* ( SEMI statement )* END
     ;
 
 statement
-   : label COLON (simple_statement | structured_statement)
-   | (simple_statement | structured_statement)
+   : INT COLON ( compound_statement | while_do_statement | do_while_statement | repeat_statement | for_statement | if_statement | case_statement | assignment_statement | procedure_statement | goto_statement | ternary_statement | io_statement )
+   | ( compound_statement | while_do_statement | do_while_statement | repeat_statement | for_statement | if_statement | case_statement | assignment_statement | procedure_statement | goto_statement | ternary_statement | io_statement )
    ;
-
-simple_statement
-    :
-    ( assignment_statement | procedure_statement | goto_statement | ternary_statement | io_statement )
-    ;
 
 io_statement
    :
@@ -121,7 +91,7 @@ assignment_statement
 
 goto_statement
     :
-    GOTO label
+    GOTO INT
     ;
 
 procedure_statement
@@ -129,24 +99,9 @@ procedure_statement
     CALL IDENT
     ;
 
-structured_statement
-    :
-    ( compound_statement | repetitive_statement | conditional_statement )
-    ;
-
 compound_statement
     :
-    BEGIN statement_sequence END
-    ;
-
-repetitive_statement
-    :
-    ( while_do_statement | do_while_statement | repeat_statement | for_statement )
-    ;
-
-conditional_statement
-    :
-    ( if_statement | case_statement )
+    BEGIN statement* ( SEMI statement )* END
     ;
 
 while_do_statement

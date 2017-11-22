@@ -19,15 +19,13 @@ public class DeclarationProcedure extends AbstractDeclaration {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
     public Block getProcedureBlock() {
         return procedureBlock;
     }
 
-    public void setProcedureBlock(Block procedureBlock) {
-        this.procedureBlock = procedureBlock;
+    @Override
+    public String toString() {
+        return "Procedure";
     }
+
 }

@@ -6,10 +6,7 @@ import cz.zcu.kiv.fjp.abstracts.AbstractDeclaration;
 import cz.zcu.kiv.fjp.abstracts.AbstractStatement;
 import cz.zcu.kiv.fjp.compiler.types.Block;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 public class VisitorBlock extends Pascal0LikeBaseVisitor<Block> {
 
@@ -19,12 +16,24 @@ public class VisitorBlock extends Pascal0LikeBaseVisitor<Block> {
         Block block = new Block();
 
 
-                
-             
 
-          VisitorDeclarationPart visitorDeclarationPart = new VisitorDeclarationPart();
-        List<AbstractDeclaration> declarationList = visitorDeclarationPart.visit(ctx.declaration_part());
 
+
+        //   VisitorDeclarationPart visitorDeclarationPart = new VisitorDeclarationPart();
+        //  List<AbstractDeclaration> declarationList = visitorDeclarationPart.visit(ctx.declaration_part());
+
+        List<AbstractDeclaration> declarationList = new ArrayList<AbstractDeclaration>();
+        VisitorDeclaration visitorDeclaration = new VisitorDeclaration();
+
+        for (int i = 0; i < ctx.declaration_part().getChildCount(); i++) {
+
+            AbstractDeclaration declaration = (visitorDeclaration.visit(ctx.declaration_part().getChild(i)));
+            System.out.println(declaration);
+            declarationList.add(declaration);
+        }
+
+
+        System.out.println(declarationList);
 
         block.setDeclarationList(declarationList);
 

@@ -19,7 +19,10 @@ public class DeclarationLabel extends AbstractDeclaration {
         return labelList;
     }
 
-    public void setLabelList(List<Label> labelList) {
-        this.labelList = labelList;
+    @Override
+    public String toString() {
+        return "Label";
     }
+
+
 }

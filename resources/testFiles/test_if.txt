@@ -1,5 +1,12 @@
 integer x;
-integer y;
+integer y := 4;
+const integer x,y := 15;
+label 1;
+real a,b,c := [1, 2, 3];
+
+procedure print;
+begin
+end
 
 begin
 
