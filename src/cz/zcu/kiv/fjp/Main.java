@@ -3,14 +3,18 @@ package cz.zcu.kiv.fjp;
 
 import cz.zcu.kiv.fjp.compiler.visitors.VisitorExpression;
 import cz.zcu.kiv.fjp.compiler.visitors.VisitorProgram;
+import cz.zcu.kiv.fjp.interpret.Interpreter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.io.File;
+
 public class Main {
 
     private static String inputFile;
+    private static File instructionsFile;
 
     private static void usage() {
 
@@ -55,6 +59,23 @@ public class Main {
             } else if (command.equalsIgnoreCase("-l")) {
 
                 // interpret
+
+                if (args.length > 1) {
+
+                    inputFile = args[1];
+                    instructionsFile = new File(inputFile);
+
+                    String cokoliv = "";
+
+                    Interpreter interpreter = new Interpreter();
+
+                    cokoliv = interpreter.interpret(instructionsFile);
+                    System.out.println(cokoliv);
+
+                } else {
+                    System.out.println("Nezadan nazev souboru.");
+                }
+
             } else {
                 System.out.println("Neznamy argument. Vypisuji pouziti.");
                 usage();
