@@ -6,29 +6,32 @@ import cz.zcu.kiv.fjp.enums.StatementType;
 
 public class StatementIO extends AbstractStatement {
 
-
+    private IOType type;
     private String identifier;
 
-    private IOType type;
 
-
-    public StatementIO() {
+    public StatementIO(String identifier, IOType type) {
         super(StatementType.IO);
-    }
-
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(String identifier) {
         this.identifier = identifier;
+        this.type = type;
     }
 
     public IOType getType() {
         return type;
     }
 
-    public void setType(IOType type) {
-        this.type = type;
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        if (isLabelled()) {
+            builder.append(getLabel().getValue()).append(": ");
+        }
+        builder.append(type.getName()).append(" ").append(identifier);
+
+        return builder.toString();
     }
 }

@@ -5,17 +5,26 @@ import cz.zcu.kiv.fjp.enums.StatementType;
 
 public class StatementProcedure extends AbstractStatement {
 
+
     private String identifier;
 
-    public StatementProcedure() {
+    public StatementProcedure(String identifier) {
         super(StatementType.PROCEDURE);
+        this.identifier = identifier;
     }
+
 
     public String getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        if (isLabelled()) {
+            builder.append(getLabel().getValue()).append(": ");
+        }
+        builder.append("CALL").append(" ").append(identifier);
+        return builder.toString();
     }
 }

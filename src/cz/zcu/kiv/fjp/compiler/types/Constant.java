@@ -1,16 +1,14 @@
 package cz.zcu.kiv.fjp.compiler.types;
 
-
 import cz.zcu.kiv.fjp.abstracts.AbstractIdentifier;
 import cz.zcu.kiv.fjp.enums.IdentifierType;
 
-public class Procedure extends AbstractIdentifier {
+public class Constant extends AbstractIdentifier {
 
     private String name;
-    private int size;
 
-    public Procedure(String name) {
-        super(IdentifierType.PROCEDURE);
+    public Constant(String name) {
+        super(IdentifierType.CONSTANT);
         this.name = name;
     }
 
@@ -22,5 +20,4 @@ public class Procedure extends AbstractIdentifier {
     public String toString() {
         return name;
     }
-
 }

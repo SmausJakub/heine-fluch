@@ -7,21 +7,18 @@ public class ExpressionPar extends AbstractExpression {
 
     private AbstractExpression expression;
 
-    public ExpressionPar() {
+    public ExpressionPar(AbstractExpression expression) {
         super(ExpressionType.PAR);
+        this.expression = expression;
     }
 
     public AbstractExpression getExpression() {
         return expression;
     }
 
-    public void setExpression(AbstractExpression expression) {
-        this.expression = expression;
-    }
-
     @Override
     public String toString() {
-        return "( " + expression + " )";
+        return "( " + expression.toString() + " )";
     }
 
 }

@@ -4,37 +4,55 @@ import cz.zcu.kiv.fjp.abstracts.AbstractDeclaration;
 import cz.zcu.kiv.fjp.abstracts.AbstractExpression;
 import cz.zcu.kiv.fjp.compiler.types.Variable;
 import cz.zcu.kiv.fjp.enums.DeclarationType;
+import cz.zcu.kiv.fjp.enums.VariableType;
 
 import java.util.List;
 
 public class DeclarationVariableSimple extends AbstractDeclaration {
 
     private List<Variable> variableList;
-    private List<AbstractExpression> expressionList;
+    private AbstractExpression expression;
 
     private boolean init;
 
+    private VariableType type;
 
-    public DeclarationVariableSimple(boolean init) {
+    public DeclarationVariableSimple(List<Variable> variableList, VariableType type) {
         super(DeclarationType.VARIABLE);
-        this.init = init;
+        this.variableList = variableList;
+        this.type = type;
+        this.init = false;
+    }
+
+
+    public DeclarationVariableSimple(List<Variable> variableList, AbstractExpression expression, VariableType type) {
+        super(DeclarationType.VARIABLE);
+        this.expression = expression;
+        this.variableList = variableList;
+        this.type = type;
+        this.init = true;
     }
 
     public List<Variable> getVariableList() {
         return variableList;
     }
 
-    public List<AbstractExpression> getExpressionList() {
-        return expressionList;
-    }
-
     public boolean isInit() {
         return init;
     }
 
+    public AbstractExpression getExpression() {
+        return expression;
+    }
+
     @Override
     public String toString() {
-        return "Variable Simple";
+
+        if (init) {
+            return type.getValue() + " " + variableList.toString() + " := " + expression.toString();
+        } else {
+            return type.getValue() + " " + variableList.toString();
+        }
     }
 
 

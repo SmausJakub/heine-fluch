@@ -7,21 +7,18 @@ public class AtomInteger extends AbstractAtom {
 
     private int integer;
 
-    public AtomInteger() {
+    public AtomInteger(int integer) {
         super(AtomType.INT);
+        this.integer = integer;
     }
 
     public int getInteger() {
         return integer;
     }
 
-    public void setInteger(int integer) {
-        this.integer = integer;
-    }
-
     @Override
     public String toString() {
-        return "Integer Atom value of " + integer;
+        return "" + integer;
     }
 
 }

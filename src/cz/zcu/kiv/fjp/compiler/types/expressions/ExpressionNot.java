@@ -7,21 +7,18 @@ public class ExpressionNot extends AbstractExpression {
 
     private AbstractExpression expression;
 
-    public ExpressionNot() {
+    public ExpressionNot(AbstractExpression expression) {
         super(ExpressionType.NOT);
+        this.expression = expression;
     }
 
     public AbstractExpression getExpression() {
         return expression;
     }
 
-    public void setExpression(AbstractExpression expression) {
-        this.expression = expression;
-    }
-
     @Override
     public String toString() {
-        return " not " + expression;
+        return " not " + expression.toString();
     }
 
 }

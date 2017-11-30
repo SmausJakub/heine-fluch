@@ -2,20 +2,20 @@ package cz.zcu.kiv.fjp.enums;
 
 public enum VariableType {
 
-    INTEGER("integer"),
-    REAL("real"),
-    STRING("string"),
-    BOOLEAN("boolean");
+    INTEGER("INTEGER"),
+    REAL("REAL"),
+    STRING("STRING"),
+    BOOLEAN("BOOLEAN");
 
+    private String value;
 
-    private String name;
-
-    VariableType(String name) {
-        this.name = name;
+    VariableType(String value) {
+        this.value = value;
     }
 
-    public String getName() {
-        return name;
+    public String getValue() {
+        return value;
     }
+
 
 }

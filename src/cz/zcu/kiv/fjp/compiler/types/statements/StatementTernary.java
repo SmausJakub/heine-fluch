@@ -6,36 +6,45 @@ import cz.zcu.kiv.fjp.enums.StatementType;
 
 public class StatementTernary extends AbstractStatement {
 
+
+    private AbstractExpression expressionOne;
+    private AbstractExpression expressionTwo;
+    private AbstractExpression expression;
     private String identifier;
 
-    private AbstractExpression firstExpression;
-    private AbstractExpression secondExpression;
-
-    public StatementTernary() {
+    public StatementTernary(String identifier, AbstractExpression expression, AbstractExpression expressionOne, AbstractExpression expressionTwo) {
         super(StatementType.TERNARY);
+        this.identifier = identifier;
+        this.expression = expression;
+        this.expressionOne = expressionOne;
+        this.expressionTwo = expressionTwo;
+    }
+
+
+    public AbstractExpression getExpressionOne() {
+        return expressionOne;
+    }
+
+    public AbstractExpression getExpressionTwo() {
+        return expressionTwo;
+    }
+
+    public AbstractExpression getExpression() {
+        return expression;
     }
 
     public String getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        if (isLabelled()) {
+            builder.append(getLabel().getValue()).append(": ");
+        }
+        builder.append(identifier).append(" := ").append(expression.toString()).append(" ? ").append(expressionOne.toString()).append(" ! ").append(expressionTwo.toString());
 
-    public AbstractExpression getFirstExpression() {
-        return firstExpression;
-    }
-
-    public void setFirstExpression(AbstractExpression firstExpression) {
-        this.firstExpression = firstExpression;
-    }
-
-    public AbstractExpression getSecondExpression() {
-        return secondExpression;
-    }
-
-    public void setSecondExpression(AbstractExpression secondExpression) {
-        this.secondExpression = secondExpression;
+        return builder.toString();
     }
 }

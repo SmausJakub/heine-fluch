@@ -12,36 +12,27 @@ public class ExpressionLogic extends AbstractExpression {
     private AbstractExpression leftExpression;
     private AbstractExpression rightExpression;
 
-    public ExpressionLogic() {
+    public ExpressionLogic(AbstractExpression leftExpression, AbstractExpression rightExpression, OperatorLogic operator) {
         super(ExpressionType.LOG);
+        this.leftExpression = leftExpression;
+        this.rightExpression = rightExpression;
+        this.operator = operator;
     }
 
     public OperatorLogic getOperator() {
         return operator;
     }
 
-    public void setOperator(OperatorLogic operator) {
-        this.operator = operator;
-    }
-
     public AbstractExpression getLeftExpression() {
         return leftExpression;
-    }
-
-    public void setLeftExpression(AbstractExpression leftExpression) {
-        this.leftExpression = leftExpression;
     }
 
     public AbstractExpression getRightExpression() {
         return rightExpression;
     }
 
-    public void setRightExpression(AbstractExpression rightExpression) {
-        this.rightExpression = rightExpression;
-    }
-
     @Override
     public String toString() {
-        return leftExpression + " " + operator.getSymbol() + " " + rightExpression;
+        return leftExpression.toString() + " " + operator.getSymbol() + " " + rightExpression.toString();
     }
 }

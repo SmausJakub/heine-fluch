@@ -10,8 +10,9 @@ public class DeclarationLabel extends AbstractDeclaration {
 
     private List<Label> labelList;
 
-    public DeclarationLabel() {
+    public DeclarationLabel(List<Label> labelList) {
         super(DeclarationType.LABEL);
+        this.labelList = labelList;
     }
 
 
@@ -21,7 +22,7 @@ public class DeclarationLabel extends AbstractDeclaration {
 
     @Override
     public String toString() {
-        return "Label";
+        return "LABEL " + labelList.toString();
     }
 
 

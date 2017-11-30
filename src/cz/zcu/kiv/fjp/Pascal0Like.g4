@@ -23,34 +23,29 @@ declaration_part
 
 procedure_declaration_part
     :
-     procedure_heading SEMI procedure_body
-    ;
-
-procedure_body
-    :
-    block
-    ;
-
-procedure_heading
-	:
-	PROCEDURE IDENT
+     PROCEDURE IDENT SEMI block
     ;
 
 constant_declaration_part
     :
-    CONST type identifier_list ASSIGN atom SEMI ( identifier_list ASSIGN atom SEMI )*
+    CONST type identifier_list ASSIGN atom SEMI
     ;
 
 label_declaration_part
     :
-    LABEL INT ( COMMA INT )* SEMI
+    LABEL label_list SEMI
     ;
 
 variable_declaration_part
     :
-    type identifier_list ASSIGN expression_list SEMI #varSimpleAs |
+    type identifier_list ASSIGN expression SEMI #varSimpleAs |
     type identifier_list  SEMI #varSimpleUnAs |
     type identifier_list ASSIGN LBRACK expression_list RBRACK SEMI #varParalel
+    ;
+
+label_list
+    :
+    INT ( COMMA INT )*
     ;
 
 identifier_list
@@ -70,13 +65,13 @@ statement_part
     ;
 
 statement
-   : INT COLON ( compound_statement | while_do_statement | do_while_statement | repeat_statement | for_statement | if_statement | case_statement | assignment_statement | procedure_statement | goto_statement | ternary_statement | io_statement )
-   | ( compound_statement | while_do_statement | do_while_statement | repeat_statement | for_statement | if_statement | case_statement | assignment_statement | procedure_statement | goto_statement | ternary_statement | io_statement )
+   : INT COLON ( compound_statement | while_do_statement | do_while_statement | repeat_statement | for_statement | if_statement | case_statement | assignment_statement | procedure_statement | goto_statement | ternary_statement | io_statement ) #labelled
+   | ( compound_statement | while_do_statement | do_while_statement | repeat_statement | for_statement | if_statement | case_statement | assignment_statement | procedure_statement | goto_statement | ternary_statement | io_statement ) #nonlabelled
    ;
 
 io_statement
    :
-   ( WRITE | READ ) IDENT
+   op=( WRITE | READ ) IDENT
    ;
 
 ternary_statement
@@ -101,7 +96,12 @@ procedure_statement
 
 compound_statement
     :
-    BEGIN statement* ( SEMI statement )* END
+    BEGIN statement_list END
+    ;
+
+statement_list
+    :
+   statement? ( SEMI statement )*
     ;
 
 while_do_statement
@@ -121,19 +121,24 @@ repeat_statement
 
 for_statement
     :
-    FOR IDENT ASSIGN expression (TO | DOWNTO) expression DO statement
+    FOR IDENT ASSIGN expression op=(TO | DOWNTO) expression DO statement
     ;
 
 if_statement
     :
-    IF expression THEN statement ( ELSE statement )?
+    IF expression THEN statement ( ELSE THEN statement )?
     ;
 
 case_statement
     :
     CASE expression OF
-    case_limb ( SEMI case_limb )* ( SEMI )?
+    case_limb_list
     END
+    ;
+
+case_limb_list
+    :
+    case_limb+
     ;
 
 case_limb
@@ -148,7 +153,7 @@ case_label_list
 
 type
     :
-	( STR | REAL | INTEGER | BOOLEAN )
+	op=( STR | REAL | INTEGER | BOOLEAN )
     ;
 
 expression
@@ -167,7 +172,7 @@ atom
     :
     INT #intAtom
     | FLOAT  #realAtom
-    | b=(TRUE | FALSE) #booleanAtom
+    | op=(TRUE | FALSE) #booleanAtom
     | IDENT #idAtom
     | STRING #stringAtom
     ;
@@ -572,7 +577,7 @@ TERNARY_ONE
     ;
 
 TERNARY_TWO
-    : ':'
+    : '!'
     ;
 
 

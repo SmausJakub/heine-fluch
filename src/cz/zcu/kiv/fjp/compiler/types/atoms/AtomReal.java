@@ -7,20 +7,17 @@ public class AtomReal extends AbstractAtom {
 
     private double real;
 
-    public AtomReal() {
+    public AtomReal(double real) {
         super(AtomType.REAL);
+        this.real = real;
     }
 
     public double getReal() {
         return real;
     }
 
-    public void setReal(double real) {
-        this.real = real;
-    }
-
     @Override
     public String toString() {
-        return "Real Atom value of " + real;
+        return "" + real;
     }
 }

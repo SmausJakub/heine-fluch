@@ -2,22 +2,32 @@ package cz.zcu.kiv.fjp.compiler.types.declarations;
 
 import cz.zcu.kiv.fjp.abstracts.AbstractAtom;
 import cz.zcu.kiv.fjp.abstracts.AbstractDeclaration;
-import cz.zcu.kiv.fjp.compiler.types.Variable;
+import cz.zcu.kiv.fjp.compiler.types.Constant;
 import cz.zcu.kiv.fjp.enums.DeclarationType;
+import cz.zcu.kiv.fjp.enums.VariableType;
 
 import java.util.List;
 
 public class DeclarationConstant extends AbstractDeclaration {
 
-    private List<Variable> variableList;
+    private List<Constant> constantList;
     private AbstractAtom value;
 
-    public DeclarationConstant() {
+    private VariableType type;
+
+    public DeclarationConstant(List<Constant> constantList, VariableType type, AbstractAtom atom) {
         super(DeclarationType.CONSTANT);
+        this.constantList = constantList;
+        this.value = atom;
+        this.type = type;
     }
 
-    public List<Variable> getVariableList() {
-        return variableList;
+    public VariableType getType() {
+        return type;
+    }
+
+    public List<Constant> getConstantList() {
+        return constantList;
     }
 
     public AbstractAtom getValue() {
@@ -26,7 +36,7 @@ public class DeclarationConstant extends AbstractDeclaration {
 
     @Override
     public String toString() {
-        return "Constant";
+        return type.getValue() + " " + constantList.toString() + " := " + value.toString();
     }
 
 }

@@ -7,20 +7,17 @@ public class AtomString extends AbstractAtom {
 
     private String str;
 
-    public AtomString() {
+    public AtomString(String str) {
         super(AtomType.STRING);
+        this.str = str;
     }
 
     public String getStr() {
         return str;
     }
 
-    public void setStr(String str) {
-        this.str = str;
-    }
-
     @Override
     public String toString() {
-        return "String Atom value of " + str;
+        return str;
     }
 }

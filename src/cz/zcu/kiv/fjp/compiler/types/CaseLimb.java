@@ -11,4 +11,20 @@ public class CaseLimb {
 
     private AbstractStatement statement;
 
+    public CaseLimb(List<AbstractAtom> atomList, AbstractStatement statement) {
+        this.atomList = atomList;
+        this.statement = statement;
+    }
+
+    public List<AbstractAtom> getAtomList() {
+        return atomList;
+    }
+
+    public AbstractStatement getStatement() {
+        return statement;
+    }
+
+    public String toString() {
+        return atomList.toString() + " : " + statement.toString();
+    }
 }

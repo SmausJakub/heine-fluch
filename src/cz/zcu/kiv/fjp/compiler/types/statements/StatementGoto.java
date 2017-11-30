@@ -1,22 +1,30 @@
 package cz.zcu.kiv.fjp.compiler.types.statements;
 
 import cz.zcu.kiv.fjp.abstracts.AbstractStatement;
-import cz.zcu.kiv.fjp.compiler.types.Label;
 import cz.zcu.kiv.fjp.enums.StatementType;
 
 public class StatementGoto extends AbstractStatement {
 
-    private Label label;
+    private int value;
 
-    public StatementGoto() {
+    public StatementGoto(int value) {
         super(StatementType.GOTO);
+        this.value = value;
     }
 
-    public Label getLabel() {
-        return label;
+
+    public int getValue() {
+        return value;
     }
 
-    public void setLabel(Label label) {
-        this.label = label;
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        if (isLabelled()) {
+            builder.append(getLabel().getValue()).append(": ");
+        }
+        builder.append("GOTO ").append(value);
+
+        return builder.toString();
     }
 }

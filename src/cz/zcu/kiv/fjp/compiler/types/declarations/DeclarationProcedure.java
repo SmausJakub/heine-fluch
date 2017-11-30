@@ -2,21 +2,23 @@ package cz.zcu.kiv.fjp.compiler.types.declarations;
 
 import cz.zcu.kiv.fjp.abstracts.AbstractDeclaration;
 import cz.zcu.kiv.fjp.compiler.types.Block;
+import cz.zcu.kiv.fjp.compiler.types.Procedure;
 import cz.zcu.kiv.fjp.enums.DeclarationType;
 
 public class DeclarationProcedure extends AbstractDeclaration {
 
-    private String identifier;
     private Block procedureBlock;
 
+    private Procedure procedure;
 
-    public DeclarationProcedure() {
+    public DeclarationProcedure(Procedure procedure, Block procedureBlock) {
         super(DeclarationType.PROCEDURE);
+        this.procedure = procedure;
+        this.procedureBlock = procedureBlock;
     }
 
-
-    public String getIdentifier() {
-        return identifier;
+    public Procedure getProcedure() {
+        return procedure;
     }
 
     public Block getProcedureBlock() {
@@ -25,7 +27,7 @@ public class DeclarationProcedure extends AbstractDeclaration {
 
     @Override
     public String toString() {
-        return "Procedure";
+        return "PROCEDURE " + procedure.toString();
     }
 
 }

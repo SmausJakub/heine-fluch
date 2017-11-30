@@ -7,20 +7,17 @@ public class AtomBoolean extends AbstractAtom {
 
     private boolean bool;
 
-    public AtomBoolean() {
+    public AtomBoolean(boolean bool) {
         super(AtomType.BOOLEAN);
+        this.bool = bool;
     }
 
     public boolean isBool() {
         return bool;
     }
 
-    public void setBool(boolean bool) {
-        this.bool = bool;
-    }
-
     @Override
     public String toString() {
-        return "Boolean Atom value of " + bool;
+        return "" + bool;
     }
 }

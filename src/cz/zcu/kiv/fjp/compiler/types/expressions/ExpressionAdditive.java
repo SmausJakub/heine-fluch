@@ -11,8 +11,11 @@ public class ExpressionAdditive extends AbstractExpression {
     private AbstractExpression leftExpression;
     private AbstractExpression rightExpression;
 
-    public ExpressionAdditive() {
+    public ExpressionAdditive(AbstractExpression leftExpression, AbstractExpression rightExpression, OperatorAddition operator) {
         super(ExpressionType.ADD);
+        this.leftExpression = leftExpression;
+        this.rightExpression = rightExpression;
+        this.operator = operator;
     }
 
 
@@ -20,30 +23,17 @@ public class ExpressionAdditive extends AbstractExpression {
         return operator;
     }
 
-    public void setOperator(OperatorAddition operator) {
-        this.operator = operator;
-    }
-
     public AbstractExpression getLeftExpression() {
         return leftExpression;
-    }
-
-    public void setLeftExpression(AbstractExpression leftExpression) {
-        this.leftExpression = leftExpression;
     }
 
     public AbstractExpression getRightExpression() {
         return rightExpression;
     }
 
-    public void setRightExpression(AbstractExpression rightExpression) {
-        this.rightExpression = rightExpression;
-    }
-
-
     @Override
     public String toString() {
-        return leftExpression + " " + operator.getSymbol() + " " + rightExpression;
+        return leftExpression.toString() + " " + operator.getSymbol() + " " + rightExpression.toString();
     }
 
 }

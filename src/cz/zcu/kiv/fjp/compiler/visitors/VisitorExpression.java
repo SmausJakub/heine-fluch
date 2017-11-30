@@ -15,168 +15,145 @@ public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression
     @Override
     public AbstractExpression visitUnaryExpr(Pascal0LikeParser.UnaryExprContext ctx) {
 
-        ExpressionUnary expressionUnary = new ExpressionUnary();
-
         AbstractExpression abstractExpression = this.visit(ctx.expression());
 
-        expressionUnary.setExpression(abstractExpression);
-        return expressionUnary;
+        return new ExpressionUnary(abstractExpression);
     }
 
     @Override
     public AbstractExpression visitNotExpr(Pascal0LikeParser.NotExprContext ctx) {
 
-        ExpressionNot expressionNot = new ExpressionNot();
-
         AbstractExpression abstractExpression = this.visit(ctx.expression());
 
-        expressionNot.setExpression(abstractExpression);
-
-        return expressionNot;
+        return new ExpressionNot(abstractExpression);
 
     }
 
     @Override
     public AbstractExpression visitLogicExpr(Pascal0LikeParser.LogicExprContext ctx) {
 
-        ExpressionLogic expressionLogic = new ExpressionLogic();
-
         AbstractExpression leftExpression = this.visit(ctx.expression(0));
         AbstractExpression rightExpression = this.visit(ctx.expression(1));
 
-        expressionLogic.setLeftExpression(leftExpression);
-        expressionLogic.setRightExpression(rightExpression);
-
+        OperatorLogic operator = null;
         switch (ctx.op.getType()) {
             case Pascal0LikeParser.AND: {
-                expressionLogic.setOperator(OperatorLogic.AND);
+                operator = OperatorLogic.AND;
                 break;
             }
             case Pascal0LikeParser.OR: {
-                expressionLogic.setOperator(OperatorLogic.OR);
+                operator = OperatorLogic.OR;
                 break;
             }
         }
 
-        return expressionLogic;
+        return new ExpressionLogic(leftExpression, rightExpression, operator);
 
     }
 
     @Override
     public AbstractExpression visitMultiplicationExpr(Pascal0LikeParser.MultiplicationExprContext ctx) {
-        ExpressionMultiplication expressionMultiplication = new ExpressionMultiplication();
 
         AbstractExpression leftExpression = this.visit(ctx.expression(0));
         AbstractExpression rightExpression = this.visit(ctx.expression(1));
 
-        expressionMultiplication.setLeftExpression(leftExpression);
-        expressionMultiplication.setRightExpression(rightExpression);
 
+        OperatorMultiplication operator = null;
         switch (ctx.op.getType()) {
             case Pascal0LikeParser.MULTIPLY: {
-                expressionMultiplication.setOperator(OperatorMultiplication.MULTIPLY);
+                operator = OperatorMultiplication.MULTIPLY;
                 break;
             }
             case Pascal0LikeParser.DIVIDE: {
-                expressionMultiplication.setOperator(OperatorMultiplication.DIVIDE);
+                operator = OperatorMultiplication.DIVIDE;
                 break;
             }
         }
 
-        return expressionMultiplication;
+        return new ExpressionMultiplication(leftExpression, rightExpression, operator);
 
     }
 
     @Override
     public AbstractExpression visitAtomExpr(Pascal0LikeParser.AtomExprContext ctx) {
 
-        ExpressionAtom expressionAtom = new ExpressionAtom();
-
         VisitorAtom visitorAtom = new VisitorAtom();
+
         AbstractAtom atom = visitorAtom.visit(ctx.atom());
 
-        expressionAtom.setAtom(atom);
-
-        return expressionAtom;
+        return new ExpressionAtom(atom);
 
     }
 
     @Override
     public AbstractExpression visitAdditiveExpr(Pascal0LikeParser.AdditiveExprContext ctx) {
-        ExpressionAdditive expressionAdditive = new ExpressionAdditive();
 
         AbstractExpression leftExpression = this.visit(ctx.expression(0));
         AbstractExpression rightExpression = this.visit(ctx.expression(1));
 
-        expressionAdditive.setLeftExpression(leftExpression);
-        expressionAdditive.setRightExpression(rightExpression);
-
+        OperatorAddition operator = null;
         switch (ctx.op.getType()) {
 
             case Pascal0LikeParser.PLUS: {
-                expressionAdditive.setOperator(OperatorAddition.PLUS);
+                operator = OperatorAddition.PLUS;
                 break;
             }
             case Pascal0LikeParser.MINUS: {
-                expressionAdditive.setOperator(OperatorAddition.MINUS);
+                operator = OperatorAddition.MINUS;
                 break;
             }
 
         }
 
 
-        return expressionAdditive;
+        return new ExpressionAdditive(leftExpression, rightExpression, operator);
     }
 
     @Override
     public AbstractExpression visitRelationalExpr(Pascal0LikeParser.RelationalExprContext ctx) {
-        ExpressionRelational expressionRelational = new ExpressionRelational();
 
         AbstractExpression leftExpression = this.visit(ctx.expression(0));
         AbstractExpression rightExpression = this.visit(ctx.expression(1));
 
-        expressionRelational.setLeftExpression(leftExpression);
-        expressionRelational.setRightExpression(rightExpression);
 
+        OperatorRelation operator = null;
         switch (ctx.op.getType()) {
 
             case Pascal0LikeParser.EQUAL: {
-                expressionRelational.setOperator(OperatorRelation.EQUAL);
+                operator = OperatorRelation.EQUAL;
                 break;
             }
             case Pascal0LikeParser.NOT_EQUAL: {
-                expressionRelational.setOperator(OperatorRelation.NOT_EQUAL);
+                operator = OperatorRelation.NOT_EQUAL;
                 break;
             }
             case Pascal0LikeParser.LE: {
-                expressionRelational.setOperator(OperatorRelation.LE);
+                operator = OperatorRelation.LE;
                 break;
             }
             case Pascal0LikeParser.LT: {
-                expressionRelational.setOperator(OperatorRelation.LT);
+                operator = OperatorRelation.LT;
                 break;
             }
             case Pascal0LikeParser.GE: {
-                expressionRelational.setOperator(OperatorRelation.GE);
+                operator = OperatorRelation.GE;
                 break;
             }
             case Pascal0LikeParser.GT: {
-                expressionRelational.setOperator(OperatorRelation.GT);
+                operator = OperatorRelation.GT;
                 break;
             }
         }
 
-        return expressionRelational;
+        return new ExpressionRelational(leftExpression, rightExpression, operator);
     }
 
     @Override
     public AbstractExpression visitParExpr(Pascal0LikeParser.ParExprContext ctx) {
-        ExpressionPar expressionPar = new ExpressionPar();
 
         AbstractExpression expression = this.visit(ctx.expression());
 
-        expressionPar.setExpression(expression);
-        return expressionPar;
+        return new ExpressionPar(expression);
     }
 
 

@@ -7,20 +7,17 @@ public class AtomId extends AbstractAtom {
 
     private String identifier;
 
-    public AtomId() {
+    public AtomId(String identifier) {
         super(AtomType.ID);
+        this.identifier = identifier;
     }
 
     public String getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
     @Override
     public String toString() {
-        return "Id Atom value of " + identifier;
+        return identifier;
     }
 }

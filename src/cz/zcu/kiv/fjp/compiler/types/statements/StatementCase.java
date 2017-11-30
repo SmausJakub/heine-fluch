@@ -10,26 +10,31 @@ import java.util.List;
 public class StatementCase extends AbstractStatement {
 
     private AbstractExpression expression;
+    private List<CaseLimb> limbList;
 
-    private List<CaseLimb> caseLimbList;
-
-    public StatementCase() {
+    public StatementCase(AbstractExpression expression, List<CaseLimb> limbList) {
         super(StatementType.CASE);
+        this.expression = expression;
+        this.limbList = limbList;
     }
-
     public AbstractExpression getExpression() {
         return expression;
     }
 
-    public void setExpression(AbstractExpression expression) {
-        this.expression = expression;
+    public List<CaseLimb> getLimbList() {
+        return limbList;
     }
 
-    public List<CaseLimb> getCaseLimbList() {
-        return caseLimbList;
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        if (isLabelled()) {
+            builder.append(getLabel().getValue()).append(": ");
+        }
+        builder.append("CASE ").append(expression.toString()).append(" OF ");
+        builder.append(limbList.toString());
+
+        return builder.toString();
     }
 
-    public void setCaseLimbList(List<CaseLimb> caseLimbList) {
-        this.caseLimbList = caseLimbList;
-    }
 }

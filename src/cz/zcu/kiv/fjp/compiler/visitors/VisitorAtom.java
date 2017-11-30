@@ -11,64 +11,50 @@ public class VisitorAtom extends Pascal0LikeBaseVisitor<AbstractAtom> {
     @Override
     public AbstractAtom visitIntAtom(Pascal0LikeParser.IntAtomContext ctx) {
 
-        AtomInteger atom = new AtomInteger();
-
-        atom.setInteger(Integer.parseInt(ctx.getText()));
-
-        return atom;
+        return new AtomInteger(Integer.parseInt(ctx.getText()));
     }
 
     @Override
     public AbstractAtom visitRealAtom(Pascal0LikeParser.RealAtomContext ctx) {
-        AtomReal atom = new AtomReal();
 
-        atom.setReal(Double.parseDouble(ctx.getText()));
-
-        return atom;
+        return new AtomReal(Double.parseDouble(ctx.getText()));
 
     }
 
     @Override
     public AbstractAtom visitBooleanAtom(Pascal0LikeParser.BooleanAtomContext ctx) {
-        AtomBoolean atom = new AtomBoolean();
 
-        switch (ctx.b.getType()) {
+        boolean bool = true;
+
+        switch (ctx.op.getType()) {
             case Pascal0LikeParser.TRUE: {
-                atom.setBool(true);
+                bool = true;
                 break;
             }
             case Pascal0LikeParser.FALSE: {
-                atom.setBool(false);
+                bool = false;
                 break;
             }
         }
 
-
-        return atom;
+        return new AtomBoolean(bool);
     }
 
     @Override
     public AbstractAtom visitIdAtom(Pascal0LikeParser.IdAtomContext ctx) {
-        AtomId atom = new AtomId();
 
-        atom.setIdentifier(ctx.getText());
-
-        return atom;
+        return new AtomId(ctx.getText());
 
     }
 
     @Override
     public AbstractAtom visitStringAtom(Pascal0LikeParser.StringAtomContext ctx) {
 
-        AtomString atom = new AtomString();
-
         String str = ctx.getText();
 
         str = str.substring(1, str.length() - 1).replace("\"\"", "\"");
 
-        atom.setStr(str);
-
-        return atom;
+        return new AtomString(str);
 
     }
 

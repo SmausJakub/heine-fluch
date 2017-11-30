@@ -1,15 +1,16 @@
 package cz.zcu.kiv.fjp.abstracts;
 
+import cz.zcu.kiv.fjp.enums.IdentifierType;
+
 public abstract class AbstractIdentifier {
 
-    private String name;
+    private IdentifierType identifierType;
 
-    public AbstractIdentifier(String name) {
-        this.name = name;
+    public AbstractIdentifier(IdentifierType type) {
+        this.identifierType = type;
     }
 
-    public String getName() {
-        return name;
+    public IdentifierType getIdentifierType() {
+        return identifierType;
     }
-
 }

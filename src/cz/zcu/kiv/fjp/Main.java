@@ -1,7 +1,6 @@
 package cz.zcu.kiv.fjp;
 
 
-import cz.zcu.kiv.fjp.compiler.visitors.VisitorExpression;
 import cz.zcu.kiv.fjp.compiler.visitors.VisitorProgram;
 import cz.zcu.kiv.fjp.interpret.Interpreter;
 import org.antlr.v4.runtime.CharStream;
@@ -32,7 +31,7 @@ public class Main {
 
             String command = args[0];
 
-            if (command.equalsIgnoreCase("-h") == true) {
+            if (command.equalsIgnoreCase("-h")) {
 
                 // help
                 usage();

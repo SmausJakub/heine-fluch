@@ -8,57 +8,52 @@ import cz.zcu.kiv.fjp.enums.StatementType;
 public class StatementFor extends AbstractStatement {
 
     private String identifier;
+    private AbstractExpression from;
+    private AbstractExpression to;
+    private AbstractStatement statement;
 
     private ForType type;
 
-    private AbstractExpression fromExpression;
 
-    private AbstractExpression toExpression;
-
-    private AbstractStatement statement;
-
-
-    public StatementFor() {
+    public StatementFor(String identifier, AbstractExpression from, AbstractExpression to, AbstractStatement statement, ForType type) {
         super(StatementType.FOR);
+        this.identifier = identifier;
+        this.from = from;
+        this.to = to;
+        this.statement = statement;
+        this.type = type;
     }
+
 
     public String getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    public AbstractExpression getFrom() {
+        return from;
     }
 
-    public ForType getType() {
-        return type;
-    }
-
-    public void setType(ForType type) {
-        this.type = type;
-    }
-
-    public AbstractExpression getFromExpression() {
-        return fromExpression;
-    }
-
-    public void setFromExpression(AbstractExpression fromExpression) {
-        this.fromExpression = fromExpression;
-    }
-
-    public AbstractExpression getToExpression() {
-        return toExpression;
-    }
-
-    public void setToExpression(AbstractExpression toExpression) {
-        this.toExpression = toExpression;
+    public AbstractExpression getTo() {
+        return to;
     }
 
     public AbstractStatement getStatement() {
         return statement;
     }
 
-    public void setStatement(AbstractStatement statement) {
-        this.statement = statement;
+    public ForType getType() {
+        return type;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        if (isLabelled()) {
+            builder.append(getLabel().getValue()).append(": ");
+        }
+        builder.append("FOR ").append(identifier).append(" := ").append(from.toString()).append(" ").append(type.getName()).append(" ").append(to.toString()).append(" ").append(statement.toString());
+
+
+        return builder.toString();
     }
 }

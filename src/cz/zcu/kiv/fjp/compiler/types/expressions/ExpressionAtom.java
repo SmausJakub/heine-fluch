@@ -8,16 +8,13 @@ public class ExpressionAtom extends AbstractExpression {
 
     private AbstractAtom atom;
 
-    public ExpressionAtom() {
+    public ExpressionAtom(AbstractAtom atom) {
         super(ExpressionType.ATOM);
+        this.atom = atom;
     }
 
     public AbstractAtom getAtom() {
         return atom;
-    }
-
-    public void setAtom(AbstractAtom atom) {
-        this.atom = atom;
     }
 
     @Override

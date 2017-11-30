@@ -5,22 +5,15 @@ import cz.zcu.kiv.fjp.Pascal0LikeParser;
 import cz.zcu.kiv.fjp.compiler.types.Block;
 import cz.zcu.kiv.fjp.compiler.types.Program;
 
-public class VisitorProgram extends Pascal0LikeBaseVisitor<Program>{
+public class VisitorProgram extends Pascal0LikeBaseVisitor<Program> {
 
-    @Override public Program visitProgram(Pascal0LikeParser.ProgramContext ctx) {
+    @Override
+    public Program visitProgram(Pascal0LikeParser.ProgramContext ctx) {
 
-        Program program = new Program();
+        Block block = new VisitorBlock().visit(ctx.block());
 
-        VisitorBlock visitorBlock = new VisitorBlock();
-
-        Block block = visitorBlock.visit(ctx.block());
-
-        program.setBlock(block);
-
-        return program;
+        return new Program(block);
     }
-
-
 
 
 }

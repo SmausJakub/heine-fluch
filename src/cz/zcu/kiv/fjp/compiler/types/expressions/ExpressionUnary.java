@@ -8,22 +8,19 @@ public class ExpressionUnary extends AbstractExpression {
     private AbstractExpression expression;
 
 
-    public ExpressionUnary() {
+    public ExpressionUnary(AbstractExpression expression) {
         super(ExpressionType.UNARY);
+        this.expression = expression;
     }
 
     public AbstractExpression getExpression() {
         return expression;
     }
 
-    public void setExpression(AbstractExpression expression) {
-        this.expression = expression;
-    }
-
 
     @Override
     public String toString() {
-        return " - " + expression;
+        return "- " + expression.toString();
     }
 
 }

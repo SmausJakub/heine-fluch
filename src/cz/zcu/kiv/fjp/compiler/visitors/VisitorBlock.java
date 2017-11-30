@@ -6,39 +6,37 @@ import cz.zcu.kiv.fjp.abstracts.AbstractDeclaration;
 import cz.zcu.kiv.fjp.abstracts.AbstractStatement;
 import cz.zcu.kiv.fjp.compiler.types.Block;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VisitorBlock extends Pascal0LikeBaseVisitor<Block> {
 
-    @Override public Block visitBlock(Pascal0LikeParser.BlockContext ctx) {
+    @Override
+    public Block visitBlock(Pascal0LikeParser.BlockContext ctx) {
 
-
-        Block block = new Block();
-
-
-
-
-
-        //   VisitorDeclarationPart visitorDeclarationPart = new VisitorDeclarationPart();
-        //  List<AbstractDeclaration> declarationList = visitorDeclarationPart.visit(ctx.declaration_part());
-
-        List<AbstractDeclaration> declarationList = new ArrayList<AbstractDeclaration>();
+        List<AbstractDeclaration> declarationList = new ArrayList<>();
+        List<AbstractStatement> statementList = new ArrayList<>();
         VisitorDeclaration visitorDeclaration = new VisitorDeclaration();
+        VisitorStatement visitorStatement = new VisitorStatement();
 
         for (int i = 0; i < ctx.declaration_part().getChildCount(); i++) {
 
-            AbstractDeclaration declaration = (visitorDeclaration.visit(ctx.declaration_part().getChild(i)));
-            System.out.println(declaration);
+            AbstractDeclaration declaration = visitorDeclaration.visit(ctx.declaration_part().getChild(i));
             declarationList.add(declaration);
         }
 
 
+        for (int j = 0; j < ctx.statement_part().getChildCount(); j++) {
+            AbstractStatement statement = visitorStatement.visit(ctx.statement_part().getChild(j));
+            if (statement == null) {
+                continue;
+            }
+            statementList.add(statement);
+        }
+
         System.out.println(declarationList);
+        System.out.println(statementList);
 
-        block.setDeclarationList(declarationList);
-
-        System.out.println(declarationList);
-
-        return block;
+        return new Block(declarationList, statementList);
     }
 }

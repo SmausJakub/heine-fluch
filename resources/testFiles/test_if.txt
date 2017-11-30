@@ -1,19 +1,8 @@
-integer x;
-integer y := 4;
-const integer x,y := 15;
-label 1;
-real a,b,c := [1, 2, 3];
-
-procedure print;
-begin
-end
-
 begin
 
-if ((a < b) or (c = d)) and not f then
-begin
+if a < b then begin end
 
-end
+if c >= d then begin end
+else begin end
 
-end
-.
+end.

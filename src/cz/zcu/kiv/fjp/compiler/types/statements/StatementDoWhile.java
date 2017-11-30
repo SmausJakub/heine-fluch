@@ -7,27 +7,32 @@ import cz.zcu.kiv.fjp.enums.StatementType;
 public class StatementDoWhile extends AbstractStatement {
 
 
-    private AbstractExpression expression;
-
+    private AbstractExpression condition;
     private AbstractStatement statement;
 
-    public StatementDoWhile() {
+    public StatementDoWhile(AbstractExpression condition, AbstractStatement statement) {
         super(StatementType.DO_WHILE);
+        this.statement = statement;
+        this.condition = condition;
     }
 
-    public AbstractExpression getExpression() {
-        return expression;
-    }
 
-    public void setExpression(AbstractExpression expression) {
-        this.expression = expression;
+    public AbstractExpression getCondition() {
+        return condition;
     }
 
     public AbstractStatement getStatement() {
         return statement;
     }
 
-    public void setStatement(AbstractStatement statement) {
-        this.statement = statement;
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        if (isLabelled()) {
+            builder.append(getLabel().getValue()).append(": ");
+        }
+        builder.append("DO ").append(statement.toString()).append(" WHILE ").append(condition.toString());
+
+        return builder.toString();
     }
 }
