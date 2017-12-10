@@ -65,7 +65,10 @@ public class CompilerExpression {
                 break;
             case REL:
                 ExpressionRelational expressionRelational = (ExpressionRelational) exp;
+                compileExpressionRecursive(expressionRelational.getLeftExpression());
+                compileExpressionRecursive(expressionRelational.getRightExpression());
 
+                instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, getOpCodeFromOperatorRelation(expressionRelational.getOperator())));
                 break;
             case LOG:
                 ExpressionLogic expressionLogic = (ExpressionLogic) exp;
@@ -105,6 +108,27 @@ public class CompilerExpression {
             default:
                 err.throwError("Unexpected error");
                 return 0;
+        }
+    }
+
+    private int getOpCodeFromOperatorRelation(OperatorRelation operatorRelation) {
+        switch (operatorRelation) {
+            case EQUAL:
+                return InstructionOperation.EQ.getCode();
+            case NOT_EQUAL:
+                return InstructionOperation.NE.getCode();
+            case LT:
+                return InstructionOperation.LT.getCode();
+            case LE:
+                return InstructionOperation.LE.getCode();
+            case GE:
+                return InstructionOperation.GE.getCode();
+            case GT:
+                return InstructionOperation.GT.getCode();
+            default: {
+                err.throwError("Unexpected error");
+                return 0;
+            }
         }
     }
 
