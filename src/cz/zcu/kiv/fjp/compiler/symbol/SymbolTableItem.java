@@ -54,6 +54,10 @@ public class SymbolTableItem {
         return size;
     }
 
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     public VariableType getVariableType() {
         return variableType;
     }

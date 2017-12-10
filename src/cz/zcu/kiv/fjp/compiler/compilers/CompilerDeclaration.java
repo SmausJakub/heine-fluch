@@ -2,6 +2,7 @@ package cz.zcu.kiv.fjp.compiler.compilers;
 
 import cz.zcu.kiv.fjp.abstracts.AbstractAtom;
 import cz.zcu.kiv.fjp.abstracts.AbstractDeclaration;
+import cz.zcu.kiv.fjp.abstracts.AbstractExpression;
 import cz.zcu.kiv.fjp.compiler.symbol.SymbolTableItem;
 import cz.zcu.kiv.fjp.compiler.types.Constant;
 import cz.zcu.kiv.fjp.compiler.types.Label;
@@ -9,6 +10,7 @@ import cz.zcu.kiv.fjp.compiler.types.Variable;
 import cz.zcu.kiv.fjp.compiler.types.atoms.AtomId;
 import cz.zcu.kiv.fjp.compiler.types.declarations.DeclarationConstant;
 import cz.zcu.kiv.fjp.compiler.types.declarations.DeclarationLabel;
+import cz.zcu.kiv.fjp.compiler.types.declarations.DeclarationVariableParalel;
 import cz.zcu.kiv.fjp.compiler.types.declarations.DeclarationVariableSimple;
 import cz.zcu.kiv.fjp.enums.AtomType;
 import cz.zcu.kiv.fjp.enums.DeclarationType;
@@ -92,17 +94,20 @@ public class CompilerDeclaration {
         for (Variable variable : variableList) {
 
             if (!symbolTable.contains(variable.getName())) {
-                int size = 0;
-                if (declarationVariableSimple.isInit()) size = 1;
-                SymbolTableItem item = new SymbolTableItem(variable.getName(), variable.getIdentifierType().getName(), declarationVariableSimple.getType(), currentLevel, currentAddress, size);
+                SymbolTableItem item = new SymbolTableItem(variable.getName(), variable.getIdentifierType().getName(), declarationVariableSimple.getType(), currentLevel, currentAddress, 0);
                 symbolTable.addItem(item.getName(), item);
 
                 // compile expression only if we are the first variable
-                if (variable.equals(variableList.get(0)) && item.getSize() == 1) {
+                if (variable.equals(variableList.get(0)) && declarationVariableSimple.isInit()) {
                     new CompilerExpression(declarationVariableSimple.getExpression(), declarationVariableSimple.getType()).compileExpression();
                 }
 
                 instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
+
+                // so we cant do integer x := x;
+                if (declarationVariableSimple.isInit()) {
+                    item.setSize(1);
+                }
 
                 currentAddress++;
                 declarationCounter++;
@@ -119,6 +124,41 @@ public class CompilerDeclaration {
     }
 
     private void compileVariableParalelDeclaration() {
+
+        DeclarationVariableParalel declarationVariableParalel = (DeclarationVariableParalel) declaration;
+        List<Variable> variableList = declarationVariableParalel.getVariableList();
+        List<AbstractExpression> expressionList = declarationVariableParalel.getExpressionList();
+
+        if (variableList.size() != expressionList.size()) {
+            err.throwError("Parallel declaration error - each variable needs to have one expression");
+            return;
+        }
+
+
+        for (int i = 0; i < variableList.size(); i++) {
+
+            Variable variable = variableList.get(i);
+
+            if (!symbolTable.contains(variable.getName())) {
+
+                SymbolTableItem item = new SymbolTableItem(variable.getName(), variable.getIdentifierType().getName(), declarationVariableParalel.getType(), currentLevel, currentAddress, 0);
+                symbolTable.addItem(item.getName(), item);
+
+                new CompilerExpression(declarationVariableParalel.getExpressionList().get(i), declarationVariableParalel.getType()).compileExpression();
+
+                instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
+                item.setSize(1);
+
+                currentAddress++;
+                declarationCounter++;
+
+            } else {
+                err.throwError("Variable " + variable.getName() + " is already declared");
+            }
+
+
+        }
+
 
     }
 

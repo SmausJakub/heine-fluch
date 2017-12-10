@@ -1,9 +1,13 @@
 
 const integer d := 10;
-const integer t,r,v := 1;
+const integer t,r := 1;
 
 integer y := 5;
-integer a,b,c := (y * 8 / 6 + ( 1 + 2 + a)) * d;
+integer a,b,c := (y * 8 / 6 + (1 + 2)) * d;
+
+integer v,n,m := [10, v*10, n*10];
+
+integer i,o;
 
 label 1, 2, 3;
 
