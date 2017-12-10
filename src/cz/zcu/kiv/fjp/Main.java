@@ -1,12 +1,8 @@
 package cz.zcu.kiv.fjp;
 
 
-import cz.zcu.kiv.fjp.compiler.visitors.VisitorProgram;
+import cz.zcu.kiv.fjp.compiler.compilers.Compiler;
 import cz.zcu.kiv.fjp.interpret.Interpreter;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.File;
 
@@ -39,20 +35,16 @@ public class Main {
 
                 // compiler
 
-                if (args.length > 1) {
+                if (args.length > 2) {
 
-                    inputFile = args[1];
-                    CharStream inputStream = CharStreams.fromFileName(inputFile);
+                    String inputFile = args[1];
+                    String outputFile = args[2];
 
-                    Pascal0LikeLexer lexer = new Pascal0LikeLexer(inputStream);
-                    CommonTokenStream tokens = new CommonTokenStream(lexer);
-                    Pascal0LikeParser parser = new Pascal0LikeParser(tokens);
-                    ParseTree tree = parser.program();
-                    VisitorProgram visitor = new VisitorProgram();
-                    visitor.visit(tree);
+                    Compiler.getInstance().compileFile(inputFile, outputFile);
 
                 } else {
-                    System.out.println("Nezadan nazev souboru.");
+                    System.out.println("Spatne zadane parametry.");
+                    usage();
                 }
 
             } else if (command.equalsIgnoreCase("-l")) {

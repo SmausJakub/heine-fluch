@@ -34,9 +34,6 @@ public class VisitorBlock extends Pascal0LikeBaseVisitor<Block> {
             statementList.add(statement);
         }
 
-        System.out.println(declarationList);
-        System.out.println(statementList);
-
         return new Block(declarationList, statementList);
     }
 }

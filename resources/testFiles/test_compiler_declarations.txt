@@ -1,0 +1,12 @@
+
+const integer d := 10;
+const integer t,r,v := 1;
+
+integer y := 5;
+integer a,b,c := (y * 8 / 6 + ( 1 + 2 + a)) * d;
+
+label 1, 2, 3;
+
+begin
+
+end.

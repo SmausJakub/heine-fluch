@@ -9,7 +9,7 @@ public class SymbolTable {
 
     private SymbolTable() {
 
-        symbolTable = new HashMap<String, SymbolTableItem>();
+        symbolTable = new HashMap<>();
     }
 
     public static SymbolTable getInstance() {
@@ -32,5 +32,13 @@ public class SymbolTable {
         return this.symbolTable.get(name);
     }
 
+    public boolean contains(String name) {
+        return symbolTable.containsKey(name);
+    }
+
+    @Override
+    public String toString() {
+        return symbolTable.toString();
+    }
 
 }

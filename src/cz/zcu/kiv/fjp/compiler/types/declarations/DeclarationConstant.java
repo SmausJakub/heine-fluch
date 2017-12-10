@@ -36,7 +36,7 @@ public class DeclarationConstant extends AbstractDeclaration {
 
     @Override
     public String toString() {
-        return type.getValue() + " " + constantList.toString() + " := " + value.toString();
+        return "CONST " + type.getValue() + " " + constantList.toString() + " := " + value.toString();
     }
 
 }

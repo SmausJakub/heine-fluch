@@ -1,7 +1,6 @@
 package cz.zcu.kiv.fjp.instruction;
 
 
-import cz.zcu.kiv.fjp.enums.InstructionCode;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,8 +13,6 @@ public class InstructionHandler {
 
     private static InstructionHandler instance = new InstructionHandler();
 
-    private int instructionNumber = 0;
-
     private InstructionHandler() {
     }
 
@@ -23,24 +20,8 @@ public class InstructionHandler {
         return instance;
     }
 
-    public Instruction createJumpInstruction(int level, int index) {
-        return new Instruction(instructionNumber++, InstructionCode.JMP.getName(), level, index);
-    }
-
-    public Instruction createIntInstruction(int level, int constant) {
-        return new Instruction(instructionNumber++, InstructionCode.INT.getName(), level, constant);
-    }
-
-    public Instruction createRetInstruction() {
-        return new Instruction(instructionNumber++, InstructionCode.RET.getName(), 0, 0);
-    }
-
-
 
     private Instruction parseInstruction(String input) {
-
-
-        // TODO kontrola argumentu
 
         String[] ins = input.split("\\s+");
 

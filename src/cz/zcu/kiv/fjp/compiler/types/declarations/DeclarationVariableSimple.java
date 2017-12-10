@@ -45,6 +45,10 @@ public class DeclarationVariableSimple extends AbstractDeclaration {
         return expression;
     }
 
+    public VariableType getType() {
+        return type;
+    }
+
     @Override
     public String toString() {
 

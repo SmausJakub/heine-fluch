@@ -1,12 +1,17 @@
 package cz.zcu.kiv.fjp.instruction;
 
-public class Instruction {
+public class Instruction implements Comparable<Instruction> {
 
 
     private int index;
     private String instructionCode;
     private int level;
     private int operand;
+
+
+    public Instruction(String instructionCode, int level, int operand) {
+        this(0, instructionCode, level, operand);
+    }
 
     public Instruction(int index, String instructionCode, int level, int operand) {
         this.index = index;
@@ -31,6 +36,11 @@ public class Instruction {
         return index;
     }
 
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    @Override
     public String toString() {
 
         return (index + "\t" + instructionCode + "\t" + level + " " + operand + "\n");
@@ -38,4 +48,10 @@ public class Instruction {
     }
 
 
+    @Override
+    public int compareTo(Instruction o) {
+
+        return Integer.compare(this.index, o.index);
+
+    }
 }
