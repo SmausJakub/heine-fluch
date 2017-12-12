@@ -56,7 +56,7 @@ public class VisitorDeclaration extends Pascal0LikeBaseVisitor<AbstractDeclarati
         }
 
 
-        return new DeclarationVariableParalel(variableList, expressionList, type);
+        return new DeclarationVariableParallel(variableList, expressionList, type);
 
     }
 

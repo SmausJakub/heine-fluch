@@ -10,7 +10,7 @@ import cz.zcu.kiv.fjp.compiler.types.Variable;
 import cz.zcu.kiv.fjp.compiler.types.atoms.AtomId;
 import cz.zcu.kiv.fjp.compiler.types.declarations.DeclarationConstant;
 import cz.zcu.kiv.fjp.compiler.types.declarations.DeclarationLabel;
-import cz.zcu.kiv.fjp.compiler.types.declarations.DeclarationVariableParalel;
+import cz.zcu.kiv.fjp.compiler.types.declarations.DeclarationVariableParallel;
 import cz.zcu.kiv.fjp.compiler.types.declarations.DeclarationVariableSimple;
 import cz.zcu.kiv.fjp.enums.AtomType;
 import cz.zcu.kiv.fjp.enums.DeclarationType;
@@ -54,7 +54,7 @@ public class CompilerDeclaration {
                 compileVariableDeclaration();
                 break;
             case VARIABLE_PARALEL:
-                compileVariableParalelDeclaration();
+                compileVariableParallelDeclaration();
                 break;
             case CONSTANT:
                 compileConstantDeclaration();
@@ -124,9 +124,9 @@ public class CompilerDeclaration {
 
     }
 
-    private void compileVariableParalelDeclaration() {
+    private void compileVariableParallelDeclaration() {
 
-        DeclarationVariableParalel declarationVariableParalel = (DeclarationVariableParalel) declaration;
+        DeclarationVariableParallel declarationVariableParalel = (DeclarationVariableParallel) declaration;
         List<Variable> variableList = declarationVariableParalel.getVariableList();
         List<AbstractExpression> expressionList = declarationVariableParalel.getExpressionList();
 

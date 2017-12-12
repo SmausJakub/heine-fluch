@@ -43,35 +43,35 @@ public class CompilerExpression {
             case UNARY:
                 ExpressionUnary expressionUnary = (ExpressionUnary) exp;
                 compileExpressionRecursive(expressionUnary.getExpression());
-                instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, InstructionOperation.NEG.getCode()));
+                instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.NEG.getCode()));
                 break;
             case NOT:
                 ExpressionNot expressionNot = (ExpressionNot) exp;
                 compileExpressionRecursive(expressionNot.getExpression());
 
-                instructionList.add(new Instruction(InstructionCode.LIT.getName(), currentLevel, 0));
-                instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, InstructionOperation.EQ.getCode()));
+                instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, 0));
+                instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.EQ.getCode()));
                 break;
             case MULT:
                 ExpressionMultiplication expressionMultiplication = (ExpressionMultiplication) exp;
                 compileExpressionRecursive(expressionMultiplication.getLeftExpression());
                 compileExpressionRecursive(expressionMultiplication.getRightExpression());
 
-                instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, getOpCodeFromOperatorMultiplication(expressionMultiplication.getOperator())));
+                instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, getOpCodeFromOperatorMultiplication(expressionMultiplication.getOperator())));
                 break;
             case ADD:
                 ExpressionAdditive expressionAdditive = (ExpressionAdditive) exp;
                 compileExpressionRecursive(expressionAdditive.getLeftExpression());
                 compileExpressionRecursive(expressionAdditive.getRightExpression());
 
-                instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, getOpCodeFromOperatorAdditive(expressionAdditive.getOperator())));
+                instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, getOpCodeFromOperatorAdditive(expressionAdditive.getOperator())));
                 break;
             case REL:
                 ExpressionRelational expressionRelational = (ExpressionRelational) exp;
                 compileExpressionRecursive(expressionRelational.getLeftExpression());
                 compileExpressionRecursive(expressionRelational.getRightExpression());
 
-                instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, getOpCodeFromOperatorRelation(expressionRelational.getOperator())));
+                instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, getOpCodeFromOperatorRelation(expressionRelational.getOperator())));
                 break;
             case LOG:
                 ExpressionLogic expressionLogic = (ExpressionLogic) exp;
@@ -79,16 +79,16 @@ public class CompilerExpression {
                 compileExpressionRecursive(expressionLogic.getLeftExpression());
                 compileExpressionRecursive(expressionLogic.getRightExpression());
 
-                instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, InstructionOperation.ADD.getCode()));
+                instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.ADD.getCode()));
 
                 if (expressionLogic.getOperator() == OperatorLogic.AND) {
                     // AND
-                    instructionList.add(new Instruction(InstructionCode.LIT.getName(), currentLevel, 2));
-                    instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, InstructionOperation.EQ.getCode()));
+                    instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, 2));
+                    instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.EQ.getCode()));
                 } else {
                     // OR
-                    instructionList.add(new Instruction(InstructionCode.LIT.getName(), currentLevel, 1));
-                    instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, InstructionOperation.GE.getCode()));
+                    instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, 1));
+                    instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.GE.getCode()));
                 }
                 break;
             case PAR:

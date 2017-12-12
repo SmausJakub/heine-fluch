@@ -8,7 +8,7 @@ import cz.zcu.kiv.fjp.enums.VariableType;
 
 import java.util.List;
 
-public class DeclarationVariableParalel extends AbstractDeclaration {
+public class DeclarationVariableParallel extends AbstractDeclaration {
 
     private List<Variable> variableList;
     private List<AbstractExpression> expressionList;
@@ -16,7 +16,7 @@ public class DeclarationVariableParalel extends AbstractDeclaration {
     private VariableType type;
 
 
-    public DeclarationVariableParalel(List<Variable> variableList, List<AbstractExpression> expressionList, VariableType type) {
+    public DeclarationVariableParallel(List<Variable> variableList, List<AbstractExpression> expressionList, VariableType type) {
         super(DeclarationType.VARIABLE_PARALEL);
         this.variableList = variableList;
         this.expressionList = expressionList;

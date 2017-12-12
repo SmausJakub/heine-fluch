@@ -97,7 +97,7 @@ public class CompilerStatement {
         new CompilerExpression(statementFor.getFrom(), VariableType.INTEGER).compileExpression();
         instructionList.add(new Instruction(InstructionCode.STO.getName(), level, address));
 
-        int level2 = currentLevel;
+        int level2 = 0;
         int address2 = currentAddress;
 
         currentAddress++;
@@ -110,26 +110,26 @@ public class CompilerStatement {
         instructionList.add(new Instruction(InstructionCode.LOD.getName(), level2, address2));
 
         if (statementFor.getType() == ForType.TO) {
-            instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, InstructionOperation.LE.getCode()));
+            instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.LE.getCode()));
         } else {
-            instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, InstructionOperation.GE.getCode()));
+            instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.GE.getCode()));
         }
 
-        Instruction forJump = new Instruction(InstructionCode.JMC.getName(), currentLevel, 0);
+        Instruction forJump = new Instruction(InstructionCode.JMC.getName(), 0, 0);
         instructionList.add(forJump);
 
         new CompilerStatement(statementFor.getStatement()).compileStatement();
 
         instructionList.add(new Instruction(InstructionCode.LOD.getName(), level, address));
-        instructionList.add(new Instruction(InstructionCode.LIT.getName(), currentLevel, 1));
+        instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, 1));
         if (statementFor.getType() == ForType.TO) {
-            instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, InstructionOperation.ADD.getCode()));
+            instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.ADD.getCode()));
         } else {
-            instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, InstructionOperation.SUB.getCode()));
+            instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.SUB.getCode()));
         }
         instructionList.add(new Instruction(InstructionCode.STO.getName(), level, address));
 
-        instructionList.add(new Instruction(InstructionCode.JMP.getName(), currentLevel, startIndex));
+        instructionList.add(new Instruction(InstructionCode.JMP.getName(), 0, startIndex));
 
         forJump.setOperand(instructionList.size());
 
@@ -297,7 +297,7 @@ public class CompilerStatement {
             if (checkVariableNotConstant(item.getType())) {
 
                 new CompilerExpression(statementAssignment.getExpression(), item.getVariableType()).compileExpression();
-                instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, item.getAddress()));
+                instructionList.add(new Instruction(InstructionCode.STO.getName(), item.getLevel(), item.getAddress()));
                 item.setSize(1);
 
             } else {
