@@ -6,14 +6,14 @@ public class Instruction implements Comparable<Instruction> {
     private int index;
     private String instructionCode;
     private int level;
-    private int operand;
+    private double operand;
 
 
     public Instruction(String instructionCode, int level, int operand) {
         this(0, instructionCode, level, operand);
     }
 
-    public Instruction(int index, String instructionCode, int level, int operand) {
+    public Instruction(int index, String instructionCode, int level, double operand) {
         this.index = index;
         this.instructionCode = instructionCode;
         this.level = level;
@@ -29,8 +29,10 @@ public class Instruction implements Comparable<Instruction> {
     }
 
     public int getOperand() {
-        return operand;
+        return (int)operand;
     }
+
+    public float getFloatOperand() { return (float)operand; }
 
     public int getIndex() {
         return index;

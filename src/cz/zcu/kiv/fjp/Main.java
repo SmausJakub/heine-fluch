@@ -60,7 +60,12 @@ public class Main {
 
                     Interpreter interpreter = new Interpreter();
 
-                    cokoliv = interpreter.interpret(instructionsFile);
+                 //   try {
+                        cokoliv = interpreter.interpret(instructionsFile);
+               //     } catch (Exception e) {
+               //         System.out.println(e);
+               //     }
+
                     System.out.println(cokoliv);
 
                 } else {

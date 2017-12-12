@@ -21,7 +21,7 @@ public enum InstructionCode {
     LDA("LDA", 16),     // LDA ? ?		 -> na vrchol zasobniku data z adresy uvedene na vrcholu zasobniku
     STA("STA", 17),     // STA ? ?       -> na zasobniku hodnota, adresa -> ulozeni hodnoty na adresu
     PLD("PLD", 18),     // PLD ? ?       -> na zasobniku L, A -> na vrchol hodnota z (L, A)
-    PST("PST", 19);     // PST ? ?       -> na zasobnkku X, L, A -> na adresu (L, A) se ulozi X
+    PST("PST", 19);     // PST ? ?       -> na zasobniku X, L, A -> na adresu (L, A) se ulozi X
 
     private String name;
     private int code;

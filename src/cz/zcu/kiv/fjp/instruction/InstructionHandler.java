@@ -28,7 +28,7 @@ public class InstructionHandler {
         int index = Integer.parseInt(ins[0]);
         String insCode = ins[1];
         int level = Integer.parseInt(ins[2]);
-        int operand = Integer.parseInt(ins[3]);
+        double operand = Double.parseDouble(ins[3]);
 
         return new Instruction(index, insCode, level, operand);
 
