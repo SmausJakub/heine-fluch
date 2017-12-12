@@ -283,7 +283,7 @@ public class CompilerExpression {
                 return VariableType.BOOLEAN;
             case ID:
                 AtomId atomId = (AtomId) atom;
-                if (symbolTable.contains(atomId.getIdentifier())) {
+                if (checkIfExists(atomId.getIdentifier()) && checkIfCanBeAccessed(atomId.getIdentifier())) {
                     SymbolTableItem item = symbolTable.getItem(atomId.getIdentifier());
 
                     if (item.getSize() == 1) {

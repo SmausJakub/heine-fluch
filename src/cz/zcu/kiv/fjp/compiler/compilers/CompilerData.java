@@ -30,6 +30,15 @@ public final class CompilerData {
     }
 
 
+    public static boolean checkIfExists(String identifier) {
+
+        return symbolTable.contains(identifier);
+    }
+
+    public static boolean checkIfCanBeAccessed(String identifier) {
+        return symbolTable.getItem(identifier).getLevel() <= currentLevel;
+    }
+
     public static List<Instruction> sortList() {
 
         Collections.sort(instructionList);

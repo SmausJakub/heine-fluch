@@ -145,7 +145,7 @@ public class CompilerStatement {
 
         new CompilerExpression(statementIf.getCondition(), VariableType.BOOLEAN).compileExpression();
 
-        Instruction ifJump = new Instruction(InstructionCode.JMC.getName(), currentLevel, 0);
+        Instruction ifJump = new Instruction(InstructionCode.JMC.getName(), 0, 0);
         instructionList.add(ifJump);
 
         new CompilerStatement(statementIf.getStatement()).compileStatement();
@@ -167,7 +167,7 @@ public class CompilerStatement {
         new CompilerStatement(statementRepeat.getStatement()).compileStatement();
 
         new CompilerExpression(statementRepeat.getCondition(), VariableType.BOOLEAN).compileExpression();
-        instructionList.add(new Instruction(InstructionCode.JMC.getName(), currentLevel, startIndex));
+        instructionList.add(new Instruction(InstructionCode.JMC.getName(), 0, startIndex));
 
     }
 
@@ -179,11 +179,11 @@ public class CompilerStatement {
         new CompilerStatement(statementDoWhile.getStatement()).compileStatement();
 
         new CompilerExpression(statementDoWhile.getCondition(), VariableType.BOOLEAN).compileExpression();
-        Instruction whileJump = new Instruction(InstructionCode.JMC.getName(), currentLevel, 0);
+        Instruction whileJump = new Instruction(InstructionCode.JMC.getName(), 0, 0);
 
 
         instructionList.add(whileJump);
-        instructionList.add(new Instruction(InstructionCode.JMP.getName(), currentLevel, startIndex));
+        instructionList.add(new Instruction(InstructionCode.JMP.getName(), 0, startIndex));
 
         whileJump.setOperand(instructionList.size());
 
@@ -195,12 +195,12 @@ public class CompilerStatement {
         int startIndex = instructionList.size();
 
         new CompilerExpression(statementWhileDo.getCondition(), VariableType.BOOLEAN).compileExpression();
-        Instruction whileJump = new Instruction(InstructionCode.JMC.getName(), currentLevel, 0);
+        Instruction whileJump = new Instruction(InstructionCode.JMC.getName(), 0, 0);
         instructionList.add(whileJump);
 
         new CompilerStatement(statementWhileDo.getStatement()).compileStatement();
 
-        instructionList.add(new Instruction(InstructionCode.JMP.getName(), currentLevel, startIndex));
+        instructionList.add(new Instruction(InstructionCode.JMP.getName(), 0, startIndex));
         whileJump.setOperand(instructionList.size());
 
     }
@@ -230,11 +230,11 @@ public class CompilerStatement {
             if (checkVariableNotConstant(item.getType())) {
 
                 new CompilerExpression(statementTernary.getExpression(), VariableType.BOOLEAN).compileExpression();
-                Instruction ternaryJumpOne = new Instruction(InstructionCode.JMC.getName(), currentLevel, 0);
+                Instruction ternaryJumpOne = new Instruction(InstructionCode.JMC.getName(), 0, 0);
                 instructionList.add(ternaryJumpOne);
 
                 new CompilerExpression(statementTernary.getExpressionOne(), item.getVariableType()).compileExpression();
-                Instruction ternaryJumpTwo = new Instruction(InstructionCode.JMP.getName(), currentLevel, 0);
+                Instruction ternaryJumpTwo = new Instruction(InstructionCode.JMP.getName(), 0, 0);
                 instructionList.add(ternaryJumpTwo);
 
                 ternaryJumpOne.setOperand(instructionList.size());
@@ -269,11 +269,11 @@ public class CompilerStatement {
 
             if (item.getSize() == 0) {
                 // we dont know address of the label
-                Instruction ins = new Instruction(InstructionCode.JMP.getName(), currentLevel, 0);
+                Instruction ins = new Instruction(InstructionCode.JMP.getName(), 0, 0);
                 gotoList.add(new Goto(ins, item.getName()));
                 instructionList.add(ins);
             } else {
-                instructionList.add(new Instruction(InstructionCode.JMP.getName(), currentLevel, item.getAddress()));
+                instructionList.add(new Instruction(InstructionCode.JMP.getName(), 0, item.getAddress()));
             }
 
 
@@ -284,6 +284,20 @@ public class CompilerStatement {
     }
 
     private void compileProcedureStatement() {
+        StatementProcedure statementProcedure = (StatementProcedure) statement;
+
+        String identifier = statementProcedure.getIdentifier();
+
+        if (checkIfExists(identifier) && checkIfCanBeAccessed(identifier)) {
+
+            SymbolTableItem item = symbolTable.getItem(identifier);
+
+            instructionList.add(new Instruction(InstructionCode.CAL.getName(), item.getLevel(), item.getAddress()));
+
+        } else {
+            System.out.println(symbolTable.toString());
+            err.throwError("Unknown procedure " + identifier);
+        }
 
     }
 

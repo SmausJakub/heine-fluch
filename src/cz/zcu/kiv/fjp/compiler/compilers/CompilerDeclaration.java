@@ -8,10 +8,7 @@ import cz.zcu.kiv.fjp.compiler.types.Constant;
 import cz.zcu.kiv.fjp.compiler.types.Label;
 import cz.zcu.kiv.fjp.compiler.types.Variable;
 import cz.zcu.kiv.fjp.compiler.types.atoms.AtomId;
-import cz.zcu.kiv.fjp.compiler.types.declarations.DeclarationConstant;
-import cz.zcu.kiv.fjp.compiler.types.declarations.DeclarationLabel;
-import cz.zcu.kiv.fjp.compiler.types.declarations.DeclarationVariableParallel;
-import cz.zcu.kiv.fjp.compiler.types.declarations.DeclarationVariableSimple;
+import cz.zcu.kiv.fjp.compiler.types.declarations.*;
 import cz.zcu.kiv.fjp.enums.AtomType;
 import cz.zcu.kiv.fjp.enums.DeclarationType;
 import cz.zcu.kiv.fjp.enums.InstructionCode;
@@ -70,7 +67,7 @@ public class CompilerDeclaration {
 
         for (Label label : labelList) {
 
-            if (!symbolTable.contains(String.valueOf(label.getValue()))) {
+            if (!checkIfExists(String.valueOf(label.getValue()))) {
                 SymbolTableItem item = new SymbolTableItem(String.valueOf(label.getValue()), label.getIdentifierType().getName(), currentLevel, 0, 0);
                 symbolTable.addItem(item.getName(), item);
 
@@ -84,6 +81,28 @@ public class CompilerDeclaration {
     }
 
     private void compileProcedureDeclaration() {
+        DeclarationProcedure declarationProcedure = (DeclarationProcedure) declaration;
+
+        if (!checkIfExists(String.valueOf(declarationProcedure.getProcedure().getName()))) {
+
+            SymbolTableItem item = new SymbolTableItem(declarationProcedure.getProcedure().getName(), declarationProcedure.getProcedure().getIdentifierType().getName(), currentLevel, instructionList.size(), 0);
+            symbolTable.addItem(item.getName(), item);
+
+            currentLevel++;
+
+            int startIndex = instructionList.size();
+
+            new CompilerBlock(declarationProcedure.getProcedureBlock(), false).compileBlock();
+
+            int endIndex = instructionList.size();
+
+            item.setSize(endIndex - startIndex);
+
+            currentLevel--;
+
+        } else {
+            err.throwError("Procedure " + declarationProcedure.getProcedure().getName() + " is already declared");
+        }
 
     }
 
@@ -93,7 +112,7 @@ public class CompilerDeclaration {
 
         for (Variable variable : variableList) {
 
-            if (!symbolTable.contains(variable.getName())) {
+            if (!checkIfExists(variable.getName())) {
                 SymbolTableItem item = new SymbolTableItem(variable.getName(), variable.getIdentifierType().getName(), declarationVariableSimple.getType(), currentLevel, currentAddress, 0);
                 symbolTable.addItem(item.getName(), item);
 
@@ -101,7 +120,6 @@ public class CompilerDeclaration {
                 if (variable.equals(variableList.get(0)) && declarationVariableSimple.isInit()) {
                     new CompilerExpression(declarationVariableSimple.getExpression(), declarationVariableSimple.getType()).compileExpression();
                 }
-
 
 
                 // so we cant do integer x := x;
@@ -140,7 +158,7 @@ public class CompilerDeclaration {
 
             Variable variable = variableList.get(i);
 
-            if (!symbolTable.contains(variable.getName())) {
+            if (!checkIfExists(variable.getName())) {
 
                 SymbolTableItem item = new SymbolTableItem(variable.getName(), variable.getIdentifierType().getName(), declarationVariableParalel.getType(), currentLevel, currentAddress, 0);
                 symbolTable.addItem(item.getName(), item);
@@ -171,7 +189,7 @@ public class CompilerDeclaration {
 
             for (Constant constant : constantList) {
 
-                if (!symbolTable.contains(constant.getName())) {
+                if (!checkIfExists(constant.getName())) {
                     SymbolTableItem item = new SymbolTableItem(constant.getName(), constant.getIdentifierType().getName(), declarationConstant.getType(), currentLevel, currentAddress, 1);
                     symbolTable.addItem(item.getName(), item);
 
@@ -218,7 +236,7 @@ public class CompilerDeclaration {
 
     private boolean checkConstantTypeAndIdentifierType(VariableType type, AtomId ident) {
 
-        if (symbolTable.contains(ident.getIdentifier())) {
+        if (checkIfExists(ident.getIdentifier()) && checkIfCanBeAccessed(ident.getIdentifier())) {
             SymbolTableItem item = symbolTable.getItem(ident.getIdentifier());
             if (type == item.getVariableType()) {
                 return true;

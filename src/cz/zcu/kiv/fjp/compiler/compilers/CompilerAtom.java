@@ -6,7 +6,8 @@ import cz.zcu.kiv.fjp.compiler.types.atoms.*;
 import cz.zcu.kiv.fjp.enums.InstructionCode;
 import cz.zcu.kiv.fjp.instruction.Instruction;
 
-import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.*;
+import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.instructionList;
+import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.symbolTable;
 
 public class CompilerAtom {
 
@@ -24,11 +25,12 @@ public class CompilerAtom {
 
                 AtomInteger atomInteger = (AtomInteger) atom;
 
-                instructionList.add(new Instruction(InstructionCode.LIT.getName(), currentLevel, atomInteger.getInteger()));
+                instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, atomInteger.getInteger()));
                 break;
             case REAL:
 
                 AtomReal atomReal = (AtomReal) atom;
+
 
                 break;
             case BOOLEAN:
@@ -36,7 +38,7 @@ public class CompilerAtom {
 
                 int val = atomBoolean.isBool() ? 1 : 0;
 
-                instructionList.add(new Instruction(InstructionCode.LIT.getName(), currentLevel, val));
+                instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, val));
                 break;
             case ID:
 
