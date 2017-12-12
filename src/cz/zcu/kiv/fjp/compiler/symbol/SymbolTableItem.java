@@ -38,16 +38,32 @@ public class SymbolTableItem {
         return name;
     }
 
-    public String getType() {
-        return type;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getLevel() {
         return level;
     }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public int getAddress() {
         return address;
+    }
+
+    public void setAddress(int address) {
+        this.address = address;
     }
 
     public int getSize() {
@@ -60,6 +76,10 @@ public class SymbolTableItem {
 
     public VariableType getVariableType() {
         return variableType;
+    }
+
+    public void setVariableType(VariableType variableType) {
+        this.variableType = variableType;
     }
 
     @Override

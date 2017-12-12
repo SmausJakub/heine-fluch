@@ -47,7 +47,10 @@ public class CompilerExpression {
                 break;
             case NOT:
                 ExpressionNot expressionNot = (ExpressionNot) exp;
+                compileExpressionRecursive(expressionNot.getExpression());
 
+                instructionList.add(new Instruction(InstructionCode.LIT.getName(), currentLevel, 0));
+                instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, InstructionOperation.EQ.getCode()));
                 break;
             case MULT:
                 ExpressionMultiplication expressionMultiplication = (ExpressionMultiplication) exp;
@@ -73,6 +76,20 @@ public class CompilerExpression {
             case LOG:
                 ExpressionLogic expressionLogic = (ExpressionLogic) exp;
 
+                compileExpressionRecursive(expressionLogic.getLeftExpression());
+                compileExpressionRecursive(expressionLogic.getRightExpression());
+
+                instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, InstructionOperation.ADD.getCode()));
+
+                if (expressionLogic.getOperator() == OperatorLogic.AND) {
+                    // AND
+                    instructionList.add(new Instruction(InstructionCode.LIT.getName(), currentLevel, 2));
+                    instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, InstructionOperation.EQ.getCode()));
+                } else {
+                    // OR
+                    instructionList.add(new Instruction(InstructionCode.LIT.getName(), currentLevel, 1));
+                    instructionList.add(new Instruction(InstructionCode.OPR.getName(), currentLevel, InstructionOperation.GE.getCode()));
+                }
                 break;
             case PAR:
                 ExpressionPar expressionPar = (ExpressionPar) exp;

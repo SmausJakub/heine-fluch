@@ -1,8 +1,0 @@
-begin
-
-read x
-
-write y
-
-
-end.

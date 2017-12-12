@@ -40,7 +40,7 @@ variable_declaration_part
     :
     type identifier_list ASSIGN expression SEMI #varSimpleAs |
     type identifier_list  SEMI #varSimpleUnAs |
-    type identifier_list ASSIGN LBRACK expression_list RBRACK SEMI #varParalel
+    type identifier_list ASSIGN LBRACK expression_list RBRACK SEMI #varParallel
     ;
 
 label_list

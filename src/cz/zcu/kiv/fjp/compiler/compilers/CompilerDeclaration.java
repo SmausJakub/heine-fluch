@@ -102,10 +102,11 @@ public class CompilerDeclaration {
                     new CompilerExpression(declarationVariableSimple.getExpression(), declarationVariableSimple.getType()).compileExpression();
                 }
 
-                instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
+
 
                 // so we cant do integer x := x;
                 if (declarationVariableSimple.isInit()) {
+                    instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
                     item.setSize(1);
                 }
 

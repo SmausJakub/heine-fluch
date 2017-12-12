@@ -1,0 +1,7 @@
+
+integer x := -5;
+
+begin
+
+
+end.

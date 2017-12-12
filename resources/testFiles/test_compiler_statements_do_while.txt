@@ -1,0 +1,8 @@
+
+integer a := 1;
+
+begin
+
+do begin a := a + 1 end while a < 3
+
+end.

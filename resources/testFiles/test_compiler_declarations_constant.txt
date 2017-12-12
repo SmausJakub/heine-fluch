@@ -1,0 +1,7 @@
+
+const integer x := 1;
+const boolean b := true;
+
+begin
+
+end.

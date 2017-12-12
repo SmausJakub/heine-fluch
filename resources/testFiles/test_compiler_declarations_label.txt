@@ -1,0 +1,7 @@
+
+label 1;
+label 2, 3, 4;
+
+begin
+
+end.

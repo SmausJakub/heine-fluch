@@ -40,6 +40,18 @@ public class Instruction implements Comparable<Instruction> {
         this.index = index;
     }
 
+    public void setInstructionCode(String instructionCode) {
+        this.instructionCode = instructionCode;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setOperand(int operand) {
+        this.operand = operand;
+    }
+
     @Override
     public String toString() {
 

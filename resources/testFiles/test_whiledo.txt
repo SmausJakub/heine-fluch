@@ -1,6 +1,0 @@
-begin
-
-while a < b do
-begin end
-
-end.

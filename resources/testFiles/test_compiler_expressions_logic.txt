@@ -1,0 +1,12 @@
+
+boolean a := true and true;
+boolean b := true and false;
+boolean c := false and false;
+
+boolean d := false or false;
+boolean e := false or true;
+boolean f := true or true;
+
+begin
+
+end.

@@ -45,18 +45,12 @@ public class CompilerBlock {
         int declarationJmp = declarationCounter + MIN_DECLARATION;
 
         instructionList.add(0, new Instruction(InstructionCode.INT.getName(), currentLevel, declarationJmp));
-        indexList();
 
         for (AbstractStatement statement : statementList) {
             new CompilerStatement(statement).compileStatement();
         }
 
         instructionList.add(new Instruction(InstructionCode.RET.getName(), 0, 0));
-
-        indexList();
-
-        System.out.println("Symbol Table : \n" + symbolTable.toString());
-        System.out.println("Instruction List : \n" + instructionList.toString());
 
 
     }

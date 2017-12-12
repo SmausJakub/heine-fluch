@@ -1,8 +1,0 @@
-begin
-
-if a < b then begin end
-
-if c >= d then begin end
-else begin end
-
-end.

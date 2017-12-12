@@ -10,7 +10,7 @@ public enum InstructionOperation {
     DIV("DIV", 5),      // deleno /
     MOD("MOD", 6),      // modulo %
     ODD("ODD", 7),      // lichost
-    EQ("EQ", 8),        // rvoan se =
+    EQ("EQ", 8),        // rovna se =
     NE("NE", 9),        // nerovna se <>
     LT("LT", 10),       // mensi nez <
     GE("GE", 11),       // vetsi nebo stejne >=

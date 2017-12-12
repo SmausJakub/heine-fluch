@@ -38,7 +38,7 @@ public class VisitorDeclaration extends Pascal0LikeBaseVisitor<AbstractDeclarati
 
 
     @Override
-    public AbstractDeclaration visitVarParalel(Pascal0LikeParser.VarParalelContext ctx) {
+    public AbstractDeclaration visitVarParallel(Pascal0LikeParser.VarParallelContext ctx) {
         VariableType type = getType(ctx.type());
 
         List<Variable> variableList = getIdentifierList(ctx.identifier_list());

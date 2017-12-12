@@ -1,0 +1,7 @@
+
+boolean dos := not true;
+boolean dos2 := not false;
+
+begin
+
+end.

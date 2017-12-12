@@ -1,5 +1,0 @@
-begin
-
-goto 1
-
-end.

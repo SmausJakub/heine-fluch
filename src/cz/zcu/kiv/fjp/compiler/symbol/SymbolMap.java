@@ -11,7 +11,7 @@ public class SymbolMap {
 
     private SymbolMap() {
 
-        symbolMap = new HashMap<Integer, Symbol>();
+        symbolMap = new HashMap<>();
 
         int i = 0;
         symbolMap.put(++i, new Symbol("null", "nulsym"));

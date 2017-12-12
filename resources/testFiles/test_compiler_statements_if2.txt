@@ -1,0 +1,9 @@
+
+integer a := 1;
+
+begin
+
+if (a < 1) then begin a := 2 end
+else begin a := 3 end
+
+end.

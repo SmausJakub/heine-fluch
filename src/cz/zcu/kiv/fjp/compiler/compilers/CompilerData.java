@@ -1,12 +1,14 @@
 package cz.zcu.kiv.fjp.compiler.compilers;
 
 import cz.zcu.kiv.fjp.compiler.symbol.SymbolTable;
+import cz.zcu.kiv.fjp.compiler.types.Goto;
 import cz.zcu.kiv.fjp.errors.ErrorHandler;
 import cz.zcu.kiv.fjp.instruction.Instruction;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 
 public final class CompilerData {
 
@@ -21,8 +23,12 @@ public final class CompilerData {
     public static List<Instruction> instructionList = new ArrayList<>();
     public static ErrorHandler err = new ErrorHandler();
 
+    public static List<Goto> gotoList = new ArrayList<>();
+
+
     private CompilerData() {
     }
+
 
     public static List<Instruction> sortList() {
 

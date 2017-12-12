@@ -1,0 +1,11 @@
+
+integer f;
+integer x := 1;
+integer a,b,c := 0;
+
+boolean d := true;
+boolean s;
+
+begin
+
+end.

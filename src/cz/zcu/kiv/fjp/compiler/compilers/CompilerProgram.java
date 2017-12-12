@@ -1,7 +1,12 @@
 package cz.zcu.kiv.fjp.compiler.compilers;
 
+
+import cz.zcu.kiv.fjp.compiler.symbol.SymbolTableItem;
 import cz.zcu.kiv.fjp.compiler.types.Block;
+import cz.zcu.kiv.fjp.compiler.types.Goto;
 import cz.zcu.kiv.fjp.compiler.types.Program;
+
+import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.*;
 
 public class CompilerProgram {
 
@@ -19,6 +24,24 @@ public class CompilerProgram {
 
         Block mainBlock = program.getBlock();
         new CompilerBlock(mainBlock, true).compileBlock();
+
+        // go through goto list and check for unresolved statements
+        for (Goto got : gotoList) {
+            SymbolTableItem item = symbolTable.getItem(got.getIdentifier());
+
+            if (item.getAddress() != 0) {
+                got.getIns().setOperand(item.getAddress());
+            } else {
+                err.throwError("Label " + item.getName() + " was declared but never used");
+            }
+
+        }
+
+
+        indexList();
+
+        System.out.println("Symbol Table : \n" + symbolTable.toString());
+        System.out.println("Instruction List : \n" + instructionList.toString());
 
     }
 

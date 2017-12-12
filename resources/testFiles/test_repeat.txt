@@ -1,7 +1,0 @@
-begin
-
-repeat begin end
-until x < c
-
-
-end.

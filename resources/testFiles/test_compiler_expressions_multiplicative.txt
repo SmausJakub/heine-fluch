@@ -1,0 +1,7 @@
+
+integer x := 1 * 2;
+integer y := 10 / 2;
+
+begin
+
+end.
