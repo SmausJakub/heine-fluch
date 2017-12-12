@@ -57,7 +57,7 @@ public class Instruction implements Comparable<Instruction> {
     @Override
     public String toString() {
 
-        return (index + "\t" + instructionCode + "\t" + level + " " + operand + "\n");
+        return (index + "\t" + instructionCode + "\t" + level + " " + (int)operand + "\n");
 
     }
 

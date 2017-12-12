@@ -3,6 +3,7 @@ package cz.zcu.kiv.fjp.enums;
 public enum InstructionCode {
 
     LIT("LIT", 0),      // LIT ? konst   -> na vrchol zasobniku konst
+    LRT("LRT", 0),      // LRT ? konst   -> na vrchol zasobniku real konst
     OPR("OPR", 1),      // OPR ? funkce  -> modifikace zasobniku
     LOD("LOD", 2),      // LOD L A       -> na vrchol zasobniku data z (L, A)
     STO("STO", 3),      // STO L A		 -> data z vrcholu zasobniku na (L, A)
