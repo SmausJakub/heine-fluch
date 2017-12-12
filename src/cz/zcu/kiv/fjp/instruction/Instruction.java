@@ -9,7 +9,7 @@ public class Instruction implements Comparable<Instruction> {
     private double operand;
 
 
-    public Instruction(String instructionCode, int level, int operand) {
+    public Instruction(String instructionCode, int level, double operand) {
         this(0, instructionCode, level, operand);
     }
 
