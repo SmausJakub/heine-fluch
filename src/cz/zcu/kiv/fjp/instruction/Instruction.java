@@ -1,5 +1,7 @@
 package cz.zcu.kiv.fjp.instruction;
 
+import java.text.DecimalFormat;
+
 public class Instruction implements Comparable<Instruction> {
 
 
@@ -56,8 +58,9 @@ public class Instruction implements Comparable<Instruction> {
 
     @Override
     public String toString() {
-
-        return (index + "\t" + instructionCode + "\t" + level + " " + (int)operand + "\n");
+        DecimalFormat format = new DecimalFormat();
+        format.setDecimalSeparatorAlwaysShown(false);
+        return (index + "\t" + instructionCode + "\t" + level + " " + format.format(operand) + "\n");
 
     }
 
