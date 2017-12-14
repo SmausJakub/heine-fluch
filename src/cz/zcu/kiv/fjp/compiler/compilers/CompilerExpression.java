@@ -13,20 +13,49 @@ import cz.zcu.kiv.fjp.instruction.Instruction;
 
 import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.*;
 
+/**
+ * Compiler Expressions
+ * Compiles expressions into instructions
+ */
 public class CompilerExpression {
 
+    /**
+     * expected type that the expression will have
+     * it is given by the one calling the CompilerExpression
+     */
     private VariableType expectedType;
+
+    /**
+     * type that the expression has
+     * it is found during the analysis of expression and is compared to the expected type
+     */
     private VariableType foundType;
 
+    /**
+     * current type of expression
+     * it is changed depending on what the current type the compile is working with is
+     * it is essential in dealing with instruction differences between integer and real
+     */
     private VariableType currentType;
 
+    /**
+     * expression to compile
+     */
     private AbstractExpression expression;
 
+    /**
+     * @param expression   expression to compile
+     * @param expectedType expected type of expression
+     */
     public CompilerExpression(AbstractExpression expression, VariableType expectedType) {
         this.expression = expression;
         this.expectedType = expectedType;
     }
 
+    /**
+     * compiles expression
+     * first analyzes the expression to check its type, then compiles it recursively
+     */
     public void compileExpression() {
 
         // analyze if possible to resolve expression
@@ -41,6 +70,10 @@ public class CompilerExpression {
 
     }
 
+    /**
+     * recursive method for compiling expression
+     * @param exp expression to compile
+     */
     private void compileExpressionRecursive(AbstractExpression exp) {
 
         switch (exp.getExpressionType()) {
@@ -127,6 +160,10 @@ public class CompilerExpression {
 
     }
 
+    /**
+     * method changes the current type of expression based on atom's type
+     * @param atom atom
+     */
     private void changeCurrentType(AbstractAtom atom) {
         switch (atom.getAtomType()) {
 
@@ -149,6 +186,11 @@ public class CompilerExpression {
         }
     }
 
+    /**
+     * returns the instruction code of multiplication operator
+     * @param operatorMultiplication multiplication operator
+     * @return code of InstructionOperation
+     */
     private int getOpCodeFromOperatorMultiplication(OperatorMultiplication operatorMultiplication) {
         switch (operatorMultiplication) {
             case MULTIPLY:
@@ -159,6 +201,11 @@ public class CompilerExpression {
         return 0;
     }
 
+    /**
+     * returns the instruction code of addition operator
+     * @param operatorAddition addition operator
+     * @return code of InstructionOperation
+     */
     private int getOpCodeFromOperatorAdditive(OperatorAddition operatorAddition) {
         switch (operatorAddition) {
 
@@ -170,6 +217,11 @@ public class CompilerExpression {
         return 0;
     }
 
+    /**
+     * returns the instruction code of relation operator
+     * @param operatorRelation relation operator
+     * @return code of InstructionOperation
+     */
     private int getOpCodeFromOperatorRelation(OperatorRelation operatorRelation) {
         switch (operatorRelation) {
             case EQUAL:
@@ -188,7 +240,11 @@ public class CompilerExpression {
         return 0;
     }
 
-
+    /**
+     * method to analyze expression and check if it is resolvable expression
+     * @param exp expression to resolve
+     * @return true if expression can be resolved, false otherwise
+     */
     private boolean analyzeExpression(AbstractExpression exp) {
 
         foundType = analyzeExpressionRecursive(exp);
@@ -197,6 +253,11 @@ public class CompilerExpression {
 
     }
 
+    /**
+     * recursive method to analyze expression and its resolvability
+     * @param exp expression
+     * @return type of resolved expression
+     */
     private VariableType analyzeExpressionRecursive(AbstractExpression exp) {
 
         VariableType typeOne;
@@ -267,14 +328,30 @@ public class CompilerExpression {
 
     }
 
+    /**
+     * resolves unary expression. Only allowed type is INTEGER and REAL
+     * @param type variable type
+     * @return true or false
+     */
     private boolean resolveUnaryExpression(VariableType type) {
         return (type == VariableType.INTEGER || type == VariableType.REAL);
     }
 
+    /**
+     * resolves not expression. Only allowed type is BOOLEAN.
+     * @param type variable type
+     * @return true or false
+     */
     private boolean resolveNotExpression(VariableType type) {
         return (type == VariableType.BOOLEAN);
     }
 
+    /**
+     * resolves multiplication expression. Only allowed types are two iNTEGERs and two REALs
+     * @param typeOne variable type one
+     * @param typeTwo variable type two
+     * @return true or false
+     */
     private boolean resolveMultiplicationExpression(VariableType typeOne, VariableType typeTwo) {
 
         if (typeOne == VariableType.INTEGER && typeTwo == VariableType.INTEGER) {
@@ -282,6 +359,13 @@ public class CompilerExpression {
         } else return typeOne == VariableType.REAL && typeTwo == VariableType.REAL;
     }
 
+    /**
+     * resolves additive expression. Only allowed types are two INTEGERs, two REALs, or if operator is PLUS, then two STRINGs
+     * @param typeOne variable type one
+     * @param typeTwo variable type two
+     * @param operator operator addition
+     * @return true or false
+     */
     private boolean resolveAdditiveExpression(VariableType typeOne, VariableType typeTwo, OperatorAddition operator) {
         if (typeOne == VariableType.INTEGER && typeTwo == VariableType.INTEGER) {
             return true;
@@ -292,16 +376,33 @@ public class CompilerExpression {
 
     }
 
+    /**
+     * resolves relational expression. Only allowed types are two types of the same type.
+     * @param typeOne variable type one
+     * @param typeTwo variable type two
+     * @return true or false
+     */
     private boolean resolveRelationalExpression(VariableType typeOne, VariableType typeTwo) {
         return typeOne == typeTwo;
 
     }
 
+    /**
+     * resolves logic expression. Only allowed types are two types of the same type.
+     * @param typeOne variable type one
+     * @param typeTwo variable type two
+     * @return true or false
+     */
     private boolean resolveLoginExpression(VariableType typeOne, VariableType typeTwo) {
         return typeOne == typeTwo;
     }
 
 
+    /**
+     * method to get equivalent of atom type as variable type
+     * @param atom atom
+     * @return variable type of given atom
+     */
     private VariableType getVariableTypeFromAtomType(AbstractAtom atom) {
 
         switch (atom.getAtomType()) {

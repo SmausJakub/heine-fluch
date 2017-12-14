@@ -23,11 +23,20 @@ import java.util.List;
 
 import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.*;
 
+/**
+ * Declaration Compiler
+ * Compiles declarations into instructions
+ */
 public class CompilerDeclaration {
 
-
+    /**
+     * declaration to compile
+     */
     private AbstractDeclaration declaration;
 
+    /**
+     * @param declaration declaration to compile
+     */
     public CompilerDeclaration(AbstractDeclaration declaration) {
         this.declaration = declaration;
     }
@@ -37,8 +46,13 @@ public class CompilerDeclaration {
     }
 
 
+    /**
+     * method to compile declaration
+     * calls other methods depending on the declaration type
+     */
     public void compileDeclaration() {
 
+        // for error handler
         err.setCurrentPart(declaration);
 
         DeclarationType type = declaration.getDeclarationType();
@@ -65,13 +79,18 @@ public class CompilerDeclaration {
 
     }
 
+    /**
+     * compiles label declaration
+     */
     private void compileLabelDeclaration() {
         DeclarationLabel declarationLabel = (DeclarationLabel) declaration;
         List<Label> labelList = declarationLabel.getLabelList();
 
+        // through label list
         for (Label label : labelList) {
 
             if (!checkIfExists(String.valueOf(label.getValue()))) {
+                // labels are not stored in stack, so it is only necessary to store them in symbol table
                 SymbolTableItem item = new SymbolTableItem(String.valueOf(label.getValue()), label.getIdentifierType().getName(), currentLevel, 0, 0);
                 symbolTable.addItem(item.getName(), item);
 
@@ -84,24 +103,33 @@ public class CompilerDeclaration {
 
     }
 
+    /**
+     * compiles procedure declaration
+     */
     private void compileProcedureDeclaration() {
         DeclarationProcedure declarationProcedure = (DeclarationProcedure) declaration;
 
         if (!checkIfExists(String.valueOf(declarationProcedure.getProcedure().getName()))) {
 
+            // add new symbol into symbol table
             SymbolTableItem item = new SymbolTableItem(declarationProcedure.getProcedure().getName(), declarationProcedure.getProcedure().getIdentifierType().getName(), currentLevel, instructionList.size(), 0);
             symbolTable.addItem(item.getName(), item);
 
+            // increase the level - we are in new procedure
             currentLevel++;
 
+            // save start and last index for determining the size of procedure
             int startIndex = instructionList.size();
 
+            // compile procedure block
             new CompilerBlock(declarationProcedure.getProcedureBlock()).compileBlock();
 
             int endIndex = instructionList.size();
 
+            // set size
             item.setSize(endIndex - startIndex);
 
+            // we are back from procedure, level decrease
             currentLevel--;
 
         } else {
@@ -110,10 +138,14 @@ public class CompilerDeclaration {
 
     }
 
+    /**
+     * compiles variable simple declaration
+     */
     private void compileVariableDeclaration() {
         DeclarationVariableSimple declarationVariableSimple = (DeclarationVariableSimple) declaration;
         List<Variable> variableList = declarationVariableSimple.getVariableList();
 
+        // through variables
         for (Variable variable : variableList) {
 
             if (!checkIfExists(variable.getName())) {
@@ -125,8 +157,7 @@ public class CompilerDeclaration {
                     new CompilerExpression(declarationVariableSimple.getExpression(), declarationVariableSimple.getType()).compileExpression();
                 }
 
-
-                // so we cant do integer x := x;
+                // determine which store instruction we use depending on the variable type
                 if (declarationVariableSimple.isInit()) {
                     VariableType type = declarationVariableSimple.getType();
                     if (type == VariableType.INTEGER || type == VariableType.BOOLEAN) {
@@ -137,6 +168,7 @@ public class CompilerDeclaration {
                     item.setSize(1);
                 }
 
+                // increase address and declaration counter
                 currentAddress++;
                 declarationCounter++;
 
@@ -151,36 +183,45 @@ public class CompilerDeclaration {
 
     }
 
+    /**
+     * compiles parallel declaration
+     */
     private void compileVariableParallelDeclaration() {
 
-        DeclarationVariableParallel declarationVariableParalel = (DeclarationVariableParallel) declaration;
-        List<Variable> variableList = declarationVariableParalel.getVariableList();
-        List<AbstractExpression> expressionList = declarationVariableParalel.getExpressionList();
+        DeclarationVariableParallel declarationVariableParallel = (DeclarationVariableParallel) declaration;
+        List<Variable> variableList = declarationVariableParallel.getVariableList();
+        List<AbstractExpression> expressionList = declarationVariableParallel.getExpressionList();
 
+        // number of expressions needs to match number of variables
         if (variableList.size() != expressionList.size()) {
             err.throwError(new ErrorParallelDeclarationNumberMismatch());
         }
 
 
+        // go through variable list
         for (int i = 0; i < variableList.size(); i++) {
 
             Variable variable = variableList.get(i);
 
             if (!checkIfExists(variable.getName())) {
 
-                SymbolTableItem item = new SymbolTableItem(variable.getName(), variable.getIdentifierType().getName(), declarationVariableParalel.getType(), currentLevel, currentAddress, 0);
+                SymbolTableItem item = new SymbolTableItem(variable.getName(), variable.getIdentifierType().getName(), declarationVariableParallel.getType(), currentLevel, currentAddress, 0);
                 symbolTable.addItem(item.getName(), item);
 
-                new CompilerExpression(declarationVariableParalel.getExpressionList().get(i), declarationVariableParalel.getType()).compileExpression();
+                new CompilerExpression(declarationVariableParallel.getExpressionList().get(i), declarationVariableParallel.getType()).compileExpression();
 
-                VariableType type = declarationVariableParalel.getType();
+                // determine store function
+                VariableType type = declarationVariableParallel.getType();
                 if (type == VariableType.INTEGER || type == VariableType.BOOLEAN) {
                     instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
                 } else if (type == VariableType.REAL) {
                     instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel, currentAddress));
                 }
+
+                // item is now initialized
                 item.setSize(1);
 
+                // increase counters
                 currentAddress++;
                 declarationCounter++;
 
@@ -194,12 +235,17 @@ public class CompilerDeclaration {
 
     }
 
+    /**
+     * compiles constant declaration
+     */
     private void compileConstantDeclaration() {
         DeclarationConstant declarationConstant = (DeclarationConstant) declaration;
         List<Constant> constantList = declarationConstant.getConstantList();
 
+        // first it is needed to check the type of atom and constant and if they match
         if (checkConstantTypeAndAtomValue(declarationConstant.getType(), declarationConstant.getValue())) {
 
+            // go through constants
             for (Constant constant : constantList) {
 
                 if (!checkIfExists(constant.getName())) {
@@ -210,6 +256,8 @@ public class CompilerDeclaration {
                     if (constant.equals(constantList.get(0))) {
                         new CompilerAtom(declarationConstant.getValue()).compileAtom();
                     }
+
+                    // determine which store instruction to use
                     VariableType type = declarationConstant.getType();
                     if (type == VariableType.INTEGER || type == VariableType.BOOLEAN) {
                         instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
@@ -217,6 +265,7 @@ public class CompilerDeclaration {
                         instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel, currentAddress));
                     }
 
+                    // increase counters
                     currentAddress++;
                     declarationCounter++;
                 } else {
@@ -232,6 +281,12 @@ public class CompilerDeclaration {
 
     }
 
+    /**
+     * checks if constant variable type is the same as atom type (in other words if atom can be assigned to constant variable)
+     * @param type constant type
+     * @param value atom
+     * @return true if they are the same, false otherwise
+     */
     private boolean checkConstantTypeAndAtomValue(VariableType type, AbstractAtom value) {
 
         if (type == VariableType.BOOLEAN && value.getAtomType() == AtomType.BOOLEAN) {
@@ -251,6 +306,12 @@ public class CompilerDeclaration {
         }
     }
 
+    /**
+     * checks if constant type and item have the same type, item is represented by identifier atom
+     * @param type constant type
+     * @param ident identifier atom
+     * @return true, if they have the same type, false otherwise
+     */
     private boolean checkConstantTypeAndIdentifierType(VariableType type, AtomId ident) {
 
         if (checkIfExists(ident.getIdentifier()) && checkIfCanBeAccessed(ident.getIdentifier())) {

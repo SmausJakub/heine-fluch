@@ -45,7 +45,7 @@ public final class CompilerData {
     public static List<Instruction> instructionList = new ArrayList<>();
 
     /**
-     * error handle
+     * error handler
      */
     public static ErrorHandler err = new ErrorHandler();
 
