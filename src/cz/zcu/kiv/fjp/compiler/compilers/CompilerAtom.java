@@ -46,7 +46,20 @@ public class CompilerAtom {
                 AtomId atomId = (AtomId) atom;
                 SymbolTableItem item = symbolTable.getItem(atomId.getIdentifier());
 
-                instructionList.add(new Instruction(InstructionCode.LOD.getName(), item.getLevel(), item.getAddress()));
+                switch (item.getVariableType()) {
+
+                    case INTEGER:
+                        instructionList.add(new Instruction(InstructionCode.LOD.getName(), item.getLevel(), item.getAddress()));
+                        break;
+                    case REAL:
+                        instructionList.add(new Instruction(InstructionCode.LOR.getName(), item.getLevel(), item.getAddress()));
+                        break;
+                    case STRING:
+                        break;
+                    case BOOLEAN:
+                        instructionList.add(new Instruction(InstructionCode.LOD.getName(), item.getLevel(), item.getAddress()));
+                        break;
+                }
                 break;
             case STRING:
 

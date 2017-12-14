@@ -18,6 +18,8 @@ public class CompilerExpression {
     private VariableType expectedType;
     private VariableType foundType;
 
+    private VariableType currentType;
+
     private AbstractExpression expression;
 
     public CompilerExpression(AbstractExpression expression, VariableType expectedType) {
@@ -47,6 +49,12 @@ public class CompilerExpression {
                 ExpressionUnary expressionUnary = (ExpressionUnary) exp;
                 compileExpressionRecursive(expressionUnary.getExpression());
                 instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.NEG.getCode()));
+
+                if (currentType == VariableType.INTEGER) {
+                    instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.NEG.getCode()));
+                } else if (currentType == VariableType.REAL) {
+                    instructionList.add(new Instruction(InstructionCode.OPF.getName(), 0, InstructionOperation.NEG.getCode()));
+                }
                 break;
             case NOT:
                 ExpressionNot expressionNot = (ExpressionNot) exp;
@@ -60,21 +68,33 @@ public class CompilerExpression {
                 compileExpressionRecursive(expressionMultiplication.getLeftExpression());
                 compileExpressionRecursive(expressionMultiplication.getRightExpression());
 
-                instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, getOpCodeFromOperatorMultiplication(expressionMultiplication.getOperator())));
+                if (currentType == VariableType.INTEGER) {
+                    instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, getOpCodeFromOperatorMultiplication(expressionMultiplication.getOperator())));
+                } else if (currentType == VariableType.REAL) {
+                    instructionList.add(new Instruction(InstructionCode.OPF.getName(), 0, getOpCodeFromOperatorMultiplication(expressionMultiplication.getOperator())));
+                }
                 break;
             case ADD:
                 ExpressionAdditive expressionAdditive = (ExpressionAdditive) exp;
                 compileExpressionRecursive(expressionAdditive.getLeftExpression());
                 compileExpressionRecursive(expressionAdditive.getRightExpression());
 
-                instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, getOpCodeFromOperatorAdditive(expressionAdditive.getOperator())));
+                if (currentType == VariableType.INTEGER) {
+                    instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, getOpCodeFromOperatorAdditive(expressionAdditive.getOperator())));
+                } else if (currentType == VariableType.REAL) {
+                    instructionList.add(new Instruction(InstructionCode.OPF.getName(), 0, getOpCodeFromOperatorAdditive(expressionAdditive.getOperator())));
+                }
                 break;
             case REL:
                 ExpressionRelational expressionRelational = (ExpressionRelational) exp;
                 compileExpressionRecursive(expressionRelational.getLeftExpression());
                 compileExpressionRecursive(expressionRelational.getRightExpression());
 
-                instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, getOpCodeFromOperatorRelation(expressionRelational.getOperator())));
+                if (currentType == VariableType.INTEGER || currentType == VariableType.BOOLEAN) {
+                    instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, getOpCodeFromOperatorRelation(expressionRelational.getOperator())));
+                } else if (currentType == VariableType.REAL) {
+                    instructionList.add(new Instruction(InstructionCode.OPF.getName(), 0, getOpCodeFromOperatorRelation(expressionRelational.getOperator())));
+                }
                 break;
             case LOG:
                 ExpressionLogic expressionLogic = (ExpressionLogic) exp;
@@ -100,10 +120,33 @@ public class CompilerExpression {
                 break;
             case ATOM:
                 ExpressionAtom expressionAtom = (ExpressionAtom) exp;
+                changeCurrentType(expressionAtom.getAtom());
                 new CompilerAtom(expressionAtom.getAtom()).compileAtom();
                 break;
         }
 
+    }
+
+    private void changeCurrentType(AbstractAtom atom) {
+        switch (atom.getAtomType()) {
+
+            case INT:
+                currentType = VariableType.INTEGER;
+                break;
+            case REAL:
+                currentType = VariableType.REAL;
+                break;
+            case BOOLEAN:
+                currentType = VariableType.BOOLEAN;
+                break;
+            case ID:
+                AtomId atomId = (AtomId) atom;
+                currentType = symbolTable.getItem(atomId.getIdentifier()).getVariableType();
+                break;
+            case STRING:
+                currentType = VariableType.STRING;
+                break;
+        }
     }
 
     private int getOpCodeFromOperatorMultiplication(OperatorMultiplication operatorMultiplication) {
@@ -283,7 +326,6 @@ public class CompilerExpression {
 
                 } else {
                     err.throwError(new ErrorUnknownIdentifier(atomId.getIdentifier()));
-                    return null;
                 }
             case STRING:
                 return VariableType.STRING;

@@ -128,7 +128,12 @@ public class CompilerDeclaration {
 
                 // so we cant do integer x := x;
                 if (declarationVariableSimple.isInit()) {
-                    instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
+                    VariableType type = declarationVariableSimple.getType();
+                    if (type == VariableType.INTEGER || type == VariableType.BOOLEAN) {
+                        instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
+                    } else if (type == VariableType.REAL) {
+                        instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel, currentAddress));
+                    }
                     item.setSize(1);
                 }
 
@@ -168,7 +173,12 @@ public class CompilerDeclaration {
 
                 new CompilerExpression(declarationVariableParalel.getExpressionList().get(i), declarationVariableParalel.getType()).compileExpression();
 
-                instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
+                VariableType type = declarationVariableParalel.getType();
+                if (type == VariableType.INTEGER || type == VariableType.BOOLEAN) {
+                    instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
+                } else if (type == VariableType.REAL) {
+                    instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel, currentAddress));
+                }
                 item.setSize(1);
 
                 currentAddress++;
@@ -200,7 +210,12 @@ public class CompilerDeclaration {
                     if (constant.equals(constantList.get(0))) {
                         new CompilerAtom(declarationConstant.getValue()).compileAtom();
                     }
-                    instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
+                    VariableType type = declarationConstant.getType();
+                    if (type == VariableType.INTEGER || type == VariableType.BOOLEAN) {
+                        instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
+                    } else if (type == VariableType.REAL) {
+                        instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel, currentAddress));
+                    }
 
                     currentAddress++;
                     declarationCounter++;
