@@ -6,6 +6,10 @@ import cz.zcu.kiv.fjp.enums.OperatorAddition;
 
 /**
  * Additive expression
+ * template:
+ *  leftExpression operator rightExpression
+ * e.g.:
+ *  1 + 2
  */
 public class ExpressionAdditive extends AbstractExpression {
 

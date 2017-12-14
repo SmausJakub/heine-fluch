@@ -14,7 +14,7 @@ import java.util.List;
 public class DeclarationVariableSimple extends AbstractDeclaration {
 
     /**
-     * variable list
+     * variable list - variables contain identifiers
      */
     private List<Variable> variableList;
 

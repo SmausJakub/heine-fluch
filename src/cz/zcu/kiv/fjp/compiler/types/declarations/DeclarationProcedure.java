@@ -16,7 +16,7 @@ public class DeclarationProcedure extends AbstractDeclaration {
     private Block procedureBlock;
 
     /**
-     * procedure
+     * procedure - contains identifier
      */
     private Procedure procedure;
 

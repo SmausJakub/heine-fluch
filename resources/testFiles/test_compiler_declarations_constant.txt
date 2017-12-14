@@ -1,6 +1,7 @@
 
 const integer x := 1;
-const boolean b := true;
+const real y := 5.5;
+const boolean ahoj := true;
 
 begin
 

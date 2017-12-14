@@ -14,12 +14,12 @@ import java.util.List;
 public class DeclarationConstant extends AbstractDeclaration {
 
     /**
-     * list of constant variables
+     * list of constant variables - constants contain identifiers
      */
     private List<Constant> constantList;
 
     /**
-     * assigned value
+     * assigned value - atomic
      */
     private AbstractAtom value;
 

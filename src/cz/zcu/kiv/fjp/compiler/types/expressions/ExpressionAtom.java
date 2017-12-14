@@ -6,6 +6,7 @@ import cz.zcu.kiv.fjp.enums.ExpressionType;
 
 /**
  * Atomic expression
+ * Contains only atom
  */
 public class ExpressionAtom extends AbstractExpression {
 

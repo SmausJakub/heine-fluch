@@ -14,7 +14,7 @@ import java.util.List;
 public class DeclarationVariableParallel extends AbstractDeclaration {
 
     /**
-     * list of variables
+     * list of variables - variables contain identifiers
      */
     private List<Variable> variableList;
 

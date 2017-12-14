@@ -5,6 +5,10 @@ import cz.zcu.kiv.fjp.enums.ExpressionType;
 
 /**
  * Negation expression
+ * template:
+ *  not expression
+ * e.g.:
+ *  not (a < 3)
  */
 public class ExpressionNot extends AbstractExpression {
 

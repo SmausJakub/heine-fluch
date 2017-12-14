@@ -12,7 +12,7 @@ import java.util.List;
 public class DeclarationLabel extends AbstractDeclaration {
 
     /**
-     * list of labels
+     * list of labels - labels contain identifiers
      */
     private List<Label> labelList;
 

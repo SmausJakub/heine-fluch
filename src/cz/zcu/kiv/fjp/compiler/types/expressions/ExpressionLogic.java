@@ -7,6 +7,10 @@ import cz.zcu.kiv.fjp.enums.OperatorLogic;
 
 /**
  * Logic expression
+ * template:
+ *  leftExpression operator rightExpression
+ * e.g.:
+ *  a < 4 and b > 4
  */
 public class ExpressionLogic extends AbstractExpression {
 

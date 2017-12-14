@@ -7,6 +7,10 @@ import cz.zcu.kiv.fjp.enums.OperatorMultiplication;
 
 /**
  * Multiplication expression
+ * template:
+ *  leftExpression operator rightExpression
+ * e.g.:
+ *  1 * 2
  */
 public class ExpressionMultiplication extends AbstractExpression {
 

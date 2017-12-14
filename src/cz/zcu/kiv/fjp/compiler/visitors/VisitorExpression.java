@@ -10,8 +10,18 @@ import cz.zcu.kiv.fjp.enums.OperatorLogic;
 import cz.zcu.kiv.fjp.enums.OperatorMultiplication;
 import cz.zcu.kiv.fjp.enums.OperatorRelation;
 
+/**
+ * Expression Visitor
+ * Visits the ANTLR tree and creates classes for expressions
+ */
 public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression> {
 
+    /**
+     * visits unary expression
+     *
+     * @param ctx tree context
+     * @return ExpressionUnary with expression
+     */
     @Override
     public AbstractExpression visitUnaryExpr(Pascal0LikeParser.UnaryExprContext ctx) {
 
@@ -20,6 +30,11 @@ public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression
         return new ExpressionUnary(abstractExpression);
     }
 
+    /**
+     * visits not expression
+     * @param ctx tree context
+     * @return ExpressionNot with expression
+     */
     @Override
     public AbstractExpression visitNotExpr(Pascal0LikeParser.NotExprContext ctx) {
 
@@ -29,12 +44,18 @@ public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression
 
     }
 
+    /**
+     * visits logic expression
+     * @param ctx tree context
+     * @return ExpressionLogic with left and right expression, operator
+     */
     @Override
     public AbstractExpression visitLogicExpr(Pascal0LikeParser.LogicExprContext ctx) {
 
         AbstractExpression leftExpression = this.visit(ctx.expression(0));
         AbstractExpression rightExpression = this.visit(ctx.expression(1));
 
+        // determine operator
         OperatorLogic operator = null;
         switch (ctx.op.getType()) {
             case Pascal0LikeParser.AND: {
@@ -51,13 +72,18 @@ public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression
 
     }
 
+    /**
+     * visits multiplication expression
+     * @param ctx tree context
+     * @return ExpressionMultiplication with left and right expression, operator
+     */
     @Override
     public AbstractExpression visitMultiplicationExpr(Pascal0LikeParser.MultiplicationExprContext ctx) {
 
         AbstractExpression leftExpression = this.visit(ctx.expression(0));
         AbstractExpression rightExpression = this.visit(ctx.expression(1));
 
-
+        // determine operator
         OperatorMultiplication operator = null;
         switch (ctx.op.getType()) {
             case Pascal0LikeParser.MULTIPLY: {
@@ -74,6 +100,11 @@ public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression
 
     }
 
+    /**
+     * visits atom expression
+     * @param ctx tree context
+     * @return ExpressionAtom with atom
+     */
     @Override
     public AbstractExpression visitAtomExpr(Pascal0LikeParser.AtomExprContext ctx) {
 
@@ -85,12 +116,18 @@ public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression
 
     }
 
+    /**
+     * visits additive expression
+     * @param ctx tree context
+     * @return ExpressionAdditive with left and right expression, operator
+     */
     @Override
     public AbstractExpression visitAdditiveExpr(Pascal0LikeParser.AdditiveExprContext ctx) {
 
         AbstractExpression leftExpression = this.visit(ctx.expression(0));
         AbstractExpression rightExpression = this.visit(ctx.expression(1));
 
+        // determine operator
         OperatorAddition operator = null;
         switch (ctx.op.getType()) {
 
@@ -109,13 +146,18 @@ public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression
         return new ExpressionAdditive(leftExpression, rightExpression, operator);
     }
 
+    /**
+     * visits relational expression
+     * @param ctx tree context
+     * @return ExpressionRelational with left and right expression, operator
+     */
     @Override
     public AbstractExpression visitRelationalExpr(Pascal0LikeParser.RelationalExprContext ctx) {
 
         AbstractExpression leftExpression = this.visit(ctx.expression(0));
         AbstractExpression rightExpression = this.visit(ctx.expression(1));
 
-
+        // determine operator
         OperatorRelation operator = null;
         switch (ctx.op.getType()) {
 
@@ -148,6 +190,11 @@ public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression
         return new ExpressionRelational(leftExpression, rightExpression, operator);
     }
 
+    /**
+     * visits par expression
+     * @param ctx tree context
+     * @return ExpressionPar with expression
+     */
     @Override
     public AbstractExpression visitParExpr(Pascal0LikeParser.ParExprContext ctx) {
 

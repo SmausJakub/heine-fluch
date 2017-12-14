@@ -6,6 +6,10 @@ import cz.zcu.kiv.fjp.enums.OperatorRelation;
 
 /**
  * Relational expression
+ * template:
+ *  leftExpression operator rightExpression
+ * e.g.:
+ *  a = b
  */
 public class ExpressionRelational extends AbstractExpression {
 

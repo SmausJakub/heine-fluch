@@ -5,6 +5,10 @@ import cz.zcu.kiv.fjp.enums.ExpressionType;
 
 /**
  * Parentheses expression
+ * template:
+ *  (   expression  )
+ * e.g.:
+ *  (   5   +   5   )
  */
 public class ExpressionPar extends AbstractExpression {
 

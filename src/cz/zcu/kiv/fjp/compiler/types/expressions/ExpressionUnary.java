@@ -5,6 +5,11 @@ import cz.zcu.kiv.fjp.enums.ExpressionType;
 
 /**
  * Unary minus expression
+ * template:
+ *  (minus) expression
+ * minus is not contained within class
+ * e.g.:
+ *  -5
  */
 public class ExpressionUnary extends AbstractExpression {
 
