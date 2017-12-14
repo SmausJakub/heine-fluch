@@ -5,10 +5,8 @@ public class Stack {
 
     private int base;                       // Baze
     private int top;                        // Vrchol
-    private int MEMORY_SIZE = 500;
     private int STACK_SIZE = 500;
     private int[] stackItems = new int[STACK_SIZE];
-    private int[] heap = new int[MEMORY_SIZE];
 
 
     public Stack(int base, int top) {
@@ -35,7 +33,7 @@ public class Stack {
         }
 
         item = stackItems[top];
-
+        stackItems[top] = 0;
         return item;
     }
 
@@ -47,7 +45,7 @@ public class Stack {
             throw new IllegalArgumentException("Doslo k podteceni zasobniku");
         }
 
-        item = stackItems[top];
+        item = stackItems[top-1];
         return item;
     }
 
@@ -61,25 +59,31 @@ public class Stack {
         stackItems[item-1] = value;
     }
 
+    public float getFloatValue(int item) {
+
+        return Float.intBitsToFloat(stackItems[item-1]);
+    }
+
+    public void setFloatValue(int item, float value) {
+
+        stackItems[item-1] = Float.floatToRawIntBits(value);
+    }
+
 
     public int getBaseOfItem(int level) {
         if(level < 0) {
             throw new IllegalArgumentException("Instruction does not exist");
         }
         int newBase = base;
-        while (level > 0) {
-            newBase = getValue(newBase);
-            level--;
+
+        for(int i = 0; i < level; i++) {
+            newBase = stackItems[base];
         }
         return newBase;
     }
 
     public int[] getStackItems() {
         return stackItems;
-    }
-
-    public void setStackItems(int[] stackItems) {
-        this.stackItems = stackItems;
     }
 
     public void increaseTop(int value){
@@ -89,7 +93,6 @@ public class Stack {
     public void reduceTop(int value){
         this.top -= value;
     }
-
 
     public int getBase() {
         return base;

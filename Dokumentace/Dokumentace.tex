@@ -1,0 +1,109 @@
+
+\documentclass[
+12pt,
+a4paper,
+pdftex,
+czech,
+titlepage
+]{report}
+
+\usepackage{float}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{tabularx} 
+\usepackage[unicode]{hyperref}
+\hypersetup{
+    colorlinks=true,
+    citecolor=green,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=magenta
+}
+
+\titleformat{\chapter}
+  {\normalfont\LARGE\bfseries}{\thechapter}{1em}{}
+\titlespacing*{\chapter}{0pt}{0ex plus 1ex minus .2ex}{2.0ex plus .2ex}
+
+\begin{document}
+
+\begin{titlepage}
+	\vspace*{-2cm}
+	{\centering\includegraphics[scale=1.5]{FAV_logo.pdf}\par}
+	\centering
+	\vspace*{2cm}
+	{\Large Dokumentace k semestrální práci z KIV/FJP\par}
+	\vspace{1.0cm}
+	{\Huge\bfseries Překladač jazyka Pascal0Like\par}
+	\vspace{7cm}
+
+	\begin{flushleft} 
+	\begin{table}[ht]
+	\label{stats}
+	\begin{tabular}{ll}
+	\textbf{Student:}  & Martin Kružej, Jakub Šmaus   \\
+	\textbf{St. číslo:}   & A17N0079P, A17N0089P    \\
+	\textbf{E-mail:}  & kruzej@students.zcu.cz, smaus@students.zcu.cz  \\
+	\textbf{Datum:}    & TODO            \\ 
+	\end{tabular}
+	\end{table}
+	\end{flushleft}
+	
+	\vfill
+
+
+\end{titlepage}
+
+\tableofcontents
+\thispagestyle{empty}
+\clearpage
+
+\chapter{Zadání}
+\setcounter{page}{1}
+Tématem semestrální práce je vytvoření
+
+\chapter{Analýza}
+
+\chapter{Implementace}
+\section{Překladač}
+\section{Interpret}
+\section{TABULKY PROZATIM}
+\begin{table}[]
+\centering
+\caption{Instrukce}
+\label{my-label}
+\begin{longtable}{|l|l|l|}
+\hline
+		Kód & Instrukce & Popis \\ 
+\hline\hline
+\rule{0pt}{2ex}1 & \texttt{LIT 0, M} & Vloží konstantní celou hodnotu (literál) M do zásobníku \\ \hline
+2 &          &                                                         \\ \hline
+3 &          &                                                         \\ \hline
+  &          &                                                         \\ \hline
+  &          &                                                         \\ \hline
+  &          &                                                         \\ \hline
+  &          &                                                         \\ \hline
+  &          &                                                         \\ \hline
+  &          &                                                         \\ \hline
+  &          &                                                         \\ \hline
+  &          &                                                         \\ \hline
+  &          &                                                         \\ \hline
+  &          &                                                         \\ \hline
+  &          &                                                         \\ \hline
+  &          &                                                         \\ \hline
+\end{longtable}
+\end{table}
+\chapter{Uživatelská dokumentace} 
+\section{Postup přeložení a sestavení}
+
+\chapter{Závěr}
+Výstupem práce je funkční \\
+Zadání bylo tímto splněno.
+\end{document}

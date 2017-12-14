@@ -56,17 +56,16 @@ public class Main {
                     inputFile = args[1];
                     instructionsFile = new File(inputFile);
 
-                    String cokoliv = "";
+
 
                     Interpreter interpreter = new Interpreter();
 
                  //   try {
-                        cokoliv = interpreter.interpret(instructionsFile);
+                       interpreter.interpret(instructionsFile);
                //     } catch (Exception e) {
                //         System.out.println(e);
                //     }
 
-                    System.out.println(cokoliv);
 
                 } else {
                     System.out.println("Nezadan nazev souboru.");
