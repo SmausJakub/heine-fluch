@@ -15,8 +15,8 @@ public class DeclarationConstant extends AbstractDeclaration {
 
     private VariableType type;
 
-    public DeclarationConstant(List<Constant> constantList, VariableType type, AbstractAtom atom) {
-        super(DeclarationType.CONSTANT);
+    public DeclarationConstant(List<Constant> constantList, VariableType type, AbstractAtom atom, int line) {
+        super(DeclarationType.CONSTANT, line);
         this.constantList = constantList;
         this.value = atom;
         this.type = type;
@@ -36,7 +36,21 @@ public class DeclarationConstant extends AbstractDeclaration {
 
     @Override
     public String toString() {
-        return "CONST " + type.getValue() + " " + constantList.toString() + " := " + value.toString();
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("CONST ").append(type.getValue()).append(" ");
+
+        for (int i = 0; i < constantList.size(); i++) {
+            builder.append(constantList.get(i).getName());
+            if (i + 1 < constantList.size()) {
+                builder.append(", ");
+            }
+        }
+
+        builder.append(" := ").append(value.toString()).append(";");
+
+        return builder.toString();
     }
 
 }

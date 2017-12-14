@@ -1,5 +1,11 @@
 package cz.zcu.kiv.fjp.enums;
 
+/**
+ * Enum values representing types of multiplication operator
+ * These types can be:
+ * multiply - *
+ * divide - /
+ */
 public enum OperatorMultiplication {
 
     MULTIPLY("*"),

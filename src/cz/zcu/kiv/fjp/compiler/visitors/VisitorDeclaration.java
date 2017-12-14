@@ -23,7 +23,7 @@ public class VisitorDeclaration extends Pascal0LikeBaseVisitor<AbstractDeclarati
 
         AbstractExpression expression = new VisitorExpression().visit(ctx.expression());
 
-        return new DeclarationVariableSimple(variableList, expression, type);
+        return new DeclarationVariableSimple(variableList, expression, type, ctx.getStart().getLine());
     }
 
 
@@ -33,7 +33,7 @@ public class VisitorDeclaration extends Pascal0LikeBaseVisitor<AbstractDeclarati
 
         List<Variable> variableList = getIdentifierList(ctx.identifier_list());
 
-        return new DeclarationVariableSimple(variableList, type);
+        return new DeclarationVariableSimple(variableList, type, ctx.getStart().getLine());
     }
 
 
@@ -56,7 +56,7 @@ public class VisitorDeclaration extends Pascal0LikeBaseVisitor<AbstractDeclarati
         }
 
 
-        return new DeclarationVariableParallel(variableList, expressionList, type);
+        return new DeclarationVariableParallel(variableList, expressionList, type, ctx.getStart().getLine());
 
     }
 
@@ -68,7 +68,7 @@ public class VisitorDeclaration extends Pascal0LikeBaseVisitor<AbstractDeclarati
         Block block = new VisitorBlock().visit(ctx.block());
 
 
-        return new DeclarationProcedure(new Procedure(identifier), block);
+        return new DeclarationProcedure(new Procedure(identifier), block, ctx.getStart().getLine());
     }
 
     @Override
@@ -88,7 +88,7 @@ public class VisitorDeclaration extends Pascal0LikeBaseVisitor<AbstractDeclarati
         VisitorAtom visitorAtom = new VisitorAtom();
         AbstractAtom atom = visitorAtom.visit(ctx.atom());
 
-        return new DeclarationConstant(constantList, type, atom);
+        return new DeclarationConstant(constantList, type, atom, ctx.getStart().getLine());
     }
 
 
@@ -102,7 +102,7 @@ public class VisitorDeclaration extends Pascal0LikeBaseVisitor<AbstractDeclarati
         }
 
 
-        return new DeclarationLabel(labelList);
+        return new DeclarationLabel(labelList, ctx.getStart().getLine());
     }
 
 

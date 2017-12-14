@@ -5,6 +5,7 @@ import cz.zcu.kiv.fjp.compiler.symbol.SymbolTableItem;
 import cz.zcu.kiv.fjp.compiler.types.Block;
 import cz.zcu.kiv.fjp.compiler.types.Goto;
 import cz.zcu.kiv.fjp.compiler.types.Program;
+import cz.zcu.kiv.fjp.errors.ErrorLabelNeverUsed;
 
 import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.*;
 
@@ -32,7 +33,7 @@ public class CompilerProgram {
             if (item.getAddress() != 0) {
                 got.getIns().setOperand(item.getAddress());
             } else {
-                err.throwError("Label " + item.getName() + " was declared but never used");
+                err.throwError(new ErrorLabelNeverUsed(item.getName()));
             }
 
         }

@@ -9,8 +9,8 @@ public class StatementCompound extends AbstractStatement {
 
     private List<AbstractStatement> statementList;
 
-    public StatementCompound(List<AbstractStatement> statementList) {
-        super(StatementType.COMPOUND);
+    public StatementCompound(List<AbstractStatement> statementList, int line) {
+        super(StatementType.COMPOUND, line);
         this.statementList = statementList;
     }
 
@@ -21,11 +21,17 @@ public class StatementCompound extends AbstractStatement {
     @Override
     public String toString() {
 
-        if (statementList.isEmpty()) {
-            return "BEGIN" + " END";
-        } else {
-            return "BEGIN " + statementList.toString() + " END";
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("BEGIN ");
+
+        for (AbstractStatement statement : statementList) {
+            builder.append(statement.toString()).append("\n");
         }
+
+        builder.append(" END");
+
+        return builder.toString();
 
     }
 }

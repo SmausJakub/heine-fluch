@@ -1,5 +1,11 @@
 package cz.zcu.kiv.fjp.enums;
 
+/**
+ * Enum values representing types of addition operator
+ * These types can be:
+ * plus - +
+ * minus - -
+ */
 public enum OperatorAddition {
 
 

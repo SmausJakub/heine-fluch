@@ -17,16 +17,16 @@ public class DeclarationVariableSimple extends AbstractDeclaration {
 
     private VariableType type;
 
-    public DeclarationVariableSimple(List<Variable> variableList, VariableType type) {
-        super(DeclarationType.VARIABLE);
+    public DeclarationVariableSimple(List<Variable> variableList, VariableType type, int line) {
+        super(DeclarationType.VARIABLE, line);
         this.variableList = variableList;
         this.type = type;
         this.init = false;
     }
 
 
-    public DeclarationVariableSimple(List<Variable> variableList, AbstractExpression expression, VariableType type) {
-        super(DeclarationType.VARIABLE);
+    public DeclarationVariableSimple(List<Variable> variableList, AbstractExpression expression, VariableType type, int line) {
+        super(DeclarationType.VARIABLE, line);
         this.expression = expression;
         this.variableList = variableList;
         this.type = type;
@@ -52,11 +52,23 @@ public class DeclarationVariableSimple extends AbstractDeclaration {
     @Override
     public String toString() {
 
-        if (init) {
-            return type.getValue() + " " + variableList.toString() + " := " + expression.toString();
-        } else {
-            return type.getValue() + " " + variableList.toString();
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(type.getValue()).append(" ");
+
+        for (int i = 0; i < variableList.size(); i++) {
+            builder.append(variableList.get(i).getName());
+            if (i + 1 < variableList.size()) {
+                builder.append(", ");
+            }
         }
+
+        if (init) {
+            builder.append(" := ").append(expression.toString());
+        }
+
+        builder.append(";");
+        return builder.toString();
     }
 
 

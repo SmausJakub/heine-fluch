@@ -9,6 +9,7 @@ import cz.zcu.kiv.fjp.enums.ForType;
 import cz.zcu.kiv.fjp.enums.InstructionCode;
 import cz.zcu.kiv.fjp.enums.InstructionOperation;
 import cz.zcu.kiv.fjp.enums.VariableType;
+import cz.zcu.kiv.fjp.errors.*;
 import cz.zcu.kiv.fjp.instruction.Instruction;
 
 import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.*;
@@ -81,7 +82,7 @@ public class CompilerStatement {
         currentAddress++;
 
         if (checkIfExists(statementFor.getIdentifier())) {
-            err.throwError("Variable already assigned: " + statementFor.getIdentifier());
+            err.throwError(new ErrorCannotAssignLoopVariable(statementFor.getIdentifier()));
         }
 
         new CompilerExpression(statementFor.getFrom(), VariableType.INTEGER).compileExpression();
@@ -238,12 +239,12 @@ public class CompilerStatement {
 
 
             } else {
-                err.throwError("Can not re-assign constant " + item.getName());
+                err.throwError(new ErrorConstantReassign(item.getName()));
             }
 
 
         } else {
-            err.throwError("Unknown identifier " + statementTernary.getIdentifier());
+            err.throwError(new ErrorUnknownIdentifier(statementTernary.getIdentifier()));
         }
 
     }
@@ -268,7 +269,7 @@ public class CompilerStatement {
 
 
         } else {
-            err.throwError("Unknown label " + label);
+            err.throwError(new ErrorUnknownLabel(label));
         }
 
     }
@@ -285,8 +286,7 @@ public class CompilerStatement {
             instructionList.add(new Instruction(InstructionCode.CAL.getName(), item.getLevel(), item.getAddress()));
 
         } else {
-            System.out.println(symbolTable.toString());
-            err.throwError("Unknown procedure " + identifier);
+            err.throwError(new ErrorUnknownProcedure(identifier));
         }
 
     }
@@ -305,12 +305,12 @@ public class CompilerStatement {
                 item.setSize(1);
 
             } else {
-                err.throwError("Can not re-assign constant " + item.getName());
+                err.throwError(new ErrorConstantReassign(item.getName()));
             }
 
 
         } else {
-            err.throwError("Unknown identifier " + statementAssignment.getIdentifier());
+            err.throwError(new ErrorUnknownIdentifier(statementAssignment.getIdentifier()));
         }
 
     }
@@ -337,11 +337,11 @@ public class CompilerStatement {
                     item.setAddress(instructionList.size());
 
                 } else {
-                    err.throwError("Label " + item.getName() + " already assigned");
+                    err.throwError(new ErrorLabelUsedElsewhere(item.getName()));
                 }
 
             } else {
-                err.throwError("Unknown label " + label);
+                err.throwError(new ErrorUnknownLabel(label));
             }
 
         }

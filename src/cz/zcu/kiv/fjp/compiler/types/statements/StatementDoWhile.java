@@ -10,8 +10,8 @@ public class StatementDoWhile extends AbstractStatement {
     private AbstractExpression condition;
     private AbstractStatement statement;
 
-    public StatementDoWhile(AbstractExpression condition, AbstractStatement statement) {
-        super(StatementType.DO_WHILE);
+    public StatementDoWhile(AbstractExpression condition, AbstractStatement statement, int line) {
+        super(StatementType.DO_WHILE, line);
         this.statement = statement;
         this.condition = condition;
     }

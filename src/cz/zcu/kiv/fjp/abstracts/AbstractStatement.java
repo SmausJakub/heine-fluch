@@ -3,7 +3,7 @@ package cz.zcu.kiv.fjp.abstracts;
 import cz.zcu.kiv.fjp.compiler.types.Label;
 import cz.zcu.kiv.fjp.enums.StatementType;
 
-public abstract class AbstractStatement {
+public abstract class AbstractStatement extends AbstractLineNumbered {
 
     private StatementType statementType;
 
@@ -11,7 +11,8 @@ public abstract class AbstractStatement {
 
     private boolean labelled;
 
-    public AbstractStatement(StatementType statementType) {
+    public AbstractStatement(StatementType statementType, int lineNumber) {
+        super(lineNumber);
         this.statementType = statementType;
         this.labelled = false;
     }

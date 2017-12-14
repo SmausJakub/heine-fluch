@@ -6,6 +6,9 @@ import cz.zcu.kiv.fjp.compiler.symbol.SymbolTableItem;
 import cz.zcu.kiv.fjp.compiler.types.atoms.AtomId;
 import cz.zcu.kiv.fjp.compiler.types.expressions.*;
 import cz.zcu.kiv.fjp.enums.*;
+import cz.zcu.kiv.fjp.errors.ErrorIncompatibleTypes;
+import cz.zcu.kiv.fjp.errors.ErrorUnknownIdentifier;
+import cz.zcu.kiv.fjp.errors.ErrorVariableNotInitialized;
 import cz.zcu.kiv.fjp.instruction.Instruction;
 
 import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.*;
@@ -31,7 +34,7 @@ public class CompilerExpression {
             compileExpressionRecursive(expression);
 
         } else {
-            err.throwError("Incompatible types : Expected " + expectedType.getValue() + " but found " + foundType.getValue());
+            err.throwError(new ErrorIncompatibleTypes(expectedType.getValue(), foundType.getValue()));
         }
 
     }
@@ -109,10 +112,8 @@ public class CompilerExpression {
                 return InstructionOperation.MUL.getCode();
             case DIVIDE:
                 return InstructionOperation.DIV.getCode();
-            default:
-                err.throwError("Unexpected error");
-                return 0;
         }
+        return 0;
     }
 
     private int getOpCodeFromOperatorAdditive(OperatorAddition operatorAddition) {
@@ -122,10 +123,8 @@ public class CompilerExpression {
                 return InstructionOperation.ADD.getCode();
             case MINUS:
                 return InstructionOperation.SUB.getCode();
-            default:
-                err.throwError("Unexpected error");
-                return 0;
         }
+        return 0;
     }
 
     private int getOpCodeFromOperatorRelation(OperatorRelation operatorRelation) {
@@ -142,11 +141,8 @@ public class CompilerExpression {
                 return InstructionOperation.GE.getCode();
             case GT:
                 return InstructionOperation.GT.getCode();
-            default: {
-                err.throwError("Unexpected error");
-                return 0;
-            }
         }
+        return 0;
     }
 
 
@@ -171,8 +167,7 @@ public class CompilerExpression {
                 if (resolveUnaryExpression(typeOne)) {
                     return typeOne;
                 } else {
-                    err.throwError("Incompatible type in expression " + expressionUnary + "\nExpected INTEGER or REAL but got" + typeOne.getValue());
-                    return null;
+                    err.throwError(new ErrorIncompatibleTypes(VariableType.INTEGER.getValue(), typeOne.getValue()));
                 }
             case NOT:
                 ExpressionNot expressionNot = (ExpressionNot) exp;
@@ -180,8 +175,7 @@ public class CompilerExpression {
                 if (resolveNotExpression(typeOne)) {
                     return typeOne;
                 } else {
-                    err.throwError("Incompatible type in expression " + expressionNot + "\nExpected BOOLEAN but got " + typeOne.getValue());
-                    return null;
+                    err.throwError(new ErrorIncompatibleTypes(VariableType.BOOLEAN.getValue(), typeOne.getValue()));
                 }
             case MULT:
                 ExpressionMultiplication expressionMultiplication = (ExpressionMultiplication) exp;
@@ -190,8 +184,7 @@ public class CompilerExpression {
                 if (resolveMultiplicationExpression(typeOne, typeTwo)) {
                     return typeOne;
                 } else {
-                    err.throwError("Incompatible type in expression " + expressionMultiplication + " : " + typeOne.getValue() + " and " + typeTwo.getValue());
-                    return null;
+                    err.throwError(new ErrorIncompatibleTypes(typeOne.getValue(), typeTwo.getValue()));
                 }
             case ADD:
                 ExpressionAdditive expressionAdditive = (ExpressionAdditive) exp;
@@ -200,8 +193,7 @@ public class CompilerExpression {
                 if (resolveAdditiveExpression(typeOne, typeTwo, expressionAdditive.getOperator())) {
                     return typeOne;
                 } else {
-                    err.throwError("Incompatible type in expression " + expressionAdditive + " : " + typeOne.getValue() + " and " + typeTwo.getValue());
-                    return null;
+                    err.throwError(new ErrorIncompatibleTypes(typeOne.getValue(), typeTwo.getValue()));
                 }
             case REL:
                 ExpressionRelational expressionRelational = (ExpressionRelational) exp;
@@ -210,8 +202,7 @@ public class CompilerExpression {
                 if (resolveRelationalExpression(typeOne, typeTwo)) {
                     return VariableType.BOOLEAN;
                 } else {
-                    err.throwError("Incompatible type in expression " + expressionRelational + " : " + typeOne.getValue() + " and " + typeTwo.getValue());
-                    return null;
+                    err.throwError(new ErrorIncompatibleTypes(typeOne.getValue(), typeTwo.getValue()));
                 }
             case LOG:
                 ExpressionLogic expressionLogic = (ExpressionLogic) exp;
@@ -220,8 +211,7 @@ public class CompilerExpression {
                 if (resolveLoginExpression(typeOne, typeTwo)) {
                     return VariableType.BOOLEAN;
                 } else {
-                    err.throwError("Incompatible type in expression " + expressionLogic + " : " + typeOne.getValue() + " and " + typeTwo.getValue());
-                    return null;
+                    err.throwError(new ErrorIncompatibleTypes(typeOne.getValue(), typeTwo.getValue()));
                 }
             case PAR:
                 ExpressionPar expressionPar = (ExpressionPar) exp;
@@ -229,10 +219,8 @@ public class CompilerExpression {
             case ATOM:
                 ExpressionAtom expressionAtom = (ExpressionAtom) exp;
                 return getVariableTypeFromAtomType(expressionAtom.getAtom());
-            default:
-                err.throwError("Unexpected error");
-                return null;
         }
+        return null;
 
     }
 
@@ -289,20 +277,18 @@ public class CompilerExpression {
                     if (item.getSize() == 1) {
                         return item.getVariableType();
                     } else {
-                        err.throwError("Variable " + item.getName() + " is not initialized");
+                        err.throwError(new ErrorVariableNotInitialized(item.getName()));
                         return null;
                     }
 
                 } else {
-                    err.throwError("Unknown identifier " + atomId.getIdentifier());
+                    err.throwError(new ErrorUnknownIdentifier(atomId.getIdentifier()));
                     return null;
                 }
             case STRING:
                 return VariableType.STRING;
-            default:
-                err.throwError("Unexpected error");
-                return null;
         }
+        return null;
     }
 
 

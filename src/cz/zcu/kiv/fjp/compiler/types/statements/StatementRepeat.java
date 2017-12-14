@@ -9,8 +9,8 @@ public class StatementRepeat extends AbstractStatement {
     private AbstractExpression condition;
     private AbstractStatement statement;
 
-    public StatementRepeat(AbstractExpression condition, AbstractStatement statement) {
-        super(StatementType.REPEAT);
+    public StatementRepeat(AbstractExpression condition, AbstractStatement statement, int line) {
+        super(StatementType.REPEAT, line);
         this.statement = statement;
         this.condition = condition;
     }

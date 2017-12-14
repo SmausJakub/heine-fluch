@@ -9,8 +9,8 @@ public class StatementAssignment extends AbstractStatement {
     private String identifier;
     private AbstractExpression expression;
 
-    public StatementAssignment(String identifier, AbstractExpression expression) {
-        super(StatementType.ASSIGNMENT);
+    public StatementAssignment(String identifier, AbstractExpression expression, int line) {
+        super(StatementType.ASSIGNMENT, line);
         this.identifier = identifier;
         this.expression = expression;
     }
@@ -29,7 +29,7 @@ public class StatementAssignment extends AbstractStatement {
         if (isLabelled()) {
             builder.append(getLabel().getValue()).append(": ");
         }
-        builder.append(identifier).append(" := ").append(expression.toString());
+        builder.append(identifier).append(" := ").append(expression.toString()).append(";");
 
         return builder.toString();
     }

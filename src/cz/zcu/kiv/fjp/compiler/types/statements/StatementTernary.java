@@ -12,8 +12,8 @@ public class StatementTernary extends AbstractStatement {
     private AbstractExpression expression;
     private String identifier;
 
-    public StatementTernary(String identifier, AbstractExpression expression, AbstractExpression expressionOne, AbstractExpression expressionTwo) {
-        super(StatementType.TERNARY);
+    public StatementTernary(String identifier, AbstractExpression expression, AbstractExpression expressionOne, AbstractExpression expressionTwo, int line) {
+        super(StatementType.TERNARY, line);
         this.identifier = identifier;
         this.expression = expression;
         this.expressionOne = expressionOne;
@@ -43,7 +43,7 @@ public class StatementTernary extends AbstractStatement {
         if (isLabelled()) {
             builder.append(getLabel().getValue()).append(": ");
         }
-        builder.append(identifier).append(" := ").append(expression.toString()).append(" ? ").append(expressionOne.toString()).append(" ! ").append(expressionTwo.toString());
+        builder.append(identifier).append(" := ").append(expression.toString()).append(" ? ").append(expressionOne.toString()).append(" ! ").append(expressionTwo.toString()).append(";");
 
         return builder.toString();
     }

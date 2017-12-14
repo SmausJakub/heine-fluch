@@ -31,6 +31,7 @@ public class CompilerAtom {
 
                 AtomReal atomReal = (AtomReal) atom;
 
+                instructionList.add(new Instruction(InstructionCode.LRT.getName(), 0, atomReal.getReal()));
 
                 break;
             case BOOLEAN:

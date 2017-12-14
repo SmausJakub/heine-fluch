@@ -10,8 +10,8 @@ public class StatementWhileDo extends AbstractStatement {
     private AbstractStatement statement;
 
 
-    public StatementWhileDo(AbstractExpression condition, AbstractStatement statement) {
-        super(StatementType.WHILE_DO);
+    public StatementWhileDo(AbstractExpression condition, AbstractStatement statement, int line) {
+        super(StatementType.WHILE_DO, line);
         this.condition = condition;
         this.statement = statement;
     }
@@ -31,7 +31,7 @@ public class StatementWhileDo extends AbstractStatement {
         if (isLabelled()) {
             builder.append(getLabel().getValue()).append(": ");
         }
-        builder.append("WHILE ").append(condition.toString()).append(" DO ").append(statement.toString());
+        builder.append("WHILE ").append(condition.toString()).append(" DO ").append(statement.toString()).append(";");
 
         return builder.toString();
     }

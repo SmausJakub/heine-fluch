@@ -11,14 +11,14 @@ public class StatementIf extends AbstractStatement {
     private AbstractStatement statement;
 
 
-    public StatementIf(AbstractExpression condition, AbstractStatement statement, AbstractStatement elseStatement) {
-        this(condition, statement);
+    public StatementIf(AbstractExpression condition, AbstractStatement statement, AbstractStatement elseStatement, int line) {
+        this(condition, statement, line);
         this.elseStatement = elseStatement;
     }
 
 
-    public StatementIf(AbstractExpression condition, AbstractStatement statement) {
-        super(StatementType.IF);
+    public StatementIf(AbstractExpression condition, AbstractStatement statement, int line) {
+        super(StatementType.IF, line);
         this.condition = condition;
         this.statement = statement;
     }

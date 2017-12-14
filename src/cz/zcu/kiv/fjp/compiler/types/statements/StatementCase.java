@@ -12,8 +12,8 @@ public class StatementCase extends AbstractStatement {
     private AbstractExpression expression;
     private List<CaseLimb> limbList;
 
-    public StatementCase(AbstractExpression expression, List<CaseLimb> limbList) {
-        super(StatementType.CASE);
+    public StatementCase(AbstractExpression expression, List<CaseLimb> limbList, int line) {
+        super(StatementType.CASE, line);
         this.expression = expression;
         this.limbList = limbList;
     }

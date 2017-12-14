@@ -10,8 +10,8 @@ public class StatementIO extends AbstractStatement {
     private String identifier;
 
 
-    public StatementIO(String identifier, IOType type) {
-        super(StatementType.IO);
+    public StatementIO(String identifier, IOType type, int line) {
+        super(StatementType.IO, line);
         this.identifier = identifier;
         this.type = type;
     }
@@ -30,7 +30,7 @@ public class StatementIO extends AbstractStatement {
         if (isLabelled()) {
             builder.append(getLabel().getValue()).append(": ");
         }
-        builder.append(type.getName()).append(" ").append(identifier);
+        builder.append(type.getName()).append(" ").append(identifier).append(";");
 
         return builder.toString();
     }

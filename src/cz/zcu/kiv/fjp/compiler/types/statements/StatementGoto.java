@@ -7,8 +7,8 @@ public class StatementGoto extends AbstractStatement {
 
     private int value;
 
-    public StatementGoto(int value) {
-        super(StatementType.GOTO);
+    public StatementGoto(int value, int line) {
+        super(StatementType.GOTO, line);
         this.value = value;
     }
 
@@ -23,7 +23,7 @@ public class StatementGoto extends AbstractStatement {
         if (isLabelled()) {
             builder.append(getLabel().getValue()).append(": ");
         }
-        builder.append("GOTO ").append(value);
+        builder.append("GOTO ").append(value).append(";");
 
         return builder.toString();
     }

@@ -16,8 +16,8 @@ public class DeclarationVariableParallel extends AbstractDeclaration {
     private VariableType type;
 
 
-    public DeclarationVariableParallel(List<Variable> variableList, List<AbstractExpression> expressionList, VariableType type) {
-        super(DeclarationType.VARIABLE_PARALEL);
+    public DeclarationVariableParallel(List<Variable> variableList, List<AbstractExpression> expressionList, VariableType type, int line) {
+        super(DeclarationType.VARIABLE_PARALLEL, line);
         this.variableList = variableList;
         this.expressionList = expressionList;
         this.type = type;
@@ -36,7 +36,30 @@ public class DeclarationVariableParallel extends AbstractDeclaration {
     }
 
     public String toString() {
-        return type.getValue() + " " + variableList.toString() + " := " + expressionList.toString();
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(type.getValue()).append(" ");
+
+        for (int i = 0; i < variableList.size(); i++) {
+            builder.append(variableList.get(i).getName());
+            if (i + 1 < variableList.size()) {
+                builder.append(", ");
+            }
+        }
+
+        builder.append(" := [ ");
+
+        for (int j = 0; j < expressionList.size(); j++) {
+            builder.append(expressionList.get(j).toString());
+            if (j + 1 < expressionList.size()) {
+                builder.append(", ");
+            }
+        }
+
+        builder.append(";");
+
+        return builder.toString();
     }
 
 }

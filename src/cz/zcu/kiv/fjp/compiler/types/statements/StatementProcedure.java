@@ -8,8 +8,8 @@ public class StatementProcedure extends AbstractStatement {
 
     private String identifier;
 
-    public StatementProcedure(String identifier) {
-        super(StatementType.PROCEDURE);
+    public StatementProcedure(String identifier, int line) {
+        super(StatementType.PROCEDURE, line);
         this.identifier = identifier;
     }
 
@@ -24,7 +24,7 @@ public class StatementProcedure extends AbstractStatement {
         if (isLabelled()) {
             builder.append(getLabel().getValue()).append(": ");
         }
-        builder.append("CALL").append(" ").append(identifier);
+        builder.append("CALL").append(" ").append(identifier).append(";");
         return builder.toString();
     }
 }

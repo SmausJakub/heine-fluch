@@ -1,5 +1,8 @@
 package cz.zcu.kiv.fjp.enums;
 
+/**
+ * Enum values representing instruction codes
+ */
 public enum InstructionCode {
 
     LIT("LIT", 0),      // LIT ? konst   -> na vrchol zasobniku konst

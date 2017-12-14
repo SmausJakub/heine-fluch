@@ -11,8 +11,8 @@ public class DeclarationProcedure extends AbstractDeclaration {
 
     private Procedure procedure;
 
-    public DeclarationProcedure(Procedure procedure, Block procedureBlock) {
-        super(DeclarationType.PROCEDURE);
+    public DeclarationProcedure(Procedure procedure, Block procedureBlock, int line) {
+        super(DeclarationType.PROCEDURE, line);
         this.procedure = procedure;
         this.procedureBlock = procedureBlock;
     }
@@ -27,7 +27,7 @@ public class DeclarationProcedure extends AbstractDeclaration {
 
     @Override
     public String toString() {
-        return "PROCEDURE " + procedure.toString();
+        return "PROCEDURE " + procedure.toString() + ";";
     }
 
 }

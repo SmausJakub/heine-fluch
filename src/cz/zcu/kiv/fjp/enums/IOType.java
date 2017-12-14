@@ -1,5 +1,11 @@
 package cz.zcu.kiv.fjp.enums;
 
+/**
+ * Enum values representing types of I/O statement
+ * These types can be:
+ * read - read input
+ * write - write output
+ */
 public enum IOType {
 
     READ("READ"),

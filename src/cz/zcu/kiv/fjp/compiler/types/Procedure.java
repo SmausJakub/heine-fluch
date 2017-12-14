@@ -7,7 +7,6 @@ import cz.zcu.kiv.fjp.enums.IdentifierType;
 public class Procedure extends AbstractIdentifier {
 
     private String name;
-    private int size;
 
     public Procedure(String name) {
         super(IdentifierType.PROCEDURE);

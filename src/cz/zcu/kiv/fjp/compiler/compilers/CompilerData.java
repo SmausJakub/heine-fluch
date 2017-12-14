@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
+/**
+ * Compiler Data - data used by compilers to compile given file
+ */
 public final class CompilerData {
 
     // minimal INT declaration of stack
@@ -42,8 +44,9 @@ public final class CompilerData {
 
 
     /**
-     * @param identifier
-     * @return
+     * Checks if a given identifier has a corresponding item in symbol table
+     * @param identifier identifier
+     * @return true or false
      */
     public static boolean checkIfExists(String identifier) {
 
@@ -51,16 +54,17 @@ public final class CompilerData {
     }
 
     /**
-     *
-     * @param identifier
-     * @return
+     * Checks if an item given by the identifier name can be accessed, meaning if his level is less than or equal to current level
+     * it is presumed that the item exists in symbol table (@see checkIfExists(String identifier))
+     * @param identifier identifier
+     * @return true or false
      */
     public static boolean checkIfCanBeAccessed(String identifier) {
         return symbolTable.getItem(identifier).getLevel() <= currentLevel;
     }
 
     /**
-     *
+     * Sorts the instruction list by indexes of instructions
      */
     public static void sortList() {
 
@@ -69,7 +73,7 @@ public final class CompilerData {
     }
 
     /**
-     *
+     * Gives index to each instruction based on their position in the list
      */
     public static void indexList() {
 
@@ -80,7 +84,8 @@ public final class CompilerData {
     }
 
     /**
-     * @return
+     * Prints instruction list in a readable and usable format (for interpret)
+     * @return printed instruction list
      */
     public static String printInstructionList() {
         StringBuilder builder = new StringBuilder();

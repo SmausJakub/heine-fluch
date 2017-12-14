@@ -39,9 +39,9 @@ public class VisitorStatement extends Pascal0LikeBaseVisitor<AbstractStatement> 
         if (ctx.statement(1) != null) {
             AbstractStatement elseStatement = this.visit(ctx.statement(1));
 
-            return new StatementIf(condition, statement, elseStatement);
+            return new StatementIf(condition, statement, elseStatement, ctx.getStart().getLine());
         } else {
-            return new StatementIf(condition, statement);
+            return new StatementIf(condition, statement, ctx.getStart().getLine());
         }
 
 
@@ -59,7 +59,7 @@ public class VisitorStatement extends Pascal0LikeBaseVisitor<AbstractStatement> 
             statementList.add(statement);
         }
 
-        return new StatementCompound(statementList);
+        return new StatementCompound(statementList, ctx.getStart().getLine());
 
 
     }
@@ -82,7 +82,7 @@ public class VisitorStatement extends Pascal0LikeBaseVisitor<AbstractStatement> 
 
         String identifier = ctx.IDENT().getText();
 
-        return new StatementIO(identifier, type);
+        return new StatementIO(identifier, type, ctx.getStart().getLine());
     }
 
     @Override
@@ -93,24 +93,24 @@ public class VisitorStatement extends Pascal0LikeBaseVisitor<AbstractStatement> 
         AbstractExpression ternaryOne = visitorExpression.visit(ctx.expression(1));
         AbstractExpression ternaryTwo = visitorExpression.visit(ctx.expression(2));
 
-        return new StatementTernary(identifier, expression, ternaryOne, ternaryTwo);
+        return new StatementTernary(identifier, expression, ternaryOne, ternaryTwo, ctx.getStart().getLine());
     }
 
     @Override
     public AbstractStatement visitAssignment_statement(Pascal0LikeParser.Assignment_statementContext ctx) {
         String identifier = ctx.IDENT().getText();
         AbstractExpression expression = new VisitorExpression().visit(ctx.expression());
-        return new StatementAssignment(identifier, expression);
+        return new StatementAssignment(identifier, expression, ctx.getStart().getLine());
     }
 
     @Override
     public AbstractStatement visitGoto_statement(Pascal0LikeParser.Goto_statementContext ctx) {
-        return new StatementGoto(Integer.parseInt(ctx.INT().getText()));
+        return new StatementGoto(Integer.parseInt(ctx.INT().getText()), ctx.getStart().getLine());
     }
 
     @Override
     public AbstractStatement visitProcedure_statement(Pascal0LikeParser.Procedure_statementContext ctx) {
-        return new StatementProcedure(ctx.IDENT().getText());
+        return new StatementProcedure(ctx.IDENT().getText(), ctx.getStart().getLine());
 
     }
 
@@ -121,7 +121,7 @@ public class VisitorStatement extends Pascal0LikeBaseVisitor<AbstractStatement> 
         AbstractExpression condition = new VisitorExpression().visit(ctx.expression());
         AbstractStatement statement = this.visit(ctx.statement());
 
-        return new StatementWhileDo(condition, statement);
+        return new StatementWhileDo(condition, statement, ctx.getStart().getLine());
     }
 
     @Override
@@ -129,7 +129,7 @@ public class VisitorStatement extends Pascal0LikeBaseVisitor<AbstractStatement> 
         AbstractExpression condition = new VisitorExpression().visit(ctx.expression());
         AbstractStatement statement = this.visit(ctx.statement());
 
-        return new StatementDoWhile(condition, statement);
+        return new StatementDoWhile(condition, statement, ctx.getStart().getLine());
     }
 
     @Override
@@ -137,7 +137,7 @@ public class VisitorStatement extends Pascal0LikeBaseVisitor<AbstractStatement> 
         AbstractExpression condition = new VisitorExpression().visit(ctx.expression());
         AbstractStatement statement = this.visit(ctx.statement());
 
-        return new StatementRepeat(condition, statement);
+        return new StatementRepeat(condition, statement, ctx.getStart().getLine());
     }
 
     @Override
@@ -162,7 +162,7 @@ public class VisitorStatement extends Pascal0LikeBaseVisitor<AbstractStatement> 
 
         AbstractStatement statement = this.visit(ctx.statement());
 
-        return new StatementFor(identifier, from, to, statement, type);
+        return new StatementFor(identifier, from, to, statement, type, ctx.getStart().getLine());
 
 
     }
@@ -180,6 +180,6 @@ public class VisitorStatement extends Pascal0LikeBaseVisitor<AbstractStatement> 
         }
 
 
-        return new StatementCase(expression, limbList);
+        return new StatementCase(expression, limbList, ctx.getStart().getLine());
     }
 }

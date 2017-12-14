@@ -10,8 +10,8 @@ public class DeclarationLabel extends AbstractDeclaration {
 
     private List<Label> labelList;
 
-    public DeclarationLabel(List<Label> labelList) {
-        super(DeclarationType.LABEL);
+    public DeclarationLabel(List<Label> labelList, int line) {
+        super(DeclarationType.LABEL, line);
         this.labelList = labelList;
     }
 
@@ -22,7 +22,21 @@ public class DeclarationLabel extends AbstractDeclaration {
 
     @Override
     public String toString() {
-        return "LABEL " + labelList.toString();
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("LABEL ");
+
+        for (int i = 0; i < labelList.size(); i++) {
+            builder.append(labelList.get(i).getValue());
+
+            if (i + 1 < labelList.size()) {
+                builder.append(", ");
+            }
+        }
+
+        builder.append(";");
+        return builder.toString();
     }
 
 

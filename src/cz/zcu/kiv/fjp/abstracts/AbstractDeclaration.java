@@ -2,11 +2,12 @@ package cz.zcu.kiv.fjp.abstracts;
 
 import cz.zcu.kiv.fjp.enums.DeclarationType;
 
-public abstract class AbstractDeclaration implements Comparable<AbstractDeclaration> {
+public abstract class AbstractDeclaration extends AbstractLineNumbered implements Comparable<AbstractDeclaration> {
 
     private DeclarationType declarationType;
 
-    public AbstractDeclaration(DeclarationType declarationType) {
+    public AbstractDeclaration(DeclarationType declarationType, int lineNumber) {
+        super(lineNumber);
         this.declarationType = declarationType;
     }
 

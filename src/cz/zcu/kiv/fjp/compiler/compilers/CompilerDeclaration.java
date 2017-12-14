@@ -13,6 +13,10 @@ import cz.zcu.kiv.fjp.enums.AtomType;
 import cz.zcu.kiv.fjp.enums.DeclarationType;
 import cz.zcu.kiv.fjp.enums.InstructionCode;
 import cz.zcu.kiv.fjp.enums.VariableType;
+import cz.zcu.kiv.fjp.errors.ErrorIncompatibleTypes;
+import cz.zcu.kiv.fjp.errors.ErrorParallelDeclarationNumberMismatch;
+import cz.zcu.kiv.fjp.errors.ErrorUnknownIdentifier;
+import cz.zcu.kiv.fjp.errors.ErrorVariableAlreadyDeclared;
 import cz.zcu.kiv.fjp.instruction.Instruction;
 
 import java.util.List;
@@ -50,7 +54,7 @@ public class CompilerDeclaration {
             case VARIABLE:
                 compileVariableDeclaration();
                 break;
-            case VARIABLE_PARALEL:
+            case VARIABLE_PARALLEL:
                 compileVariableParallelDeclaration();
                 break;
             case CONSTANT:
@@ -72,7 +76,7 @@ public class CompilerDeclaration {
                 symbolTable.addItem(item.getName(), item);
 
             } else {
-                err.throwError("Label " + String.valueOf(label.getValue()) + " is already declared");
+                err.throwError(new ErrorVariableAlreadyDeclared(String.valueOf(label.getValue())));
             }
 
 
@@ -101,7 +105,7 @@ public class CompilerDeclaration {
             currentLevel--;
 
         } else {
-            err.throwError("Procedure " + declarationProcedure.getProcedure().getName() + " is already declared");
+            err.throwError(new ErrorVariableAlreadyDeclared(declarationProcedure.getProcedure().getName()));
         }
 
     }
@@ -133,7 +137,7 @@ public class CompilerDeclaration {
 
 
             } else {
-                err.throwError("Variable " + variable.getName() + " is already declared");
+                err.throwError(new ErrorVariableAlreadyDeclared(variable.getName()));
 
             }
 
@@ -149,8 +153,7 @@ public class CompilerDeclaration {
         List<AbstractExpression> expressionList = declarationVariableParalel.getExpressionList();
 
         if (variableList.size() != expressionList.size()) {
-            err.throwError("Parallel declaration error - each variable needs to have one expression");
-            return;
+            err.throwError(new ErrorParallelDeclarationNumberMismatch());
         }
 
 
@@ -172,7 +175,7 @@ public class CompilerDeclaration {
                 declarationCounter++;
 
             } else {
-                err.throwError("Variable " + variable.getName() + " is already declared");
+                err.throwError(new ErrorVariableAlreadyDeclared(variable.getName()));
             }
 
 
@@ -202,14 +205,13 @@ public class CompilerDeclaration {
                     currentAddress++;
                     declarationCounter++;
                 } else {
-                    err.throwError("Constant " + constant.getName() + " is already declared");
+                    err.throwError(new ErrorVariableAlreadyDeclared(constant.getName()));
                 }
             }
 
 
         } else {
-            err.throwError("Incompatible types: " + declarationConstant.getType().getValue() + " and " + declarationConstant.getValue().getAtomType().getName());
-
+            err.throwError(new ErrorIncompatibleTypes(declarationConstant.getType().getValue(), declarationConstant.getValue().getAtomType().getName()));
         }
 
 
@@ -241,12 +243,12 @@ public class CompilerDeclaration {
             if (type == item.getVariableType()) {
                 return true;
             } else {
-                err.throwError("Incompatible types: " + type.getValue() + " and " + item.getVariableType().getValue());
+                err.throwError(new ErrorIncompatibleTypes(type.getValue(), item.getVariableType().getValue()));
             }
 
 
         } else {
-            err.throwError("Unknown identifier " + ident.getIdentifier());
+            err.throwError(new ErrorUnknownIdentifier(ident.getIdentifier()));
 
         }
         return false;

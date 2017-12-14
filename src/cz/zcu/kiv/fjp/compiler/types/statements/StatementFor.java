@@ -15,8 +15,8 @@ public class StatementFor extends AbstractStatement {
     private ForType type;
 
 
-    public StatementFor(String identifier, AbstractExpression from, AbstractExpression to, AbstractStatement statement, ForType type) {
-        super(StatementType.FOR);
+    public StatementFor(String identifier, AbstractExpression from, AbstractExpression to, AbstractStatement statement, ForType type, int line) {
+        super(StatementType.FOR, line);
         this.identifier = identifier;
         this.from = from;
         this.to = to;
