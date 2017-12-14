@@ -5,17 +5,15 @@ import cz.zcu.kiv.fjp.instruction.Instruction;
 import cz.zcu.kiv.fjp.instruction.InstructionHandler;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Interpreter {
 
-    String result = "vypsani resultu";
-    private int MEMORY_SIZE = 500;
-
     private Stack stack = new Stack(1, 0);
-    private int[] heap = new int[MEMORY_SIZE];
+    private List<Integer> heap = new ArrayList<Integer>();
 
     private int programCounter;                 // Citac instrukci
     private InstructionHandler instructionHandler;
@@ -23,22 +21,22 @@ public class Interpreter {
     private Instruction instruction;
     private Scanner sc = new Scanner(System.in);
 
-    public String interpret(File instructions) throws Exception {
+    public void interpret(File instructions) throws Exception {
 
         instructionHandler = InstructionHandler.getInstance();
 
         instructionsList = instructionHandler.parseFile(instructions);
 
-        Arrays.fill(heap, 0);
         final int STACK_SIZE = stack.getStackItems().length;
-        int value1, value2, returnIntValue;
+        int value1, value2, returnIntValue, address;
 
         float returnFloatValue, valueFloat1, valueFloat2;
 
         programCounter = 0;
+        System.out.println("START PL/0");
         do {
             if (programCounter < 0 || programCounter > STACK_SIZE) {
-                return "Program counter is out of range";
+                throw new IllegalArgumentException("Program counter is out of range");
             }
 
             instruction = instructionsList.get(programCounter);
@@ -53,6 +51,9 @@ public class Interpreter {
                     break;
                 case "LRT":
                     stack.floatPush(instruction.getFloatOperand());
+                    break;
+                case "LST":
+              //      stack.stringPush(instruction.getOperand());
                     break;
                 case "OPR":
                     switch (instruction.getOperand()) {
@@ -134,6 +135,14 @@ public class Interpreter {
                     value1 = stack.pop();
                     stack.setValue(instruction.getOperand() + stack.getBaseOfItem(instruction.getLevel()), value1);
                     break;
+                case "LOR":
+                    valueFloat1 = stack.getFloatValue(instruction.getOperand() + stack.getBaseOfItem(instruction.getLevel()));
+                    stack.floatPush(valueFloat1);
+                    break;
+                case "STR":
+                    valueFloat1 = stack.floatPop();
+                    stack.setFloatValue(instruction.getOperand() + stack.getBaseOfItem(instruction.getLevel()), valueFloat1);
+                    break;
                 case "CAL":
                     stack.setValue(stack.getTop() + 1, stack.getBaseOfItem(instruction.getLevel()));
                     stack.setValue(stack.getTop() + 2, stack.getBase());
@@ -159,11 +168,16 @@ public class Interpreter {
                     stack.reduceTop(1);
                     break;
                 case "REA":
-                    stack.increaseTop(1);
-                    stack.setValue(stack.getTop(), sc.nextInt());
+                    stack.push(sc.nextInt());
                     break;
                 case "WRI":
                     System.out.println("" + stack.pop());
+                    break;
+                case "RER":
+                    stack.floatPush(sc.nextFloat());
+                    break;
+                case "WRR":
+                    System.out.println("" + stack.floatPop());
                     break;
                 case "OPF":
                     switch (instruction.getOperand()) {
@@ -250,42 +264,35 @@ public class Interpreter {
                     returnFloatValue = value1;
                     stack.floatPush(returnFloatValue);
                     break;
-                case "NEW"://TODO vyzkouset
-                    int j = MEMORY_SIZE;
-                    while (heap.length < j) {
-                        j--;
-                    }
-                    if (j == 0) {
-                        return "Allocation on the " + j + " position in heap is not possible";
-                    } else {
-                        heap[j] = 1;
-                    }
-                    stack.increaseTop(1);
-                    stack.setTop(j);
-                    heap[j] = 1;
+                case "NEW":
+                    heap.add(0);
+                    stack.push(heap.size() -1);
                     break;
-                case "DEL"://TODO vyzkouset
-                    if (heap[stack.getTop()] == 0) {
-                        return "Deallocation on this position in heap is not possible";
-                    }
-                    heap[stack.getTop()] = 0;
-                    stack.reduceTop(1);
+                case "DEL":
+                    heap.remove(heap.size() -1);
+                    stack.push(heap.size());
                     break;
-                case "LDA": //Todo otestovat
-                    stack.setValue(stack.getTop(), stack.getValue(stack.top()));
+                case "LDA":
+                    address = stack.pop();
+                    returnIntValue = heap.get(address);
+                    stack.push(returnIntValue);
                     break;
-                case "STA"://Todo otestovat
-                    stack.setValue(stack.getValue(stack.top()), stack.getValue(stack.getTop() - 1));
+                case "STA":
+                    address = stack.pop();
+                    value1 = stack.pop();
+                    heap.set(address, value1);
                     break;
                 case "PLD":
                     value1 = stack.getValue(stack.top() + stack.getBaseOfItem(stack.getValue(stack.getTop() - 1)));
-                    stack.reduceTop(1);
+                    stack.pop();
                     stack.setValue(stack.getTop(), value1);
                     break;
                 case "PST":
-                    value1 = stack.getValue(stack.top() + stack.getBaseOfItem(stack.getValue(stack.getTop() - 1)));
-                    stack.reduceTop(3);
-                    stack.setValue(value1, stack.getValue(stack.getTop() + 1));
+                    value1 = stack.getValue(stack.getBaseOfItem(stack.getValue(stack.getTop()))) + stack.top() + 1;
+                    stack.pop();
+                    stack.pop();
+                    stack.setValue(value1, stack.getValue(stack.getTop()));
+                    stack.reduceTop(1);
                     break;
                 default:
                     System.out.println("End of instructions or unknown instruction.");
@@ -297,9 +304,7 @@ public class Interpreter {
 
         } while (programCounter != 0);
 
-        result = Integer.toString(stack.top());
-
-        return result;
+        System.out.println("END PL/0");
     }
 
 }
