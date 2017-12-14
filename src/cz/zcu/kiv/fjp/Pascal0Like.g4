@@ -61,37 +61,37 @@ expression_list
 
 statement_part
     :
-    BEGIN statement* ( SEMI statement )* END
+    BEGIN (statement)* END
     ;
 
 statement
-   : INT COLON ( compound_statement | while_do_statement | do_while_statement | repeat_statement | for_statement | if_statement | case_statement | assignment_statement | procedure_statement | goto_statement | ternary_statement | io_statement ) #labelled
+   : INT COLON ( compound_statement | while_do_statement | do_while_statement | repeat_statement | for_statement | if_statement | case_statement | assignment_statement | procedure_statement | goto_statement | ternary_statement | io_statement )  #labelled
    | ( compound_statement | while_do_statement | do_while_statement | repeat_statement | for_statement | if_statement | case_statement | assignment_statement | procedure_statement | goto_statement | ternary_statement | io_statement ) #nonlabelled
    ;
 
 io_statement
    :
-   op=( WRITE | READ ) IDENT
+   op=( WRITE | READ ) IDENT SEMI
    ;
 
 ternary_statement
     :
-	IDENT ASSIGN expression TERNARY_ONE expression TERNARY_TWO expression
+	IDENT ASSIGN expression TERNARY_ONE expression TERNARY_TWO expression SEMI
     ;
 
 assignment_statement
     :
-    IDENT ASSIGN expression
+    IDENT ASSIGN expression SEMI
     ;
 
 goto_statement
     :
-    GOTO INT
+    GOTO INT SEMI
     ;
 
 procedure_statement
     :
-    CALL IDENT
+    CALL IDENT SEMI
     ;
 
 compound_statement
@@ -101,7 +101,7 @@ compound_statement
 
 statement_list
     :
-   statement? ( SEMI statement )*
+   statement? (statement)*
     ;
 
 while_do_statement

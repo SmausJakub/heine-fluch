@@ -23,6 +23,11 @@ public class Compiler {
         return INSTANCE;
     }
 
+    /**
+     * @param inputFile
+     * @param outputFile
+     * @throws IOException
+     */
     public void compileFile(String inputFile, String outputFile) throws IOException {
 
         CharStream inputStream = CharStreams.fromFileName(inputFile);

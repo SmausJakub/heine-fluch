@@ -4,7 +4,7 @@ integer b := 2;
 
 begin
 
-a := 10
-b := 20
+a := 10;
+b := 20;
 
 end.

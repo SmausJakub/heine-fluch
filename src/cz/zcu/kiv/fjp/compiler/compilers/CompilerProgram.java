@@ -40,8 +40,8 @@ public class CompilerProgram {
 
         indexList();
 
-        System.out.println("Symbol Table : \n" + symbolTable.toString());
-        System.out.println("Instruction List : \n" + instructionList.toString());
+        System.out.println("Symbol Table : \n" + symbolTable.printSymbolTable());
+        System.out.println("Instruction List : \n" + printInstructionList());
 
     }
 

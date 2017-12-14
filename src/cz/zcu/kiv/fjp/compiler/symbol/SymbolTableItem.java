@@ -84,9 +84,30 @@ public class SymbolTableItem {
 
     @Override
     public String toString() {
-        if (variableType == null) {
-            return ("name: " + name + "\t type: " + type + "\t\t\t level: " + level + "\t\t address: " + address + "\t size: " + size + "\n");
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("name: ").append(name).append("\t");
+
+        if (name.length() < 2) {
+            builder.append("\t");
         }
-        return ("name: " + name + "\t type: " + type + " " + variableType.getValue() + "\t level: " + level + "\t\t address: " + address + "\t size: " + size + "\n");
+
+        builder.append(" type: ").append(type);
+
+        if (variableType == null) {
+            builder.append("\t\t\t");
+        } else {
+            builder.append(" ").append(variableType.getValue()).append("\t");
+        }
+
+        builder.append(" level: ").append(level).append("\t").append(" address: ").append(address).append("\t");
+
+        if (address <= 9) {
+            builder.append("\t");
+        }
+        builder.append(" size: ").append(size).append("\n");
+
+        return builder.toString();
     }
 }

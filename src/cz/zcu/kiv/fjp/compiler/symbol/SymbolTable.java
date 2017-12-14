@@ -1,6 +1,7 @@
 package cz.zcu.kiv.fjp.compiler.symbol;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class SymbolTable {
 
@@ -36,9 +37,14 @@ public class SymbolTable {
         return symbolTable.containsKey(name);
     }
 
-    @Override
-    public String toString() {
-        return symbolTable.toString();
+    public String printSymbolTable() {
+        StringBuilder builder = new StringBuilder();
+
+        for (Map.Entry<String, SymbolTableItem> entry : symbolTable.entrySet()) {
+            builder.append(entry.getValue().toString());
+        }
+
+        return builder.toString();
     }
 
 }

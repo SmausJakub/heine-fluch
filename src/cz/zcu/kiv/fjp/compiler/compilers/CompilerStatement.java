@@ -80,18 +80,8 @@ public class CompilerStatement {
 
         currentAddress++;
 
-        if (symbolTable.contains(statementFor.getIdentifier())) {
-            SymbolTableItem item = symbolTable.getItem(statementFor.getIdentifier());
-            if (item.getVariableType() == VariableType.INTEGER) {
-                level = item.getLevel();
-                address = item.getAddress();
-
-                currentAddress--;
-
-            } else {
-                err.throwError("Incompatible types. Can not assign " + VariableType.INTEGER + " to " + item.getVariableType());
-            }
-
+        if (checkIfExists(statementFor.getIdentifier())) {
+            err.throwError("Variable already assigned: " + statementFor.getIdentifier());
         }
 
         new CompilerExpression(statementFor.getFrom(), VariableType.INTEGER).compileExpression();
