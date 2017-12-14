@@ -18,12 +18,18 @@ public class Goto {
     private String identifier;
 
     /**
+     * level from which to jump
+     */
+    private int level;
+
+    /**
      * @param ins        jump instruction
      * @param identifier identifier of label
      */
-    public Goto(Instruction ins, String identifier) {
+    public Goto(Instruction ins, String identifier, int level) {
         this.identifier = identifier;
         this.ins = ins;
+        this.level = level;
     }
 
     public Instruction getIns() {
@@ -34,5 +40,7 @@ public class Goto {
         return identifier;
     }
 
-
+    public int getLevel() {
+        return level;
+    }
 }

@@ -66,9 +66,7 @@ public class StatementIf extends AbstractStatement {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        if (isLabelled()) {
-            builder.append(getLabel().getValue()).append(": ");
-        }
+        builder.append(super.toString());
         builder.append("IF ").append(condition.toString()).append(" THEN ").append(statement.toString());
         if (elseStatement != null) {
             builder.append(" ELSE THEN ").append(elseStatement.toString());

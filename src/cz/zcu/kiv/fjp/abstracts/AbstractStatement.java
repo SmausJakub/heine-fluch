@@ -51,4 +51,13 @@ public abstract class AbstractStatement extends AbstractLineNumbered {
     public boolean isLabelled() {
         return labelled;
     }
+
+    @Override
+    public String toString() {
+        if (isLabelled()) {
+            return getLabel().getValue() + ": ";
+        }
+        return "";
+    }
+
 }

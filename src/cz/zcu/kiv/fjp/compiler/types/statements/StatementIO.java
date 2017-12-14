@@ -42,9 +42,7 @@ public class StatementIO extends AbstractStatement {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        if (isLabelled()) {
-            builder.append(getLabel().getValue()).append(": ");
-        }
+        builder.append(super.toString());
         builder.append(type.getName()).append(" ").append(identifier).append(";");
 
         return builder.toString();

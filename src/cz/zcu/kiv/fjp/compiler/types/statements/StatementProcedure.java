@@ -31,9 +31,7 @@ public class StatementProcedure extends AbstractStatement {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        if (isLabelled()) {
-            builder.append(getLabel().getValue()).append(": ");
-        }
+        builder.append(super.toString());
         builder.append("CALL").append(" ").append(identifier).append(";");
         return builder.toString();
     }

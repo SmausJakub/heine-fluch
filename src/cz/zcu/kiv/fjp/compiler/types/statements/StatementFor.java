@@ -77,9 +77,7 @@ public class StatementFor extends AbstractStatement {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        if (isLabelled()) {
-            builder.append(getLabel().getValue()).append(": ");
-        }
+        builder.append(super.toString());
         builder.append("FOR ").append(identifier).append(" := ").append(from.toString()).append(" ").append(type.getName()).append(" ").append(to.toString()).append(" ").append(statement.toString());
 
 

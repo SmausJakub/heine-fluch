@@ -31,9 +31,7 @@ public class StatementGoto extends AbstractStatement {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        if (isLabelled()) {
-            builder.append(getLabel().getValue()).append(": ");
-        }
+        builder.append(super.toString());
         builder.append("GOTO ").append(value).append(";");
 
         return builder.toString();

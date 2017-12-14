@@ -42,9 +42,8 @@ public class StatementAssignment extends AbstractStatement {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        if (isLabelled()) {
-            builder.append(getLabel().getValue()).append(": ");
-        }
+        builder.append(super.toString());
+
         builder.append(identifier).append(" := ").append(expression.toString()).append(";");
 
         return builder.toString();

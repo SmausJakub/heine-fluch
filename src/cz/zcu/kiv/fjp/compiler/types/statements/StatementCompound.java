@@ -33,6 +33,7 @@ public class StatementCompound extends AbstractStatement {
     public String toString() {
 
         StringBuilder builder = new StringBuilder();
+        builder.append(super.toString());
 
         builder.append("BEGIN ");
 

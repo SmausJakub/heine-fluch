@@ -43,9 +43,7 @@ public class StatementWhileDo extends AbstractStatement {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        if (isLabelled()) {
-            builder.append(getLabel().getValue()).append(": ");
-        }
+        builder.append(super.toString());
         builder.append("WHILE ").append(condition.toString()).append(" DO ").append(statement.toString()).append(";");
 
         return builder.toString();

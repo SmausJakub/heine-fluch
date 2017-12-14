@@ -254,19 +254,24 @@ public class CompilerStatement {
 
         String label = String.valueOf(statementGoto.getValue());
 
-        if (symbolTable.contains(label)) {
+        if (checkIfExists(label)) {
 
-            SymbolTableItem item = symbolTable.getItem(label);
+            if (checkIfCanBeAccessed(label)) {
+
+                SymbolTableItem item = symbolTable.getItem(label);
 
             if (item.getSize() == 0) {
-                // we dont know address of the label
+
+                // we do not know address of the label
                 Instruction ins = new Instruction(InstructionCode.JMP.getName(), 0, 0);
-                gotoList.add(new Goto(ins, item.getName()));
+                gotoList.add(new Goto(ins, item.getName(), currentLevel));
                 instructionList.add(ins);
             } else {
                 instructionList.add(new Instruction(InstructionCode.JMP.getName(), 0, item.getAddress()));
             }
-
+            } else {
+                err.throwError(new ErrorLabelOutOfReach(label));
+            }
 
         } else {
             err.throwError(new ErrorUnknownLabel(label));

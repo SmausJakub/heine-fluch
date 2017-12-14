@@ -6,6 +6,7 @@ import cz.zcu.kiv.fjp.compiler.types.Block;
 import cz.zcu.kiv.fjp.compiler.types.Goto;
 import cz.zcu.kiv.fjp.compiler.types.Program;
 import cz.zcu.kiv.fjp.errors.ErrorLabelNeverUsed;
+import cz.zcu.kiv.fjp.errors.ErrorLabelOutOfReach;
 
 import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.*;
 
@@ -40,7 +41,13 @@ public class CompilerProgram {
             SymbolTableItem item = symbolTable.getItem(got.getIdentifier());
 
             if (item.getAddress() != 0) {
-                got.getIns().setOperand(item.getAddress());
+
+                if (item.getLevel() >= got.getLevel()) {
+                    got.getIns().setOperand(item.getAddress());
+                } else {
+                    err.throwError(new ErrorLabelOutOfReach(item.getName()));
+                }
+
             } else {
                 err.throwError(new ErrorLabelNeverUsed(item.getName()));
             }

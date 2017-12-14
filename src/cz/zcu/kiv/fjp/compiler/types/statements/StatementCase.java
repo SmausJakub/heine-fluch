@@ -45,9 +45,7 @@ public class StatementCase extends AbstractStatement {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        if (isLabelled()) {
-            builder.append(getLabel().getValue()).append(": ");
-        }
+        builder.append(super.toString());
         builder.append("CASE ").append(expression.toString()).append(" OF ");
         builder.append(limbList.toString());
 

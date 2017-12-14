@@ -43,9 +43,7 @@ public class StatementRepeat extends AbstractStatement {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        if (isLabelled()) {
-            builder.append(getLabel().getValue()).append(": ");
-        }
+        builder.append(super.toString());
         builder.append("REPEAT ").append(statement.toString()).append(" UNTIL ").append(condition.toString());
 
         return builder.toString();
