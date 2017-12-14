@@ -3,20 +3,55 @@ package cz.zcu.kiv.fjp.compiler.symbol;
 
 import cz.zcu.kiv.fjp.enums.VariableType;
 
+/**
+ * Symbol Table Item class
+ * Represents a single item in the symbol table
+ */
 public class SymbolTableItem {
 
+    /**
+     * name of the item, also its key in the symbol table
+     */
     private String name;
 
+    /**
+     * level of the item (where was it declared)
+     */
     private int level;
 
+    /**
+     * Type of the item in string format
+     */
     private String type;
 
+    /**
+     * address of the item, has different meaning depending on type
+     * variable - address of its position in stack
+     * label - starts at 0, when is assigned, address is index of instruction where to jump
+     * procedure - index of instruction where procedure starts
+     */
     private int address;
 
+    /**
+     * size of the item, has different meaning depending on type
+     * variable and label - whether it has been assigned (1) or not (0)
+     * procedure - number of instructions of the procedure
+     */
     private int size;
 
+    /**
+     * Variables need variable type to display
+     */
     private VariableType variableType;
 
+    /**
+     *
+     * @param name name of the item
+     * @param type type of the item
+     * @param level level of the item
+     * @param address address of the item
+     * @param size size of the item
+     */
     public SymbolTableItem(String name, String type, int level, int address, int size) {
         this.name = name;
         this.type = type;
@@ -25,6 +60,15 @@ public class SymbolTableItem {
         this.size = size;
     }
 
+    /**
+     *
+     * @param name name of the item
+     * @param type type of the item
+     * @param variableType variable type of the item
+     * @param level level of the item
+     * @param address address of the item
+     * @param size size of the item
+     */
     public SymbolTableItem(String name, String type, VariableType variableType, int level, int address, int size) {
         this.name = name;
         this.type = type;

@@ -96,7 +96,7 @@ public class CompilerDeclaration {
 
             int startIndex = instructionList.size();
 
-            new CompilerBlock(declarationProcedure.getProcedureBlock(), false).compileBlock();
+            new CompilerBlock(declarationProcedure.getProcedureBlock()).compileBlock();
 
             int endIndex = instructionList.size();
 

@@ -1,5 +1,9 @@
 package cz.zcu.kiv.fjp.compiler.symbol;
 
+/**
+ * A class used to represent a symbol in symbol map during the lexical analysis
+ * ANTLR is in charge of that now and thus this class is not needed nor should be used
+ */
 public class Symbol {
 
     private String symbol;

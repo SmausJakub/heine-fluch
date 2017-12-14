@@ -12,6 +12,10 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
 
+/**
+ * Compiler class
+ * The main compiler which calls other compilers to compile input file
+ */
 public class Compiler {
 
     private static Compiler INSTANCE = new Compiler();
@@ -24,8 +28,9 @@ public class Compiler {
     }
 
     /**
-     * @param inputFile
-     * @param outputFile
+     * compiles given file and writes output to the output file
+     * @param inputFile name of input file
+     * @param outputFile name of output file
      * @throws IOException
      */
     public void compileFile(String inputFile, String outputFile) throws IOException {

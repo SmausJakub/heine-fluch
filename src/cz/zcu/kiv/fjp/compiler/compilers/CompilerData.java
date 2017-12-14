@@ -14,28 +14,44 @@ import java.util.List;
  */
 public final class CompilerData {
 
-    // minimal INT declaration of stack
+    /**
+     * minimal INT declaration of stack
+     */
     public static final int MIN_DECLARATION = 3;
 
-    // symbol table
+    /**
+     * symbol table
+     */
     public static SymbolTable symbolTable = SymbolTable.getInstance();
 
-    // current address where values are stored in stack
+    /**
+     * current address where values are stored in stack
+     */
     public static int currentAddress = 3;
 
-    // current level where the program is
+    /**
+     * current level in which the program currently is
+     */
     public static int currentLevel = 0;
 
-    // number of declarations per procedure / main
+    /**
+     * number of declarations which use address
+     */
     public static int declarationCounter = 0;
 
-    // list of instructions
+    /**
+     * instruction list
+     */
     public static List<Instruction> instructionList = new ArrayList<>();
 
-    // error handler
+    /**
+     * error handle
+     */
     public static ErrorHandler err = new ErrorHandler();
 
-    // goto list - for later declared labels
+    /**
+     * goto list - for gotos that do not know the address when compiled
+     */
     public static List<Goto> gotoList = new ArrayList<>();
 
 
@@ -47,6 +63,7 @@ public final class CompilerData {
      * Checks if a given identifier has a corresponding item in symbol table
      * @param identifier identifier
      * @return true or false
+     * @see #checkIfCanBeAccessed(String)
      */
     public static boolean checkIfExists(String identifier) {
 
@@ -55,9 +72,10 @@ public final class CompilerData {
 
     /**
      * Checks if an item given by the identifier name can be accessed, meaning if his level is less than or equal to current level
-     * it is presumed that the item exists in symbol table (@see checkIfExists(String identifier))
+     * it is presumed that the item exists in symbol table
      * @param identifier identifier
      * @return true or false
+     * @see #checkIfExists(String)
      */
     public static boolean checkIfCanBeAccessed(String identifier) {
         return symbolTable.getItem(identifier).getLevel() <= currentLevel;

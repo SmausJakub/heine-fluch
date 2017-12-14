@@ -3,6 +3,10 @@ package cz.zcu.kiv.fjp.compiler.symbol;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Map of symbols meant for lexical analysis
+ * ANTLR is now in charge of that, thus this class is not needed nor should be used
+ */
 public class SymbolMap {
 
 

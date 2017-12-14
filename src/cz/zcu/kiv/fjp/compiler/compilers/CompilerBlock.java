@@ -17,19 +17,12 @@ public class CompilerBlock {
 
     private Block block;
 
-    private boolean main;
-
-    public CompilerBlock(Block block, boolean main) {
+    public CompilerBlock(Block block) {
         this.block = block;
-        this.main = main;
     }
 
     public Block getBlock() {
         return block;
-    }
-
-    public boolean isMain() {
-        return main;
     }
 
     public void compileBlock() {

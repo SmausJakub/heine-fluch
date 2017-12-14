@@ -24,8 +24,17 @@ public class CompilerProgram {
     public void compileProgram() {
 
         Block mainBlock = program.getBlock();
-        new CompilerBlock(mainBlock, true).compileBlock();
+        new CompilerBlock(mainBlock).compileBlock();
 
+        checkGotoList();
+        indexList();
+
+        System.out.println("Symbol Table : \n" + symbolTable.printSymbolTable());
+        System.out.println("Instruction List : \n" + printInstructionList());
+
+    }
+
+    private void checkGotoList() {
         // go through goto list and check for unresolved statements
         for (Goto got : gotoList) {
             SymbolTableItem item = symbolTable.getItem(got.getIdentifier());
@@ -37,13 +46,6 @@ public class CompilerProgram {
             }
 
         }
-
-
-        indexList();
-
-        System.out.println("Symbol Table : \n" + symbolTable.printSymbolTable());
-        System.out.println("Instruction List : \n" + printInstructionList());
-
     }
 
 }
