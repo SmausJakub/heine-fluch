@@ -10,8 +10,8 @@ public enum InstructionCode {
     OPR("OPR", 1),      // OPR ? funkce  -> modifikace zasobniku
     LOD("LOD", 2),      // LOD L A       -> na vrchol zasobniku data z (L, A)
     STO("STO", 3),      // STO L A		 -> data z vrcholu zasobniku na (L, A)
-    LOR("LOD", 2),      // LOR L A       -> na vrchol zasobniku data z (L, A) real
-    STR("STO", 3),      // STR L A		 -> data z vrcholu zasobniku na (L, A) real
+    LOR("LOR", 2),      // LOR L A       -> na vrchol zasobniku data z (L, A) real
+    STR("STR", 3),      // STR L A		 -> data z vrcholu zasobniku na (L, A) real
     CAL("CAL", 4),      // CAL L A       -> skok na A s hladinou zanoreni L
     RET("RET", 5),      // RET ? ?		 -> navrat z podprogramu
     INT("INT", 6),      // INT ? konst   -> zvedne vrchol zasobniku o konst
@@ -19,8 +19,8 @@ public enum InstructionCode {
     JMC("JMC", 8),      // JMC ? A       -> skok podle hodnoty na vrcholu zasobniku
     REA("REA", 9),      // REA ? ?       -> na vrchol zasobniku nactene cislo
     WRI("WRI", 10),     // WRI ? ?       -> vypis ascii znaku podle vrcholu zasobniku
-    RER("REA", 9),      // RER ? ?       -> na vrchol zasobniku nactene cislo real
-    WRR("WRI", 10),     // WRR ? ?       -> vypis ascii znaku podle vrcholu zasobniku real
+    RER("RER", 9),      // RER ? ?       -> na vrchol zasobniku nactene cislo real
+    WRR("WRR", 10),     // WRR ? ?       -> vypis ascii znaku podle vrcholu zasobniku real
     OPF("OPF", 11),     // OPF ? funkce  -> modifikace zasobniku s plovoucimi hodnotami
     RTI("RTI", 12),     // RTI ? ?       -> ze 2 hodnot (double) na zasobniku se udela 1 (int)
     ITR("ITR", 13),     // ITR ? ?       -> z 1 hodnoty (int) na zasobniku se udelaji 2 (double)
