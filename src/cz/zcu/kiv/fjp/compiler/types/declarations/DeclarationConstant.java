@@ -8,13 +8,32 @@ import cz.zcu.kiv.fjp.enums.VariableType;
 
 import java.util.List;
 
+/**
+ * Declaration of constant
+ */
 public class DeclarationConstant extends AbstractDeclaration {
 
+    /**
+     * list of constant variables
+     */
     private List<Constant> constantList;
+
+    /**
+     * assigned value
+     */
     private AbstractAtom value;
 
+    /**
+     * variable type
+     */
     private VariableType type;
 
+    /**
+     * @param constantList list of constant variables
+     * @param type         variable type
+     * @param atom         assigned value
+     * @param line         line number
+     */
     public DeclarationConstant(List<Constant> constantList, VariableType type, AbstractAtom atom, int line) {
         super(DeclarationType.CONSTANT, line);
         this.constantList = constantList;

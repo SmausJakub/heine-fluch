@@ -4,14 +4,39 @@ import cz.zcu.kiv.fjp.abstracts.AbstractExpression;
 import cz.zcu.kiv.fjp.abstracts.AbstractStatement;
 import cz.zcu.kiv.fjp.enums.StatementType;
 
+/**
+ * Ternary statement
+ * Created by visitors and compiled by compilers
+ */
 public class StatementTernary extends AbstractStatement {
 
-
+    /**
+     * first expression
+     */
     private AbstractExpression expressionOne;
+
+    /**
+     * second expression
+     */
     private AbstractExpression expressionTwo;
+
+    /**
+     * condition
+     */
     private AbstractExpression expression;
+
+    /**
+     * identifier
+     */
     private String identifier;
 
+    /**
+     * @param identifier    identifier
+     * @param expression    condition
+     * @param expressionOne first expression
+     * @param expressionTwo second expression
+     * @param line          line number
+     */
     public StatementTernary(String identifier, AbstractExpression expression, AbstractExpression expressionOne, AbstractExpression expressionTwo, int line) {
         super(StatementType.TERNARY, line);
         this.identifier = identifier;

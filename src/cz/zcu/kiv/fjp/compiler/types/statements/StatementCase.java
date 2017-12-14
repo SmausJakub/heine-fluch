@@ -7,16 +7,33 @@ import cz.zcu.kiv.fjp.enums.StatementType;
 
 import java.util.List;
 
+/**
+ * Case statement
+ * Created by visitors and compiled by compilers
+ */
 public class StatementCase extends AbstractStatement {
 
+    /**
+     * expression
+     */
     private AbstractExpression expression;
+
+    /**
+     * list of case limbs
+     */
     private List<CaseLimb> limbList;
 
+    /**
+     * @param expression expression
+     * @param limbList   limb list
+     * @param line       line number
+     */
     public StatementCase(AbstractExpression expression, List<CaseLimb> limbList, int line) {
         super(StatementType.CASE, line);
         this.expression = expression;
         this.limbList = limbList;
     }
+
     public AbstractExpression getExpression() {
         return expression;
     }

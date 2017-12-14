@@ -5,13 +5,31 @@ import cz.zcu.kiv.fjp.abstracts.AbstractExpression;
 import cz.zcu.kiv.fjp.enums.ExpressionType;
 import cz.zcu.kiv.fjp.enums.OperatorMultiplication;
 
+/**
+ * Multiplication expression
+ */
 public class ExpressionMultiplication extends AbstractExpression {
 
+    /**
+     * operator
+     */
     private OperatorMultiplication operator;
 
+    /**
+     * left expression
+     */
     private AbstractExpression leftExpression;
+
+    /**
+     * rightExpression
+     */
     private AbstractExpression rightExpression;
 
+    /**
+     * @param leftExpression  left expression
+     * @param rightExpression right expression
+     * @param operator        operator
+     */
     public ExpressionMultiplication(AbstractExpression leftExpression, AbstractExpression rightExpression, OperatorMultiplication operator) {
         super(ExpressionType.MULT);
         this.leftExpression = leftExpression;

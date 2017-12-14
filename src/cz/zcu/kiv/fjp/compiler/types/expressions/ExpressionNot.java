@@ -3,10 +3,19 @@ package cz.zcu.kiv.fjp.compiler.types.expressions;
 import cz.zcu.kiv.fjp.abstracts.AbstractExpression;
 import cz.zcu.kiv.fjp.enums.ExpressionType;
 
+/**
+ * Negation expression
+ */
 public class ExpressionNot extends AbstractExpression {
 
+    /**
+     * expression
+     */
     private AbstractExpression expression;
 
+    /**
+     * @param expression expression
+     */
     public ExpressionNot(AbstractExpression expression) {
         super(ExpressionType.NOT);
         this.expression = expression;

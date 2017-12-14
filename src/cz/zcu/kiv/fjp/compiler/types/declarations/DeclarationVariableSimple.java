@@ -8,15 +8,38 @@ import cz.zcu.kiv.fjp.enums.VariableType;
 
 import java.util.List;
 
+/**
+ * Declaration of simple variables
+ */
 public class DeclarationVariableSimple extends AbstractDeclaration {
 
+    /**
+     * variable list
+     */
     private List<Variable> variableList;
+
+    /**
+     * expression
+     */
     private AbstractExpression expression;
 
+    /**
+     * initialization
+     */
     private boolean init;
 
+    /**
+     * variable type
+     */
     private VariableType type;
 
+    /**
+     * constructor for uninitialized variables
+     *
+     * @param variableList list of variables
+     * @param type         variable type
+     * @param line         line number
+     */
     public DeclarationVariableSimple(List<Variable> variableList, VariableType type, int line) {
         super(DeclarationType.VARIABLE, line);
         this.variableList = variableList;
@@ -24,7 +47,13 @@ public class DeclarationVariableSimple extends AbstractDeclaration {
         this.init = false;
     }
 
-
+    /**
+     * constructor for initialized variables
+     * @param variableList list of variables
+     * @param expression expression
+     * @param type variable type
+     * @param line line number
+     */
     public DeclarationVariableSimple(List<Variable> variableList, AbstractExpression expression, VariableType type, int line) {
         super(DeclarationType.VARIABLE, line);
         this.expression = expression;

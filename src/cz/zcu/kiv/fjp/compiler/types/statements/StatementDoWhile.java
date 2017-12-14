@@ -4,12 +4,27 @@ import cz.zcu.kiv.fjp.abstracts.AbstractExpression;
 import cz.zcu.kiv.fjp.abstracts.AbstractStatement;
 import cz.zcu.kiv.fjp.enums.StatementType;
 
+/**
+ * Do While statement
+ * Created by visitors and compiled by compilers
+ */
 public class StatementDoWhile extends AbstractStatement {
 
-
+    /**
+     * condition
+     */
     private AbstractExpression condition;
+
+    /**
+     * statement
+     */
     private AbstractStatement statement;
 
+    /**
+     * @param condition condition
+     * @param statement statement
+     * @param line      line number
+     */
     public StatementDoWhile(AbstractExpression condition, AbstractStatement statement, int line) {
         super(StatementType.DO_WHILE, line);
         this.statement = statement;

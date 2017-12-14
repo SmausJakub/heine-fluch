@@ -4,13 +4,31 @@ import cz.zcu.kiv.fjp.abstracts.AbstractExpression;
 import cz.zcu.kiv.fjp.enums.ExpressionType;
 import cz.zcu.kiv.fjp.enums.OperatorAddition;
 
+/**
+ * Additive expression
+ */
 public class ExpressionAdditive extends AbstractExpression {
 
+    /**
+     * operator
+     */
     private OperatorAddition operator;
 
+    /**
+     * left expression
+     */
     private AbstractExpression leftExpression;
+
+    /**
+     * right expression
+     */
     private AbstractExpression rightExpression;
 
+    /**
+     * @param leftExpression  left expression
+     * @param rightExpression right expression
+     * @param operator        operator
+     */
     public ExpressionAdditive(AbstractExpression leftExpression, AbstractExpression rightExpression, OperatorAddition operator) {
         super(ExpressionType.ADD);
         this.leftExpression = leftExpression;

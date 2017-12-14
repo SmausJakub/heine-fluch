@@ -5,16 +5,45 @@ import cz.zcu.kiv.fjp.abstracts.AbstractStatement;
 import cz.zcu.kiv.fjp.enums.ForType;
 import cz.zcu.kiv.fjp.enums.StatementType;
 
+/**
+ * For statement
+ * Created by visitors and compiled by compilers
+ */
 public class StatementFor extends AbstractStatement {
 
+    /**
+     * identifier
+     */
     private String identifier;
+
+    /**
+     * expression from
+     */
     private AbstractExpression from;
+
+    /**
+     * expression to
+     */
     private AbstractExpression to;
+
+    /**
+     * statement
+     */
     private AbstractStatement statement;
 
+    /**
+     * for type
+     */
     private ForType type;
 
-
+    /**
+     * @param identifier identifier
+     * @param from       expression from
+     * @param to         expression to
+     * @param statement  statement
+     * @param type       for type
+     * @param line       line number
+     */
     public StatementFor(String identifier, AbstractExpression from, AbstractExpression to, AbstractStatement statement, ForType type, int line) {
         super(StatementType.FOR, line);
         this.identifier = identifier;

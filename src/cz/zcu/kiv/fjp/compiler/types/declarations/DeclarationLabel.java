@@ -6,10 +6,20 @@ import cz.zcu.kiv.fjp.enums.DeclarationType;
 
 import java.util.List;
 
+/**
+ * Declaration of label
+ */
 public class DeclarationLabel extends AbstractDeclaration {
 
+    /**
+     * list of labels
+     */
     private List<Label> labelList;
 
+    /**
+     * @param labelList list of labels
+     * @param line      line number
+     */
     public DeclarationLabel(List<Label> labelList, int line) {
         super(DeclarationType.LABEL, line);
         this.labelList = labelList;

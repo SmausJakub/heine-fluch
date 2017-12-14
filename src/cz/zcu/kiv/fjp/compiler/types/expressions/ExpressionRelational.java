@@ -4,13 +4,31 @@ import cz.zcu.kiv.fjp.abstracts.AbstractExpression;
 import cz.zcu.kiv.fjp.enums.ExpressionType;
 import cz.zcu.kiv.fjp.enums.OperatorRelation;
 
+/**
+ * Relational expression
+ */
 public class ExpressionRelational extends AbstractExpression {
 
+    /**
+     * operator
+     */
     private OperatorRelation operator;
 
+    /**
+     * left expression
+     */
     private AbstractExpression leftExpression;
+
+    /**
+     * right expression
+     */
     private AbstractExpression rightExpression;
 
+    /**
+     * @param leftExpression  left expression
+     * @param rightExpression right expression
+     * @param operator        operator
+     */
     public ExpressionRelational(AbstractExpression leftExpression, AbstractExpression rightExpression, OperatorRelation operator) {
         super(ExpressionType.REL);
         this.leftExpression = leftExpression;

@@ -4,10 +4,19 @@ import cz.zcu.kiv.fjp.abstracts.AbstractAtom;
 import cz.zcu.kiv.fjp.abstracts.AbstractExpression;
 import cz.zcu.kiv.fjp.enums.ExpressionType;
 
+/**
+ * Atomic expression
+ */
 public class ExpressionAtom extends AbstractExpression {
 
+    /**
+     * atom
+     */
     private AbstractAtom atom;
 
+    /**
+     * @param atom atom
+     */
     public ExpressionAtom(AbstractAtom atom) {
         super(ExpressionType.ATOM);
         this.atom = atom;

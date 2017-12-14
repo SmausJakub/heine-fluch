@@ -8,14 +8,32 @@ import cz.zcu.kiv.fjp.enums.VariableType;
 
 import java.util.List;
 
+/**
+ * Declaration of parallel variables
+ */
 public class DeclarationVariableParallel extends AbstractDeclaration {
 
+    /**
+     * list of variables
+     */
     private List<Variable> variableList;
+
+    /**
+     * list of expressions
+     */
     private List<AbstractExpression> expressionList;
 
+    /**
+     * variable type
+     */
     private VariableType type;
 
-
+    /**
+     * @param variableList   list of variables
+     * @param expressionList list of expressions
+     * @param type           variable type
+     * @param line           line number
+     */
     public DeclarationVariableParallel(List<Variable> variableList, List<AbstractExpression> expressionList, VariableType type, int line) {
         super(DeclarationType.VARIABLE_PARALLEL, line);
         this.variableList = variableList;
