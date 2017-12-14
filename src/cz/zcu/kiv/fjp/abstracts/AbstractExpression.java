@@ -2,7 +2,7 @@ package cz.zcu.kiv.fjp.abstracts;
 
 import cz.zcu.kiv.fjp.enums.ExpressionType;
 
-public class AbstractExpression {
+public abstract class AbstractExpression {
 
     private ExpressionType expressionType;
 

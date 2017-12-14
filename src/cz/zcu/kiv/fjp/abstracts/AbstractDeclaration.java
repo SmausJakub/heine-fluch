@@ -2,7 +2,7 @@ package cz.zcu.kiv.fjp.abstracts;
 
 import cz.zcu.kiv.fjp.enums.DeclarationType;
 
-public class AbstractDeclaration implements Comparable<AbstractDeclaration> {
+public abstract class AbstractDeclaration implements Comparable<AbstractDeclaration> {
 
     private DeclarationType declarationType;
 

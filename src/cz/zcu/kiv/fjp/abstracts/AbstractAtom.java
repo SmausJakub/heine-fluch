@@ -2,7 +2,7 @@ package cz.zcu.kiv.fjp.abstracts;
 
 import cz.zcu.kiv.fjp.enums.AtomType;
 
-public class AbstractAtom {
+public abstract class AbstractAtom {
 
     private AtomType atomType;
 
