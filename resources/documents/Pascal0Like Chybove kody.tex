@@ -1,0 +1,54 @@
+\documentclass[
+12pt,
+a4paper,
+pdftex,
+czech
+]{report}
+
+\usepackage{float}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage[unicode]{hyperref}
+
+
+\begin{document}
+
+\begin{table}[]
+\centering
+\caption{Instrukce}
+\label{instrukce}
+\begin{longtable}{|c|l|p{10cm}|}
+\hline
+		Kód & Instrukce & Popis \\
+\hline\hline
+\rule{0pt}{3ex}1 & \texttt{LIT 0, M} & Vloží konstantní celou hodnotu (\texttt{literál}) \texttt{M} do zásobníku \\ \hline
+\rule{0pt}{3ex}2 & \texttt{LRT 0, M} & Vloží konstantní reálnou hodnotu (\texttt{literál}) \texttt{M} do zásobníku \\ \hline
+\rule{0pt}{3ex}3 & \texttt{OPR 0, M} & \textbf{Operace}, která se provede nad vrcholem zásobníku pro celé čísla \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 0} & \textbf{Return}; vrácení se z procedury k volajícímu \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 1} & \textbf{Negace}; vybere vrchol a vrátí negativní hodnotu \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 2} & \textbf{Sčítání}; vybere dvě hodnoty, sečte a vrátí \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 3} & \textbf{Odečítání}; vybere dvě hodnoty, odečte druhou první a vrátí výsledek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 4} & \textbf{Násobení}; vybere dvě hodnoty, vynásobí a vrátí výsledek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 5} & \textbf{Dělení}; vybere dvě hodnoty, vydělí druhou první \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 6} & \textbf{Lichost}; vybere vrchol a vloží 1 když liché, 0 když sudé \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 7} & \textbf{Modulo}; vybere dvě hodnoty, vydělí druhý prvním a vloží zbytek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 8} & \textbf{Rovnost}; vybere dvě hodnoty, a vloží 1 pokud se rovnají, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 9} & \textbf{Nerovnost}; vybere dvě hodnoty a vloží 0 pokud se rovnají, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 10} & \textbf{Menší než}; vybere dvě hodnoty a vloží 1 pokud je první menší než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 11} & \textbf{Větší nebo rovno než}; vybere dvě hodnoty a vloží 1 pokud je první větší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 12} & \textbf{Větší}; vybere dvě hodnoty a vloží 1 pokud je první větší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 13} & \textbf{Menší nebo rovno než}; vybere dvě hodnoty a vloží 1 pokud je první menší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex}4 & \texttt{LRT 0, M} & Vloží konstantní reálnou hodnotu (\texttt{literál}) \texttt{M} do zásobníku \\ \hline
+\rule{0pt}{3ex}5 & \texttt{OPR 0, 0} & \textbf{Operace}, která se provede nad vrcholem zásobníku pro celé čísla \\ \hline
+\end{longtable}
+\end{table}
+\end{document}
