@@ -18,8 +18,11 @@ public class CompilerStatement {
 
     private AbstractStatement statement;
 
-    public CompilerStatement(AbstractStatement statement) {
+    private boolean inForCycle;
+
+    public CompilerStatement(AbstractStatement statement, boolean inForCycle) {
         this.statement = statement;
+        this.inForCycle = inForCycle;
     }
 
     public AbstractStatement getStatement() {
@@ -76,6 +79,8 @@ public class CompilerStatement {
     private void compileForStatement() {
         StatementFor statementFor = (StatementFor) statement;
 
+        inForCycle = true;
+
         int level = currentLevel;
         int address = currentAddress;
 
@@ -109,7 +114,7 @@ public class CompilerStatement {
         Instruction forJump = new Instruction(InstructionCode.JMC.getName(), 0, 0);
         instructionList.add(forJump);
 
-        new CompilerStatement(statementFor.getStatement()).compileStatement();
+        new CompilerStatement(statementFor.getStatement(), inForCycle).compileStatement();
 
         instructionList.add(new Instruction(InstructionCode.LOD.getName(), level, address));
         instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, 1));
@@ -123,6 +128,8 @@ public class CompilerStatement {
         instructionList.add(new Instruction(InstructionCode.JMP.getName(), 0, startIndex));
 
         forJump.setOperand(instructionList.size());
+
+        inForCycle = false;
 
     }
 
@@ -139,12 +146,12 @@ public class CompilerStatement {
         Instruction ifJump = new Instruction(InstructionCode.JMC.getName(), 0, 0);
         instructionList.add(ifJump);
 
-        new CompilerStatement(statementIf.getStatement()).compileStatement();
+        new CompilerStatement(statementIf.getStatement(), inForCycle).compileStatement();
         ifJump.setOperand(instructionList.size());
 
         if (statementIf.getElseStatement() != null) {
 
-            new CompilerStatement(statementIf.getElseStatement()).compileStatement();
+            new CompilerStatement(statementIf.getElseStatement(), inForCycle).compileStatement();
 
         }
 
@@ -155,7 +162,7 @@ public class CompilerStatement {
 
         int startIndex = instructionList.size();
 
-        new CompilerStatement(statementRepeat.getStatement()).compileStatement();
+        new CompilerStatement(statementRepeat.getStatement(), inForCycle).compileStatement();
 
         new CompilerExpression(statementRepeat.getCondition(), VariableType.BOOLEAN).compileExpression();
         instructionList.add(new Instruction(InstructionCode.JMC.getName(), 0, startIndex));
@@ -167,7 +174,7 @@ public class CompilerStatement {
 
         int startIndex = instructionList.size();
 
-        new CompilerStatement(statementDoWhile.getStatement()).compileStatement();
+        new CompilerStatement(statementDoWhile.getStatement(), inForCycle).compileStatement();
 
         new CompilerExpression(statementDoWhile.getCondition(), VariableType.BOOLEAN).compileExpression();
         Instruction whileJump = new Instruction(InstructionCode.JMC.getName(), 0, 0);
@@ -189,7 +196,7 @@ public class CompilerStatement {
         Instruction whileJump = new Instruction(InstructionCode.JMC.getName(), 0, 0);
         instructionList.add(whileJump);
 
-        new CompilerStatement(statementWhileDo.getStatement()).compileStatement();
+        new CompilerStatement(statementWhileDo.getStatement(), inForCycle).compileStatement();
 
         instructionList.add(new Instruction(InstructionCode.JMP.getName(), 0, startIndex));
         whileJump.setOperand(instructionList.size());
@@ -201,7 +208,7 @@ public class CompilerStatement {
 
         for (AbstractStatement abstractStatement : statementCompound.getStatementList()) {
 
-            new CompilerStatement(abstractStatement).compileStatement();
+            new CompilerStatement(abstractStatement, inForCycle).compileStatement();
 
         }
     }
@@ -334,7 +341,12 @@ public class CompilerStatement {
 
             String label = String.valueOf(statement.getLabel().getValue());
 
-            if (symbolTable.contains(label)) {
+            if (checkIfExists(label)) {
+
+                if (inForCycle) {
+                    err.throwError(new ErrorLabelNotAllowedInForCycle(label));
+                }
+
                 SymbolTableItem item = symbolTable.getItem(label);
                 if (item.getSize() == 0) {
 

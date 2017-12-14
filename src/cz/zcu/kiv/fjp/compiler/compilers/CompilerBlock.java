@@ -63,7 +63,7 @@ public class CompilerBlock {
         intJump.setOperand(declarationJmp);
 
         for (AbstractStatement statement : statementList) {
-            new CompilerStatement(statement).compileStatement();
+            new CompilerStatement(statement, false).compileStatement();
         }
 
         instructionList.add(new Instruction(InstructionCode.RET.getName(), 0, 0));
