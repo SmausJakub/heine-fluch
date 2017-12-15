@@ -18,9 +18,9 @@ public enum InstructionCode {
     JMP("JMP", 7),      // JMP ? A       -> skok na A
     JMC("JMC", 8),      // JMC ? A       -> skok podle hodnoty na vrcholu zasobniku
     REA("REA", 9),      // REA ? ?       -> na vrchol zasobniku nactene cislo
-    WRI("WRI", 10),     // WRI ? ?       -> vypis ascii znaku podle vrcholu zasobniku
+    WRI("WRI", 10),     // WRI ? ?       -> vypis celeho cisla podle vrcholu zasobniku
     RER("RER", 9),      // RER ? ?       -> na vrchol zasobniku nactene cislo real
-    WRR("WRR", 10),     // WRR ? ?       -> vypis ascii znaku podle vrcholu zasobniku real
+    WRR("WRR", 10),     // WRR ? ?       -> vypis realneho cisla podle vrcholu zasobniku real
     OPF("OPF", 11),     // OPF ? funkce  -> modifikace zasobniku s plovoucimi hodnotami
     RTI("RTI", 12),     // RTI ? ?       -> ze 2 hodnot (double) na zasobniku se udela 1 (int)
     ITR("ITR", 13),     // ITR ? ?       -> z 1 hodnoty (int) na zasobniku se udelaji 2 (double)

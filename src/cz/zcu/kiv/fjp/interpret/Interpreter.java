@@ -10,6 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Interpreter
+ * Interprets instructions made from Pascal0Like language
+ */
 public class Interpreter {
 
     private Stack stack = new Stack(1, 0);
@@ -21,6 +25,11 @@ public class Interpreter {
     private Instruction instruction;
     private Scanner sc = new Scanner(System.in);
 
+    /**
+     * Interprets instruction in a file
+     * @param instructions
+     * @throws Exception
+     */
     public void interpret(File instructions) throws Exception {
 
         instructionHandler = InstructionHandler.getInstance();
@@ -210,12 +219,10 @@ public class Interpreter {
                             returnFloatValue = valueFloat1 / valueFloat2;
                             stack.floatPush(returnFloatValue);
                             break;
-                        case 6:  // MOD TODO udelat vypis, ze to nejde
-
-                            break;
-                        case 7:  // ODD TODO udelat vypis, ze to nejde
-
-                            break;
+                        case 6:  // MOD
+                            throw new IllegalArgumentException("Unknown instruction occured");
+                        case 7:  // ODD
+                            throw new IllegalArgumentException("Unknown instruction occured");
                         case 8:  // EQ
                             valueFloat2 = stack.floatPop();
                             valueFloat1 = stack.floatPop();
