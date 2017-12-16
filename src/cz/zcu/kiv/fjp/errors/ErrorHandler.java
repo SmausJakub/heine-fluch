@@ -7,10 +7,9 @@ public class ErrorHandler {
 
     private AbstractLineNumbered currentPart;
 
-
     public void throwError(AbstractError error) {
-        System.err.println(error.getError() + "\nAt line " + currentPart.getLineNumber() + " " + currentPart.toString());
-        System.exit(1);
+        System.err.println(error.toString() + "\nAt line " + currentPart.getLineNumber() + " " + currentPart.toString());
+        System.exit(error.getErrorType().getCode());
     }
 
     public AbstractLineNumbered getCurrentPart() {

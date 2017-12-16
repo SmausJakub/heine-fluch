@@ -1,28 +1,39 @@
 package cz.zcu.kiv.fjp.abstracts;
 
+import cz.zcu.kiv.fjp.enums.ErrorType;
+
 /**
  * Abstract class of error
  * All errors extend this class
  */
 public abstract class AbstractError {
 
-    /**
-     * Description of the error - type of error
-     */
-    protected String description;
+    private String message;
 
-    /**
-     * message what went wrong
-     */
-    protected String message;
+    private ErrorType errorType;
 
-    /**
-     * print error
-     *
-     * @return printed error
-     */
-    public String getError() {
-        return description + "\n" + message;
+    public AbstractError(ErrorType errorType, String message) {
+        this.errorType = errorType;
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public ErrorType getErrorType() {
+        return errorType;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("ERROR ").append(errorType.getCode()).append(": ").append(errorType.getDescription())
+                .append("\n").append(message);
+
+        return builder.toString();
+
     }
 
 }
