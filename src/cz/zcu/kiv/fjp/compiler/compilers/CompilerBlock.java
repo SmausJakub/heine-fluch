@@ -43,6 +43,9 @@ public class CompilerBlock {
         // null the declaration counter
         declarationCounter = 0;
 
+        // default address
+        currentAddress = 3;
+
         // prepare skip instruction (to skip if we are in procedure) and INT jump (to increase the stack)
         Instruction skip = new Instruction(InstructionCode.JMP.getName(), 0, 0);
         Instruction intJump = new Instruction(InstructionCode.INT.getName(), 0, 0);

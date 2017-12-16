@@ -352,9 +352,9 @@ public class CompilerStatement {
 
                 // determine the store instruction
                 if (item.getVariableType() == VariableType.INTEGER || item.getVariableType() == VariableType.BOOLEAN) {
-                    instructionList.add(new Instruction(InstructionCode.STO.getName(), item.getLevel(), item.getAddress()));
+                    instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel - item.getLevel(), item.getAddress()));
                 } else if (item.getVariableType() == VariableType.REAL) {
-                    instructionList.add(new Instruction(InstructionCode.STR.getName(), item.getLevel(), item.getAddress()));
+                    instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel - item.getLevel(), item.getAddress()));
                 }
 
                 // assigned
@@ -443,9 +443,9 @@ public class CompilerStatement {
 
                 // determine the store instruction
                 if (item.getVariableType() == VariableType.INTEGER || item.getVariableType() == VariableType.BOOLEAN) {
-                    instructionList.add(new Instruction(InstructionCode.STO.getName(), item.getLevel(), item.getAddress()));
+                    instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel - item.getLevel(), item.getAddress()));
                 } else if (item.getVariableType() == VariableType.REAL) {
-                    instructionList.add(new Instruction(InstructionCode.STR.getName(), item.getLevel(), item.getAddress()));
+                    instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel - item.getLevel(), item.getAddress()));
                 }
 
                 // variable is assigned (if it was not before)

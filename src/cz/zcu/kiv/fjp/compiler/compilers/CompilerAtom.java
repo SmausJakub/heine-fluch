@@ -6,8 +6,7 @@ import cz.zcu.kiv.fjp.compiler.types.atoms.*;
 import cz.zcu.kiv.fjp.enums.InstructionCode;
 import cz.zcu.kiv.fjp.instruction.Instruction;
 
-import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.instructionList;
-import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.symbolTable;
+import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.*;
 
 /**
  * Atom Compiler
@@ -66,17 +65,17 @@ public class CompilerAtom {
 
                     case INTEGER:
                         // loading integer with LOD
-                        instructionList.add(new Instruction(InstructionCode.LOD.getName(), item.getLevel(), item.getAddress()));
+                        instructionList.add(new Instruction(InstructionCode.LOD.getName(), currentLevel - item.getLevel(), item.getAddress()));
                         break;
                     case REAL:
                         // loading real with LOR
-                        instructionList.add(new Instruction(InstructionCode.LOR.getName(), item.getLevel(), item.getAddress()));
+                        instructionList.add(new Instruction(InstructionCode.LOR.getName(), currentLevel - item.getLevel(), item.getAddress()));
                         break;
                     case STRING:
                         break;
                     case BOOLEAN:
                         // loading bool with LOD
-                        instructionList.add(new Instruction(InstructionCode.LOD.getName(), item.getLevel(), item.getAddress()));
+                        instructionList.add(new Instruction(InstructionCode.LOD.getName(), currentLevel - item.getLevel(), item.getAddress()));
                         break;
                 }
                 break;
