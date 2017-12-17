@@ -214,8 +214,14 @@ public class CompilerStatement {
         // is there else statement?
         if (statementIf.getElseStatement() != null) {
 
+            // jump over the else statement
+            Instruction elseJump = new Instruction(InstructionCode.JMP.getName(), 0, 0);
+            instructionList.add(elseJump);
+
             // compile the else statement
             new CompilerStatement(statementIf.getElseStatement(), inForCycle).compileStatement();
+
+            elseJump.setOperand(instructionList.size());
 
         }
 
