@@ -218,6 +218,9 @@ public class CompilerStatement {
             Instruction elseJump = new Instruction(InstructionCode.JMP.getName(), 0, 0);
             instructionList.add(elseJump);
 
+            // change the if jump to jump to else
+            ifJump.setOperand(instructionList.size());
+
             // compile the else statement
             new CompilerStatement(statementIf.getElseStatement(), inForCycle).compileStatement();
 
