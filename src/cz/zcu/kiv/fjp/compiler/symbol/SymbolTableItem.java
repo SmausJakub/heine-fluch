@@ -34,7 +34,7 @@ public class SymbolTableItem {
 
     /**
      * size of the item, has different meaning depending on type
-     * variable and label - whether it has been assigned (1) or not (0)
+     * variable and label - whether it has been assigned (1) or not (0) - after a change variables are always assigned implicit values
      * procedure - number of instructions of the procedure
      */
     private int size;

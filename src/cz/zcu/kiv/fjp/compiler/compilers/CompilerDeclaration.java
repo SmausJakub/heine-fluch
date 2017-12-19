@@ -157,16 +157,37 @@ public class CompilerDeclaration {
                     new CompilerExpression(declarationVariableSimple.getExpression(), declarationVariableSimple.getType()).compileExpression();
                 }
 
+                VariableType type = declarationVariableSimple.getType();
+
+                // add implicit assignment
+                if (!declarationVariableSimple.isInit()) {
+                    switch (type) {
+                        case INTEGER:
+                            instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, 0));
+                            break;
+                        case REAL:
+                            instructionList.add(new Instruction(InstructionCode.LRT.getName(), 0, 0));
+                            break;
+                        case STRING:
+                            break;
+                        case BOOLEAN:
+                            instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, 0));
+                            break;
+                    }
+
+                }
+
                 // determine which store instruction we use depending on the variable type
                 if (declarationVariableSimple.isInit()) {
-                    VariableType type = declarationVariableSimple.getType();
                     if (type == VariableType.INTEGER || type == VariableType.BOOLEAN) {
-                        instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
+                        instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel - item.getLevel(), currentAddress));
                     } else if (type == VariableType.REAL) {
-                        instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel, currentAddress));
+                        instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel - item.getLevel(), currentAddress));
                     }
-                    item.setSize(1);
                 }
+
+                // initialized variable
+                item.setSize(1);
 
                 // increase address and declaration counter
                 currentAddress++;
@@ -213,9 +234,9 @@ public class CompilerDeclaration {
                 // determine store function
                 VariableType type = declarationVariableParallel.getType();
                 if (type == VariableType.INTEGER || type == VariableType.BOOLEAN) {
-                    instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
+                    instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel - item.getLevel(), currentAddress));
                 } else if (type == VariableType.REAL) {
-                    instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel, currentAddress));
+                    instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel - item.getLevel(), currentAddress));
                 }
 
                 // item is now initialized
@@ -260,9 +281,9 @@ public class CompilerDeclaration {
                     // determine which store instruction to use
                     VariableType type = declarationConstant.getType();
                     if (type == VariableType.INTEGER || type == VariableType.BOOLEAN) {
-                        instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel, currentAddress));
+                        instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel - item.getLevel(), currentAddress));
                     } else if (type == VariableType.REAL) {
-                        instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel, currentAddress));
+                        instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel - item.getLevel(), currentAddress));
                     }
 
                     // increase counters
