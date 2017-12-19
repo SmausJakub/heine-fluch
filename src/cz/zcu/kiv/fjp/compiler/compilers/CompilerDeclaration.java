@@ -178,13 +178,12 @@ public class CompilerDeclaration {
                 }
 
                 // determine which store instruction we use depending on the variable type
-                if (declarationVariableSimple.isInit()) {
                     if (type == VariableType.INTEGER || type == VariableType.BOOLEAN) {
                         instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel - item.getLevel(), currentAddress));
                     } else if (type == VariableType.REAL) {
                         instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel - item.getLevel(), currentAddress));
                     }
-                }
+
 
                 // initialized variable
                 item.setSize(1);

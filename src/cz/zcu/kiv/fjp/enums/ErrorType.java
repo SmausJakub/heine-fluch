@@ -1,5 +1,8 @@
 package cz.zcu.kiv.fjp.enums;
 
+/**
+ * Enum values representing error types
+ */
 public enum ErrorType {
 
     VARIABLE_NOT_INITIALIZED(1, "VARIABLE NOT INITIALIZED"),
