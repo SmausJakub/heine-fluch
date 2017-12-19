@@ -167,6 +167,7 @@ expression
     :
     MINUS expression #unaryExpr
     | NOT expression #notExpr
+    | ODD expression #oddExpr
     | expression  op=( MULTIPLY | DIVIDE | MODULO ) expression #multiplicationExpr
     | expression  op=( PLUS | MINUS ) expression #additiveExpr
     | expression op=( EQUAL | NOT_EQUAL | LT | LE | GT | GE ) expression #relationalExpr
@@ -494,24 +495,29 @@ LEGACY
    ;
 
 PROGRAM
-       :
-       P R O G R A M
-       ;
+    :
+    P R O G R A M
+    ;
 
 USE
     :
     U S E
     ;
 
-  DEFAULT
-      :
-      D E F A U L T
-      ;
+DEFAULT
+    :
+    D E F A U L T
+    ;
 
-      STRICT
-          :
-          S T R I C T
-          ;
+STRICT
+    :
+    S T R I C T
+    ;
+
+ODD
+    :
+    O D D
+    ;
 
 /**
 * SYMBOLS

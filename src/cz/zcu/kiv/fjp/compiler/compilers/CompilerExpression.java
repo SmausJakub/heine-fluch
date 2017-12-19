@@ -74,6 +74,8 @@ public class CompilerExpression {
                 return compileExpressionRel((ExpressionRelational) exp);
             case LOG:
                 return compileExpressionLog((ExpressionLogic) exp);
+            case ODD:
+                return compileExpressionOdd((ExpressionOdd) exp);
             case PAR:
                 ExpressionPar expressionPar = (ExpressionPar) exp;
                 return compileExpressionRecursive(expressionPar.getExpression());
@@ -85,6 +87,25 @@ public class CompilerExpression {
 
         return null;
 
+    }
+
+    private VariableType compileExpressionOdd(ExpressionOdd exp) {
+        VariableType type = compileExpressionRecursive(exp.getExpression());
+
+        resolveUnaryExpression(type);
+
+        if (programMode == ProgramMode.LEGACY) {
+            instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.ODD.getCode()));
+        } else if (programMode == ProgramMode.DEFAULT || programMode == ProgramMode.STRICT) {
+            if (type == VariableType.INTEGER) {
+                instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.ODD.getCode()));
+            } else if (type == VariableType.REAL) {
+                instructionList.add(new Instruction(InstructionCode.OPF.getName(), 0, InstructionOperation.ODD.getCode()));
+            }
+
+        }
+
+        return VariableType.BOOLEAN;
     }
 
     private VariableType compileExpressionLog(ExpressionLogic exp) {

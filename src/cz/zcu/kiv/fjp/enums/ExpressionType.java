@@ -20,6 +20,7 @@ public enum ExpressionType {
     ADD,
     REL,
     LOG,
+    ODD,
     PAR,
     ATOM
 

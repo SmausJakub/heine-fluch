@@ -149,6 +149,13 @@ public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression
         return new ExpressionAdditive(leftExpression, rightExpression, operator);
     }
 
+    @Override
+    public AbstractExpression visitOddExpr(Pascal0LikeParser.OddExprContext ctx) {
+        AbstractExpression expression = this.visit(ctx.expression());
+
+        return new ExpressionOdd(expression);
+    }
+
     /**
      * visits relational expression
      * @param ctx tree context
