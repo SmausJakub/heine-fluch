@@ -2,6 +2,7 @@ package cz.zcu.kiv.fjp.compiler.compilers;
 
 import cz.zcu.kiv.fjp.compiler.symbol.SymbolTable;
 import cz.zcu.kiv.fjp.compiler.types.Goto;
+import cz.zcu.kiv.fjp.enums.ProgramMode;
 import cz.zcu.kiv.fjp.errors.ErrorHandler;
 import cz.zcu.kiv.fjp.instruction.Instruction;
 
@@ -18,6 +19,11 @@ public final class CompilerData {
      * minimal INT declaration of stack
      */
     public static final int MIN_DECLARATION = 3;
+
+    /**
+     * Program mode
+     */
+    public static ProgramMode programMode;
 
     /**
      * symbol table
@@ -80,6 +86,7 @@ public final class CompilerData {
     public static boolean checkIfCanBeAccessed(String identifier) {
         return symbolTable.getItem(identifier).getLevel() <= currentLevel;
     }
+
 
     /**
      * Sorts the instruction list by indexes of instructions

@@ -166,6 +166,10 @@ public class VisitorDeclaration extends Pascal0LikeBaseVisitor<AbstractDeclarati
                 ret = VariableType.BOOLEAN;
                 break;
             }
+            case Pascal0LikeParser.VAR: {
+                ret = VariableType.VAR;
+                break;
+            }
         }
 
         return ret;

@@ -4,6 +4,7 @@ import cz.zcu.kiv.fjp.Pascal0LikeBaseVisitor;
 import cz.zcu.kiv.fjp.Pascal0LikeParser;
 import cz.zcu.kiv.fjp.compiler.types.Block;
 import cz.zcu.kiv.fjp.compiler.types.Program;
+import cz.zcu.kiv.fjp.enums.ProgramMode;
 
 /**
  * Program Visitor
@@ -22,7 +23,17 @@ public class VisitorProgram extends Pascal0LikeBaseVisitor<Program> {
 
         Block block = new VisitorBlock().visit(ctx.block());
 
-        return new Program(block);
+        String identifier = ctx.IDENT().getText();
+
+        ProgramMode mode;
+
+        if (ctx.declare_mode() != null) {
+            mode = new VisitorProgramMode().visit(ctx.declare_mode());
+        } else {
+            mode = ProgramMode.DEFAULT;
+        }
+
+        return new Program(identifier, mode, block);
     }
 
 

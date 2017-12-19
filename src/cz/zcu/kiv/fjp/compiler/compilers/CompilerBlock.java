@@ -70,6 +70,12 @@ public class CompilerBlock {
             if (declaration.getDeclarationType() == DeclarationType.PROCEDURE && procedureCheck) {
                 procedureCheck = false;
 
+                // declaration jump is number of declarations made to an address + 3
+                int declarationJmp = declarationCounter + MIN_DECLARATION;
+
+                // int stack
+                intJump.setOperand(declarationJmp);
+
                 // to skip the procedure code
                 instructionList.add(skip);
             }
@@ -78,16 +84,19 @@ public class CompilerBlock {
             new CompilerDeclaration(declaration).compileDeclaration();
         }
 
+        if (intJump.getOperand() == 0) {
+            // declaration jump is number of declarations made to an address + 3
+            int declarationJmp = declarationCounter + MIN_DECLARATION;
+
+            // int stack
+            intJump.setOperand(declarationJmp);
+        }
+
         // if we had a procedure declaration, skip to the current index
         if (!procedureCheck) {
             skip.setOperand(instructionList.size());
+
         }
-
-        // declaration jump is number of declarations made to an address + 3
-        int declarationJmp = declarationCounter + MIN_DECLARATION;
-
-        // int stack
-        intJump.setOperand(declarationJmp);
 
         // go through statements and compile them
         for (AbstractStatement statement : statementList) {

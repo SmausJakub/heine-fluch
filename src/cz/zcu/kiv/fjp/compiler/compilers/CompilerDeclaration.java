@@ -9,10 +9,7 @@ import cz.zcu.kiv.fjp.compiler.types.Label;
 import cz.zcu.kiv.fjp.compiler.types.Variable;
 import cz.zcu.kiv.fjp.compiler.types.atoms.AtomId;
 import cz.zcu.kiv.fjp.compiler.types.declarations.*;
-import cz.zcu.kiv.fjp.enums.AtomType;
-import cz.zcu.kiv.fjp.enums.DeclarationType;
-import cz.zcu.kiv.fjp.enums.InstructionCode;
-import cz.zcu.kiv.fjp.enums.VariableType;
+import cz.zcu.kiv.fjp.enums.*;
 import cz.zcu.kiv.fjp.errors.ErrorIncompatibleTypes;
 import cz.zcu.kiv.fjp.errors.ErrorParallelDeclarationNumberMismatch;
 import cz.zcu.kiv.fjp.errors.ErrorUnknownIdentifier;
@@ -149,15 +146,23 @@ public class CompilerDeclaration {
         for (Variable variable : variableList) {
 
             if (!checkIfExists(variable.getName())) {
+
                 SymbolTableItem item = new SymbolTableItem(variable.getName(), variable.getIdentifierType().getName(), declarationVariableSimple.getType(), currentLevel, currentAddress, 0);
                 symbolTable.addItem(item.getName(), item);
 
-                // compile expression only if we are the first variable
-                if (variable.equals(variableList.get(0)) && declarationVariableSimple.isInit()) {
-                    new CompilerExpression(declarationVariableSimple.getExpression(), declarationVariableSimple.getType()).compileExpression();
+                VariableType type = declarationVariableSimple.getType();
+
+                resolveVariableTypeRegardingProgramMode(type);
+
+                if (programMode == ProgramMode.LEGACY) {
+                    item.setVariableType(VariableType.INTEGER);
                 }
 
-                VariableType type = declarationVariableSimple.getType();
+                // compile expression only if we are the first variable
+                if (variable.equals(variableList.get(0)) && declarationVariableSimple.isInit()) {
+                    new CompilerExpression(declarationVariableSimple.getExpression(), item.getVariableType()).compileExpression();
+                }
+
 
                 // add implicit assignment
                 if (!declarationVariableSimple.isInit()) {
@@ -173,12 +178,15 @@ public class CompilerDeclaration {
                         case BOOLEAN:
                             instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, 0));
                             break;
+                        case VAR:
+                            instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, 0));
+                            break;
                     }
 
                 }
 
                 // determine which store instruction we use depending on the variable type
-                    if (type == VariableType.INTEGER || type == VariableType.BOOLEAN) {
+                if (type == VariableType.INTEGER || type == VariableType.BOOLEAN || type == VariableType.VAR) {
                         instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel - item.getLevel(), currentAddress));
                     } else if (type == VariableType.REAL) {
                         instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel - item.getLevel(), currentAddress));
@@ -228,10 +236,19 @@ public class CompilerDeclaration {
                 SymbolTableItem item = new SymbolTableItem(variable.getName(), variable.getIdentifierType().getName(), declarationVariableParallel.getType(), currentLevel, currentAddress, 0);
                 symbolTable.addItem(item.getName(), item);
 
+                VariableType type = declarationVariableParallel.getType();
+
+                resolveVariableTypeRegardingProgramMode(type);
+
+                if (programMode == ProgramMode.LEGACY) {
+                    item.setVariableType(VariableType.INTEGER);
+                }
+
+
                 new CompilerExpression(declarationVariableParallel.getExpressionList().get(i), declarationVariableParallel.getType()).compileExpression();
 
                 // determine store function
-                VariableType type = declarationVariableParallel.getType();
+
                 if (type == VariableType.INTEGER || type == VariableType.BOOLEAN) {
                     instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel - item.getLevel(), currentAddress));
                 } else if (type == VariableType.REAL) {
@@ -269,8 +286,18 @@ public class CompilerDeclaration {
             for (Constant constant : constantList) {
 
                 if (!checkIfExists(constant.getName())) {
+
+
                     SymbolTableItem item = new SymbolTableItem(constant.getName(), constant.getIdentifierType().getName(), declarationConstant.getType(), currentLevel, currentAddress, 1);
                     symbolTable.addItem(item.getName(), item);
+
+                    VariableType type = declarationConstant.getType();
+
+                    resolveVariableTypeRegardingProgramMode(type);
+
+                    if (programMode == ProgramMode.LEGACY) {
+                        item.setVariableType(VariableType.INTEGER);
+                    }
 
                     // compile atom only if we are the first constant
                     if (constant.equals(constantList.get(0))) {
@@ -278,7 +305,7 @@ public class CompilerDeclaration {
                     }
 
                     // determine which store instruction to use
-                    VariableType type = declarationConstant.getType();
+
                     if (type == VariableType.INTEGER || type == VariableType.BOOLEAN) {
                         instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel - item.getLevel(), currentAddress));
                     } else if (type == VariableType.REAL) {
@@ -319,6 +346,8 @@ public class CompilerDeclaration {
             return true;
         } else if (type == VariableType.STRING && value.getAtomType() == AtomType.STRING) {
             return true;
+        } else if (type == VariableType.VAR && value.getAtomType() == AtomType.INT) {
+            return true;
         } else if (value.getAtomType() == AtomType.ID) {
             return checkConstantTypeAndIdentifierType(type, (AtomId) value);
         } else {
@@ -348,6 +377,30 @@ public class CompilerDeclaration {
 
         }
         return false;
+    }
+
+    private void resolveVariableTypeRegardingProgramMode(VariableType type) {
+
+        if (programMode == ProgramMode.LEGACY) {
+            if (!checkLegacyMode(type)) {
+                System.out.println("In Legacy mode, the only allowed type is var");
+            }
+        } else {
+            if (!checkNormalMode(type)) {
+                System.out.println("Var type is not allowed in non-legacy mode");
+            }
+        }
+
+    }
+
+    private boolean checkNormalMode(VariableType type) {
+        // the only forbidden type is var
+        return type != VariableType.VAR;
+    }
+
+    private boolean checkLegacyMode(VariableType type) {
+        // only allowed type is var
+        return type == VariableType.VAR;
     }
 
 

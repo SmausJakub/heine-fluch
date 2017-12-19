@@ -40,6 +40,8 @@ public class CompilerProgram {
     public void compileProgram() {
 
         Block mainBlock = program.getBlock();
+        programMode = program.getProgramMode();
+
         new CompilerBlock(mainBlock).compileBlock();
 
         checkGotoList();

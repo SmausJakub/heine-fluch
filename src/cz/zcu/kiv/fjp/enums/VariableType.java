@@ -13,7 +13,8 @@ public enum VariableType {
     INTEGER("INTEGER"),
     REAL("REAL"),
     STRING("STRING"),
-    BOOLEAN("BOOLEAN");
+    BOOLEAN("BOOLEAN"),
+    VAR("VAR");
 
     private String value;
 

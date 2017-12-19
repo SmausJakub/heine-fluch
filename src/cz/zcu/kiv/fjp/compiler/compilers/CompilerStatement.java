@@ -479,7 +479,7 @@ public class CompilerStatement {
 
             SymbolTableItem item = symbolTable.getItem(identifier);
 
-            instructionList.add(new Instruction(InstructionCode.CAL.getName(), item.getLevel(), item.getAddress()));
+            instructionList.add(new Instruction(InstructionCode.CAL.getName(), currentLevel - item.getLevel(), item.getAddress()));
 
         } else {
             err.throwError(new ErrorUnknownProcedure(identifier));

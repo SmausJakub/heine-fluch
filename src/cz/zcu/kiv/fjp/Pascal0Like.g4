@@ -6,8 +6,15 @@ grammar Pascal0Like;
 **/
 
 program
-   : block DOT
+   : PROGRAM LPAREN IDENT RPAREN SEMI declare_mode? block DOT
    ;
+
+declare_mode
+    :
+    USE LEGACY SEMI #legacyMode |
+    USE DEFAULT SEMI #defaultMode |
+    USE STRICT SEMI #strictMode
+    ;
 
 block
     : declaration_part statement_part
@@ -23,7 +30,7 @@ declaration_part
 
 procedure_declaration_part
     :
-     PROCEDURE IDENT SEMI block
+     PROCEDURE IDENT SEMI block SEMI
     ;
 
 constant_declaration_part
@@ -96,7 +103,7 @@ procedure_statement
 
 compound_statement
     :
-    BEGIN statement_list END
+    BEGIN statement_list END SEMI
     ;
 
 statement_list
@@ -153,7 +160,7 @@ case_label_list
 
 type
     :
-	op=( STR | REAL | INTEGER | BOOLEAN )
+	op=( STR | REAL | INTEGER | BOOLEAN | VAR )
     ;
 
 expression
@@ -475,6 +482,36 @@ FALSE
     :
     F A L S E
     ;
+
+VAR
+    :
+    V A R
+    ;
+
+LEGACY
+   :
+   L E G A C Y
+   ;
+
+PROGRAM
+       :
+       P R O G R A M
+       ;
+
+USE
+    :
+    U S E
+    ;
+
+  DEFAULT
+      :
+      D E F A U L T
+      ;
+
+      STRICT
+          :
+          S T R I C T
+          ;
 
 /**
 * SYMBOLS
