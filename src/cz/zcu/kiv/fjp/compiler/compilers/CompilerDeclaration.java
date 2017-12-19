@@ -10,10 +10,7 @@ import cz.zcu.kiv.fjp.compiler.types.Variable;
 import cz.zcu.kiv.fjp.compiler.types.atoms.AtomId;
 import cz.zcu.kiv.fjp.compiler.types.declarations.*;
 import cz.zcu.kiv.fjp.enums.*;
-import cz.zcu.kiv.fjp.errors.ErrorIncompatibleTypes;
-import cz.zcu.kiv.fjp.errors.ErrorParallelDeclarationNumberMismatch;
-import cz.zcu.kiv.fjp.errors.ErrorUnknownIdentifier;
-import cz.zcu.kiv.fjp.errors.ErrorVariableAlreadyDeclared;
+import cz.zcu.kiv.fjp.errors.*;
 import cz.zcu.kiv.fjp.instruction.Instruction;
 
 import java.util.List;
@@ -383,11 +380,11 @@ public class CompilerDeclaration {
 
         if (programMode == ProgramMode.LEGACY) {
             if (!checkLegacyMode(type)) {
-                System.out.println("In Legacy mode, the only allowed type is var");
+                err.throwError(new ErrorLegacyVarType());
             }
         } else {
             if (!checkNormalMode(type)) {
-                System.out.println("Var type is not allowed in non-legacy mode");
+                err.throwError(new ErrorNonLegacyVarType());
             }
         }
 
