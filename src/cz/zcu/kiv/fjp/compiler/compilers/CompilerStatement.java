@@ -322,6 +322,57 @@ public class CompilerStatement {
      * compiles i/o statement
      */
     private void compileIOStatement() {
+        StatementIO statementIO = (StatementIO) statement;
+
+        String identifier = statementIO.getIdentifier();
+
+        if (checkIfExists(identifier) && checkIfCanBeAccessed(identifier)) {
+
+            SymbolTableItem item = symbolTable.getItem(identifier);
+
+            switch (statementIO.getType()) {
+
+                case READ:
+                    switch (item.getVariableType()) {
+                        case INTEGER:
+                            instructionList.add(new Instruction(InstructionCode.REA.getName(), 0, 0));
+                            instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel - item.getLevel(), item.getAddress()));
+                            break;
+                        case REAL:
+                            instructionList.add(new Instruction(InstructionCode.RER.getName(), 0, 0));
+                            instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel - item.getLevel(), item.getAddress()));
+                            break;
+                        case STRING:
+                            break;
+                        case BOOLEAN:
+                            instructionList.add(new Instruction(InstructionCode.REA.getName(), 0, 0));
+                            instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel - item.getLevel(), item.getAddress()));
+                            break;
+                    }
+                    break;
+                case WRITE:
+                    switch (item.getVariableType()) {
+                        case INTEGER:
+                            instructionList.add(new Instruction(InstructionCode.LOD.getName(), currentLevel - item.getLevel(), item.getAddress()));
+                            instructionList.add(new Instruction(InstructionCode.WRI.getName(), 0, 0));
+                            break;
+                        case REAL:
+                            instructionList.add(new Instruction(InstructionCode.LOR.getName(), currentLevel - item.getLevel(), item.getAddress()));
+                            instructionList.add(new Instruction(InstructionCode.WRR.getName(), 0, 0));
+                            break;
+                        case STRING:
+                            break;
+                        case BOOLEAN:
+                            instructionList.add(new Instruction(InstructionCode.LOD.getName(), currentLevel - item.getLevel(), item.getAddress()));
+                            instructionList.add(new Instruction(InstructionCode.WRI.getName(), 0, 0));
+                            break;
+                    }
+                    break;
+            }
+
+        } else {
+            err.throwError(new ErrorUnknownIdentifier(identifier));
+        }
 
     }
 
