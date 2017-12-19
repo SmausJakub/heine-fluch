@@ -94,6 +94,9 @@ public class VisitorExpression extends Pascal0LikeBaseVisitor<AbstractExpression
                 operator = OperatorMultiplication.DIVIDE;
                 break;
             }
+            case Pascal0LikeParser.MODULO: {
+                operator = OperatorMultiplication.MODULO;
+            }
         }
 
         return new ExpressionMultiplication(leftExpression, rightExpression, operator);

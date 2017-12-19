@@ -251,6 +251,8 @@ public class CompilerExpression {
                 return InstructionOperation.MUL.getCode();
             case DIVIDE:
                 return InstructionOperation.DIV.getCode();
+            case MODULO:
+                return InstructionOperation.MOD.getCode();
         }
         return 0;
     }

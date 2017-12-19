@@ -9,7 +9,8 @@ package cz.zcu.kiv.fjp.enums;
 public enum OperatorMultiplication {
 
     MULTIPLY("*"),
-    DIVIDE("/");
+    DIVIDE("/"),
+    MODULO("%");
 
     private String symbol;
 

@@ -167,7 +167,7 @@ expression
     :
     MINUS expression #unaryExpr
     | NOT expression #notExpr
-    | expression  op=( MULTIPLY | DIVIDE ) expression #multiplicationExpr
+    | expression  op=( MULTIPLY | DIVIDE | MODULO ) expression #multiplicationExpr
     | expression  op=( PLUS | MINUS ) expression #additiveExpr
     | expression op=( EQUAL | NOT_EQUAL | LT | LE | GT | GE ) expression #relationalExpr
     | expression op=( AND | OR ) expression #logicExpr
@@ -527,6 +527,10 @@ MULTIPLY
 DIVIDE
    : '/'
    ;
+
+MODULO
+    : '%'
+    ;
 
 DOT
    : '.'
