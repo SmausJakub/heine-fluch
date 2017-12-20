@@ -49,6 +49,12 @@ public class CompilerExpression {
         if (!(expectedType == compiledType)) {
             if (!(programMode == ProgramMode.DEFAULT && expectedType != VariableType.BOOLEAN)) {
                 err.throwError(new ErrorIncompatibleTypes(expectedType.getValue(), compiledType.getValue()));
+            } else {
+                if (expectedType == VariableType.INTEGER && compiledType == VariableType.REAL) {
+                    instructionList.add(new Instruction(InstructionCode.RTI.getName(), 0, 0));
+                } else if (expectedType == VariableType.REAL && compiledType == VariableType.INTEGER) {
+                    instructionList.add(new Instruction(InstructionCode.ITR.getName(), 0, 0));
+                }
             }
 
         }
@@ -201,17 +207,14 @@ public class CompilerExpression {
         } else if (typeOne == VariableType.REAL && typeTwo == VariableType.REAL) {
             instructionList.add(new Instruction(InstructionCode.OPF.getName(), 0, code));
             return VariableType.REAL;
-        } else {
-            switch (expectedType) {
-                case INTEGER:
-                    instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, code));
-                    return VariableType.INTEGER;
-                case REAL:
-                    instructionList.add(new Instruction(InstructionCode.OPF.getName(), 0, code));
-                    return VariableType.REAL;
-                case BOOLEAN:
-                    instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, code));
-            }
+        } else if (typeOne == VariableType.INTEGER && typeTwo == VariableType.REAL) {
+            instructionList.add(new Instruction(InstructionCode.RTI.getName(), 0, 0));
+            instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, code));
+            return VariableType.INTEGER;
+        } else if (typeOne == VariableType.REAL && typeTwo == VariableType.INTEGER) {
+            instructionList.add(new Instruction(InstructionCode.ITR.getName(), 0, 0));
+            instructionList.add(new Instruction(InstructionCode.OPF.getName(), 0, code));
+            return VariableType.REAL;
         }
         return null;
 
