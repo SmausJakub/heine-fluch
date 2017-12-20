@@ -75,31 +75,112 @@ Tématem semestrální práce je vytvoření
 \section{Překladač}
 \section{Interpret}
 \section{TABULKY PROZATIM}
-\begin{table}[]
-\centering
+\begin{longtable}{|c|l|p{10cm}|}
 \caption{Instrukce}
-\label{my-label}
-\begin{longtable}{|l|l|l|}
+\label{instrukce}
+\endfirsthead
+\endhead
 \hline
-		Kód & Instrukce & Popis \\ 
+		Kód & Instrukce & Popis \\
 \hline\hline
-\rule{0pt}{2ex}1 & \texttt{LIT 0, M} & Vloží konstantní celou hodnotu (literál) M do zásobníku \\ \hline
-2 &          &                                                         \\ \hline
-3 &          &                                                         \\ \hline
-  &          &                                                         \\ \hline
-  &          &                                                         \\ \hline
-  &          &                                                         \\ \hline
-  &          &                                                         \\ \hline
-  &          &                                                         \\ \hline
-  &          &                                                         \\ \hline
-  &          &                                                         \\ \hline
-  &          &                                                         \\ \hline
-  &          &                                                         \\ \hline
-  &          &                                                         \\ \hline
-  &          &                                                         \\ \hline
-  &          &                                                         \\ \hline
+\rule{0pt}{3ex}1 & \texttt{LIT 0, M} & Vloží konstantní celou hodnotu (\texttt{literál}) \texttt{M} do zásobníku \\ \hline
+\rule{0pt}{3ex}2 & \texttt{LRT 0, M} & Vloží konstantní reálnou hodnotu (\texttt{literál}) \texttt{M} do zásobníku \\ \hline
+\rule{0pt}{3ex}3 & \texttt{OPR 0, M} & \textbf{Operace}, která se provede nad vrcholem zásobníku \textbf{pro celé čísla} \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 1} & \textbf{Negace}; vybere vrchol a vrátí negativní hodnotu \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 2} & \textbf{Sčítání}; vybere dvě hodnoty, sečte a vrátí \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 3} & \textbf{Odečítání}; vybere dvě hodnoty, odečte druhou první a vrátí výsledek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 4} & \textbf{Násobení}; vybere dvě hodnoty, vynásobí a vrátí výsledek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 5} & \textbf{Dělení}; vybere dvě hodnoty, vydělí druhou první \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 6} & \textbf{Lichost}; vybere vrchol a vloží 1 když liché, 0 když sudé \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 7} & \textbf{Modulo}; vybere dvě hodnoty, vydělí druhý prvním a vloží zbytek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 8} & \textbf{Rovnost}; vybere dvě hodnoty, a vloží 1 pokud se rovnají, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 9} & \textbf{Nerovnost}; vybere dvě hodnoty a vloží 0 pokud se rovnají, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 10} & \textbf{Menší než}; vybere dvě hodnoty a vloží 1 pokud je první menší než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 11} & \textbf{Větší nebo rovno než}; vybere dvě hodnoty a vloží 1 pokud je první větší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 12} & \textbf{Větší}; vybere dvě hodnoty a vloží 1 pokud je první větší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 13} & \textbf{Menší nebo rovno než}; vybere dvě hodnoty a vloží 1 pokud je první menší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex}4 & \texttt{LOD L, M} & \textbf{Načtení}; načte hodnotu vrcholu z umístění dané offsetem M od L lexikografických úrovní dolů \\ \hline
+\rule{0pt}{3ex}5 & \texttt{STO L, M} & \textbf{Uložení}; uloží hodnotu vrcholu z umístění dané offsetem M od L lexikografických úrovní dolů \\ \hline
+\rule{0pt}{3ex}6 & \texttt{CAL L, M} & \textbf{Volání procedury} v kódovém indexu \textbf{M} \\ \hline
+\rule{0pt}{3ex}7 & \texttt{RET 0, 0} & \textbf{Návrat z procedury}; vrátí se z procedury do volající procedury \\ \hline
+\rule{0pt}{3ex}8 & \texttt{INT 0, M} & \textbf{Alokování} místa pro M hodnot na vrcholo zásobníku \\ \hline
+\rule{0pt}{3ex}9 & \texttt{JMP 0, M} & Provede skok do instrukce \textbf{M} \\ \hline
+\rule{0pt}{3ex}10 & \texttt{JMC 0, M} & Vybere vrchol a skočí k instrukci M pokud je rovna 0, \textbf{podmíněný skok} \\ \hline
+\rule{0pt}{3ex}11 & \texttt{REA L, M} & \textbf{Načte celé číslo} ze vstupu a uloží jej na zásobník \\ \hline
+\rule{0pt}{3ex}12 & \texttt{WRI L, M} & Odebere celé číslo z vrcholu zásobníku a \textbf{vypíše jej na vstup} \\ \hline
+\rule{0pt}{3ex}13 & \texttt{RER L, M} & \textbf{Načte} reálné číslo ze vstupu a uloží jej na zásobník \\ \hline
+\rule{0pt}{3ex}14 & \texttt{WRR L, M} & Odebere reálné číslo z vrcholu zásobníku a \textbf{vypíše jej na vstup} \\ \hline
+\rule{0pt}{3ex}15 & \texttt{OPF 0, M} & \textbf{Operace}, která se provede nad vrcholem zásobníku \textbf{pro reálná čísla} \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 1} & \textbf{Negace}; vybere vrchol a vrátí negativní hodnotu \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 2} & \textbf{Sčítání}; vybere dvě hodnoty, sečte a vrátí \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 3} & \textbf{Odečítání}; vybere dvě hodnoty, odečte druhou první a vrátí výsledek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 4} & \textbf{Násobení}; vybere dvě hodnoty, vynásobí a vrátí výsledek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 5} & \textbf{Dělení}; vybere dvě hodnoty, vydělí druhou první \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 6} & \textbf{Lichost}; vybere vrchol a vloží 1 když liché, 0 když sudé \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 7} & \textbf{Modulo}; vybere dvě hodnoty, vydělí druhý prvním a vloží zbytek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 8} & \textbf{Rovnost}; vybere dvě hodnoty, a vloží 1 pokud se rovnají, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 9} & \textbf{Nerovnost}; vybere dvě hodnoty a vloží 0 pokud se rovnají, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 10} & \textbf{Menší než}; vybere dvě hodnoty a vloží 1 pokud je první menší než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 11} & \textbf{Větší nebo rovno než}; vybere dvě hodnoty a vloží 1 pokud je první větší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 12} & \textbf{Větší}; vybere dvě hodnoty a vloží 1 pokud je první větší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 13} & \textbf{Menší nebo rovno než}; vybere dvě hodnoty a vloží 1 pokud je první menší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} 16 & \texttt{RTI 0, 0} & \textbf{Reálné číslo na celé číslo}; vybere jednu hodnotu ze zásobníku a vloží celou část čísla do zásobníku \\ \hline
+\rule{0pt}{3ex} 17 & \texttt{ITR 0, 0} & \textbf{Celé číslo na reálné číslo}; vybere jednu hodnotu ze zásobníku a vloží číslo jako reálné do zásobníku \\ \hline
+\rule{0pt}{3ex} 18 & \texttt{NEW 0, 0} &  \textbf{Alokace na haldě}; alokuje se jedno místo na haldě, na zásobník vloží hodnotu představující pozici místa v haldě \\ \hline
+\rule{0pt}{3ex} 19 & \texttt{DEL 0, 0} & \textbf{Uvolnění místa na haldě}; odebere ze zásobníku jednu hodnotu a to adresu na haldě, kterou uvolní \\ \hline
+\rule{0pt}{3ex} 20 & \texttt{LDA 0, 0} & \textbf{Načtení hodnoty z haldy}; odebere ze zásobníku hodnotu a vloží hodnotu z haldy \\ \hline
+\rule{0pt}{3ex} 21 & \texttt{STA 0, 0} & \textbf{Uložení hodnoty na haldu}; odebere dvě hodnoty zásobníku. Na první představující adresu uloží druhou v haldě \\ \hline
+\rule{0pt}{3ex} 22 & \texttt{PLD 0, 0} & \textbf{Dynamické načtení hodnoty z místa určeného L/A}; odebere ze zásobníku dvě hodnoty. První je úroveň zanoření a druhá je relativní pozice \\ \hline
+\rule{0pt}{3ex} 23 & \texttt{PST 0, 0} & \textbf{Dynamické uložení hodnoty z místa určeného L/A}; odebere ze zásobníku tři hodnoty. První je úroveň zanoření, druhá relativní pozice a třetí \\ \hline
 \end{longtable}
-\end{table}
+
+
+
+\begin{longtable}{|c|c|p{10cm}|}
+\caption{Symboly}
+\label{symboly}
+\endfirsthead
+\endhead
+\hline
+		\textbf{Symbol} & \textbf{Název} & \textbf{Popis} \\
+\hline
++ & \texttt{PLUS} & sčítání ve výrazech \\ \hline
+- & \texttt{MINUS} & odečítání ve výrazech \\ \hline
+* & \texttt{MULTIPLY} & násobení ve výrazech \\ \hline
+/ & \texttt{DIVIDE} & dělení ve výrazech \\ \hline
+\% & \texttt{MODULO} & modulo ve výrazech \\ \hline
+= & \texttt{EQUAL} &  kontrola rovnosti dvou výrazů \\ \hline
+<> & \texttt{NOT\_EQUAL} & kontrola nerovnosti dvou výrazů \\ \hline
+< & \texttt{LT} & kontrola, že levý výraz je menší než pravý výraz \\ \hline
+<= & \texttt{LE} & kontrola, že levý výraz je menší nebo stejně velký jako pravý výraz \\ \hline
+>= & \texttt{GE} & kontrola, že levý výraz je větší nebo stejně velký jako pravý výraz \\ \hline
+> & \texttt{GT} & kontrola, že levý výraz je větší než pravý výraz \\ \hline
+:= & \texttt{ASSIGN} & přiřazení proměnné \\ \hline
+? & \texttt{TERNARY\_ONE} & ternární operátor 1 \\ \hline
+! & \texttt{TERNARY\_TWO} & ternární operátor 2 \\ \hline
+; & \texttt{SEMI} & konec příkazu \\ \hline
+, & \texttt{COMMA} & oddělovač proměnných \\ \hline
+: & \texttt{COLON} & inicializace návěští \\ \hline
+( & \texttt{LPAREN} & levá závorka výrazu \\ \hline
+) & \texttt{RPAREN} & pravá závorka výrazu \\ \hline
+[ & \texttt{LBRACK} & počátek výrazů paralelní deklarace \\ \hline
+] & \texttt{RBRACK} & konec výrazů paralelní deklarace \\ \hline
+. & \texttt{DOT} & konec programu \\ \hline
+\end{longtable}
+
+
+\begin{longtable}{|c|c|p{10cm}|}
+\caption{Klíčová slova}
+\label{slova}
+\endfirsthead
+\endhead
+
+\hline
+		\textbf{Název} &\textbf{Použití} \\
+\hline
+\texttt{BEGIN} & počátek bloku příkazů \\ \hline
+\texttt{END} & konec bloku příkazů \\ \hline
+\end{longtable}
 \chapter{Uživatelská dokumentace} 
 \section{Postup přeložení a sestavení}
 

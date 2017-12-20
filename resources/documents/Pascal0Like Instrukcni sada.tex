@@ -22,19 +22,17 @@ czech
 
 \begin{document}
 
-\begin{table}[]
-\centering
+\begin{longtable}{|c|l|p{10cm}|}
 \caption{Instrukce}
 \label{instrukce}
-\end{table}
-\begin{longtable}{|c|l|p{10cm}|}
+\endfirsthead
+\endhead
 \hline
 		Kód & Instrukce & Popis \\
 \hline\hline
 \rule{0pt}{3ex}1 & \texttt{LIT 0, M} & Vloží konstantní celou hodnotu (\texttt{literál}) \texttt{M} do zásobníku \\ \hline
 \rule{0pt}{3ex}2 & \texttt{LRT 0, M} & Vloží konstantní reálnou hodnotu (\texttt{literál}) \texttt{M} do zásobníku \\ \hline
 \rule{0pt}{3ex}3 & \texttt{OPR 0, M} & \textbf{Operace}, která se provede nad vrcholem zásobníku \textbf{pro celé čísla} \\ \hline
-\rule{0pt}{3ex} & \texttt{OPR 0, 0} & \textbf{Return}; vrácení se z procedury k volajícímu \\ \hline
 \rule{0pt}{3ex} & \texttt{OPR 0, 1} & \textbf{Negace}; vybere vrchol a vrátí negativní hodnotu \\ \hline
 \rule{0pt}{3ex} & \texttt{OPR 0, 2} & \textbf{Sčítání}; vybere dvě hodnoty, sečte a vrátí \\ \hline
 \rule{0pt}{3ex} & \texttt{OPR 0, 3} & \textbf{Odečítání}; vybere dvě hodnoty, odečte druhou první a vrátí výsledek \\ \hline
