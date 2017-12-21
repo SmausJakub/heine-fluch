@@ -23,7 +23,12 @@ public class ErrorHandler {
     }
 
     public void throwError(AbstractError error, Instruction instruction) {
-        System.err.println(error.toString() + "\nAt " + " " + instruction.toString());
+        System.err.println(error.toString() + "\nAt " + instruction.toString());
+        System.exit(error.getErrorType().getCode());
+    }
+
+    public void throwError(AbstractError error, int value) {
+        System.err.println(error.toString() + "\nValue: " + value);
         System.exit(error.getErrorType().getCode());
     }
 

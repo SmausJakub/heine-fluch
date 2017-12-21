@@ -2,7 +2,6 @@ package cz.zcu.kiv.fjp.interpret;
 
 import cz.zcu.kiv.fjp.errors.ErrorStackOverflow;
 import cz.zcu.kiv.fjp.errors.ErrorStackUnderflow;
-import cz.zcu.kiv.fjp.errors.ErrorUnknownInstruction;
 
 import static cz.zcu.kiv.fjp.interpret.Interpreter.err;
 
@@ -22,7 +21,7 @@ public class Stack {
     public void push(int value) {
 
         if (top  > stackItems.length) {
-            err.throwError(new ErrorStackOverflow());
+            err.throwError(new ErrorStackOverflow(), value);
         }
 
         stackItems[top] = value;
@@ -34,7 +33,7 @@ public class Stack {
         int item;
         top--;
         if (top < 0) {
-            err.throwError(new ErrorStackUnderflow());
+            err.throwError(new ErrorStackUnderflow(), top);
         }
 
         item = stackItems[top];
@@ -47,7 +46,7 @@ public class Stack {
         int item;
 
         if(top > STACK_SIZE) {
-            err.throwError(new ErrorStackUnderflow());
+            err.throwError(new ErrorStackUnderflow(), top);
         }
 
         item = stackItems[top-1];
@@ -76,9 +75,6 @@ public class Stack {
 
 
     public int getBaseOfItem(int level) {
-        if(level < 0) {
-            err.throwError(new ErrorUnknownInstruction());
-        }
         int newBase = base;
 
         for(int i = 0; i < level; i++) {

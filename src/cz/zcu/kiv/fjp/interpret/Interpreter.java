@@ -47,10 +47,10 @@ public class Interpreter {
         float returnFloatValue, valueFloat1, valueFloat2;
 
         programCounter = 0;
-        System.out.println("START PL/0");
+        System.out.println("START Pascal0Like");
         do {
             if (programCounter < 0 || programCounter > STACK_SIZE) {
-                err.throwError(new ErrorProgramCounter());
+                err.throwError(new ErrorProgramCounter(), programCounter);
             }
 
             instruction = instructionsList.get(programCounter);
@@ -65,9 +65,6 @@ public class Interpreter {
                     break;
                 case "LRT":
                     stack.floatPush(instruction.getFloatOperand());
-                    break;
-                case "LST":
-              //      stack.stringPush(instruction.getOperand());
                     break;
                 case "OPR":
                     switch (instruction.getOperand()) {
@@ -220,9 +217,9 @@ public class Interpreter {
                             stack.floatPush(returnFloatValue);
                             break;
                         case 6:  // MOD
-                            err.throwError(new ErrorUnknownInstruction());
+                            err.throwError(new ErrorUnknownInstruction(), instruction);
                         case 7:  // ODD
-                            err.throwError(new ErrorUnknownInstruction());
+                            err.throwError(new ErrorUnknownInstruction(), instruction);
                         case 8:  // EQ
                             valueFloat2 = stack.floatPop();
                             valueFloat1 = stack.floatPop();
@@ -311,7 +308,7 @@ public class Interpreter {
 
         } while (programCounter != 0);
 
-        System.out.println("END PL/0");
+        System.out.println("END Pascal0Like");
     }
 
 }
