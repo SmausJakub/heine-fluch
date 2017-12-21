@@ -28,7 +28,7 @@ public class AtomInteger extends AbstractAtom {
 
     @Override
     public String toString() {
-        return "" + integer;
+        return String.valueOf(integer);
     }
 
 }

@@ -1,4 +1,4 @@
-// Generated from C:/Users/Jakub/IdeaProjects/heine-fluch/src/cz/zcu/kiv/fjp\Pascal0Like.g4 by ANTLR 4.7
+// Generated from C:/Users/Kossyr/IdeaProjects/PascaL0like/src/cz/zcu/kiv/fjp\Pascal0Like.g4 by ANTLR 4.7
 package cz.zcu.kiv.fjp;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -347,11 +347,4 @@ public class Pascal0LikeBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitIdAtom(Pascal0LikeParser.IdAtomContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitStringAtom(Pascal0LikeParser.StringAtomContext ctx) { return visitChildren(ctx); }
 }

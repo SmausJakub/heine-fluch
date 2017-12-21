@@ -28,6 +28,6 @@ public class AtomBoolean extends AbstractAtom {
 
     @Override
     public String toString() {
-        return "" + bool;
+        return String.valueOf(bool);
     }
 }

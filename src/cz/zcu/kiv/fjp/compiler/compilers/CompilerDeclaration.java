@@ -341,8 +341,6 @@ public class CompilerDeclaration {
             return true;
         } else if (type == VariableType.REAL && value.getAtomType() == AtomType.REAL) {
             return true;
-        } else if (type == VariableType.STRING && value.getAtomType() == AtomType.STRING) {
-            return true;
         } else if (type == VariableType.VAR && value.getAtomType() == AtomType.INT) {
             return true;
         } else if (value.getAtomType() == AtomType.ID) {

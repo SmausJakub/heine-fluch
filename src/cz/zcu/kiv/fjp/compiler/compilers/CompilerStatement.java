@@ -1,8 +1,10 @@
 package cz.zcu.kiv.fjp.compiler.compilers;
 
 
+import cz.zcu.kiv.fjp.abstracts.AbstractAtom;
 import cz.zcu.kiv.fjp.abstracts.AbstractStatement;
 import cz.zcu.kiv.fjp.compiler.symbol.SymbolTableItem;
+import cz.zcu.kiv.fjp.compiler.types.CaseLimb;
 import cz.zcu.kiv.fjp.compiler.types.Goto;
 import cz.zcu.kiv.fjp.compiler.types.statements.*;
 import cz.zcu.kiv.fjp.enums.ForType;
@@ -11,6 +13,9 @@ import cz.zcu.kiv.fjp.enums.InstructionOperation;
 import cz.zcu.kiv.fjp.enums.VariableType;
 import cz.zcu.kiv.fjp.errors.*;
 import cz.zcu.kiv.fjp.instruction.Instruction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.*;
 
@@ -188,8 +193,141 @@ public class CompilerStatement {
      * compiles case statement
      */
     private void compileCaseStatement() {
+        StatementCase statementCase = (StatementCase) statement;
+
+        // compile switched expression
+        VariableType caseType = new CompilerExpression(statementCase.getExpression()).compileExpression();
+
+        // if boolean is switched, throw error
+        if (caseType == VariableType.BOOLEAN) {
+            System.err.println("Case does not support boolean expressions");
+            System.exit(20);
+        }
+
+        // case jumps - these jumps are for statement end, where they jump to the end of case
+        List<Instruction> caseJumps = new ArrayList<>();
+
+        // case branch jumps - these jumps are for end of atom list, where they jump jo the next branch
+        List<Instruction> caseBranchJumps = new ArrayList<>();
+
+        // list for used atoms
+        List<String> caseAtoms = new ArrayList<>();
+
+        // go through all case limbs (there is always at least one)
+        for (CaseLimb caseLimb : statementCase.getLimbList()) {
+
+            List<Instruction> labelListJumps = new ArrayList<>();
+
+            // go through all atoms (always at least one)
+            for (AbstractAtom atom : caseLimb.getAtomList()) {
+
+
+                // compile the atom and check it is not boolean
+                VariableType atomType = new CompilerAtom(atom).compileAtom();
+                if (atomType == VariableType.BOOLEAN) {
+                    System.err.println("Case does not support boolean expressions");
+                    System.exit(20);
+                }
+
+                if (caseAtoms.contains(atom.toString())) {
+                    System.err.println("Not allowed multiple same atoms");
+                    System.exit(50);
+                } else {
+                    caseAtoms.add(atom.toString());
+                }
+
+                switch (programMode) {
+                    case LEGACY:
+                        compileCaseLimbInteger();
+                        break;
+                    case DEFAULT:
+                        // check the types
+                        if (caseType == atomType) {
+                            // all ok, just see if integer or real
+                            if (caseType == VariableType.INTEGER) {
+                                compileCaseLimbInteger();
+                            } else {
+                                compileCaseLimbReal();
+                            }
+                            // else case is integer - type to integer
+                        } else if (caseType == VariableType.INTEGER) {
+                            instructionList.add(new Instruction(InstructionCode.RTI.getName(), 0, 0));
+                            compileCaseLimbInteger();
+                            // else case is real - type to real
+                        } else {
+                            instructionList.add(new Instruction(InstructionCode.ITR.getName(), 0, 0));
+                            compileCaseLimbReal();
+                        }
+                        break;
+                    case STRICT:
+                        // strict needs to be two same types
+                        if (caseType == atomType) {
+                            // integer or real
+                            if (caseType == VariableType.INTEGER) {
+                                compileCaseLimbInteger();
+                            } else {
+                                compileCaseLimbReal();
+                            }
+                        } else {
+                            err.throwError(new ErrorIncompatibleTypes(caseType.getValue(), atomType.getValue()));
+                        }
+                        break;
+                }
+
+                // add atom list jump - this jump jumps to the case branch statement, if the expression was true (to skip other atom expressions)
+                Instruction atomListJump = new Instruction(InstructionCode.JMC.getName(), 0, 0);
+                instructionList.add(atomListJump);
+                labelListJumps.add(atomListJump);
+            }
+
+            // add case branch jump - after all labels, if there was no jump, all of them were false, so we need to skip the case branch statement
+            Instruction caseBranchJump = new Instruction(InstructionCode.JMP.getName(), 0, 0);
+            instructionList.add(caseBranchJump);
+            caseBranchJumps.add(caseBranchJump);
+
+            // now we know where the atom list jumps jump
+            for (Instruction labelListJ : labelListJumps) {
+                labelListJ.setOperand(instructionList.size());
+            }
+
+            // compile the case branch statement
+            new CompilerStatement(caseLimb.getStatement(), inForCycle).compileStatement();
+
+            // prepare case jump - this jumps at the end of statement to the end of case statement - to skip other branches
+            Instruction caseJump = new Instruction(InstructionCode.JMP.getName(), 0, 0);
+            instructionList.add(caseJump);
+            caseJumps.add(caseJump);
+
+            // now we know where the case branch jumps jump
+            for (Instruction caseBranchJ : caseBranchJumps) {
+                caseBranchJ.setOperand(instructionList.size());
+            }
+            caseBranchJumps.clear();
+
+        }
+
+        // here the case jumps jump
+        for (Instruction caseJ : caseJumps) {
+            caseJ.setOperand(instructionList.size());
+        }
+
 
     }
+
+    private void compileCaseLimbReal() {
+        instructionList.add(new Instruction(InstructionCode.OPF.getName(), 0, InstructionOperation.EQ.getCode()));
+        instructionList.add(new Instruction(InstructionCode.LRT.getName(), 0, 0));
+        instructionList.add(new Instruction(InstructionCode.OPF.getName(), 0, InstructionOperation.EQ.getCode()));
+    }
+
+    private void compileCaseLimbInteger() {
+        instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.EQ.getCode()));
+        instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, 0));
+        instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.EQ.getCode()));
+    }
+
+
+
 
     /**
      * compiles if statement

@@ -1,4 +1,4 @@
-// Generated from C:/Users/Jakub/IdeaProjects/heine-fluch/src/cz/zcu/kiv/fjp\Pascal0Like.g4 by ANTLR 4.7
+// Generated from C:/Users/Kossyr/IdeaProjects/PascaL0like/src/cz/zcu/kiv/fjp\Pascal0Like.g4 by ANTLR 4.7
 package cz.zcu.kiv.fjp;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -319,11 +319,4 @@ public interface Pascal0LikeVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIdAtom(Pascal0LikeParser.IdAtomContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code stringAtom}
-	 * labeled alternative in {@link Pascal0LikeParser#atom}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStringAtom(Pascal0LikeParser.StringAtomContext ctx);
 }

@@ -19,6 +19,7 @@ import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.*;
  */
 public class CompilerExpression {
 
+
     /**
      * expected type that the expression will have
      * it is given by the one calling the CompilerExpression
@@ -30,6 +31,9 @@ public class CompilerExpression {
      */
     private AbstractExpression expression;
 
+
+    private boolean expectAnyType;
+
     /**
      * @param expression   expression to compile
      * @param expectedType expected type of expression
@@ -37,14 +41,24 @@ public class CompilerExpression {
     public CompilerExpression(AbstractExpression expression, VariableType expectedType) {
         this.expression = expression;
         this.expectedType = expectedType;
+        this.expectAnyType = false;
+    }
+
+    public CompilerExpression(AbstractExpression expression) {
+        this.expression = expression;
+        this.expectAnyType = true;
     }
 
     /**
      * compiles expression
      */
-    public void compileExpression() {
+    public VariableType compileExpression() {
 
         VariableType compiledType = compileExpressionRecursive(expression);
+
+        if (expectAnyType) {
+            return compiledType;
+        }
 
         if (!(expectedType == compiledType)) {
             if (!(programMode == ProgramMode.DEFAULT && expectedType != VariableType.BOOLEAN)) {
@@ -52,13 +66,20 @@ public class CompilerExpression {
             } else {
                 if (expectedType == VariableType.INTEGER && compiledType == VariableType.REAL) {
                     instructionList.add(new Instruction(InstructionCode.RTI.getName(), 0, 0));
+                    compiledType = VariableType.INTEGER;
                 } else if (expectedType == VariableType.REAL && compiledType == VariableType.INTEGER) {
                     instructionList.add(new Instruction(InstructionCode.ITR.getName(), 0, 0));
+                    compiledType = VariableType.REAL;
                 }
             }
 
         }
+
+        return compiledType;
+
+
     }
+
 
     /**
      * recursive method for compiling expression
@@ -416,8 +437,6 @@ public class CompilerExpression {
                 } else {
                     err.throwError(new ErrorUnknownIdentifier(atomId.getIdentifier()));
                 }
-            case STRING:
-                return VariableType.STRING;
         }
         return null;
     }

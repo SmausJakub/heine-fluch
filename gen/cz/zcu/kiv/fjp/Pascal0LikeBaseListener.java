@@ -1,4 +1,4 @@
-// Generated from C:/Users/Jakub/IdeaProjects/heine-fluch/src/cz/zcu/kiv/fjp\Pascal0Like.g4 by ANTLR 4.7
+// Generated from C:/Users/Kossyr/IdeaProjects/PascaL0like/src/cz/zcu/kiv/fjp\Pascal0Like.g4 by ANTLR 4.7
 package cz.zcu.kiv.fjp;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -587,18 +587,6 @@ public class Pascal0LikeBaseListener implements Pascal0LikeListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitIdAtom(Pascal0LikeParser.IdAtomContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStringAtom(Pascal0LikeParser.StringAtomContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStringAtom(Pascal0LikeParser.StringAtomContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

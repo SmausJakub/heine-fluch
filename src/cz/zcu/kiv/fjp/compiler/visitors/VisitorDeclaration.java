@@ -150,10 +150,6 @@ public class VisitorDeclaration extends Pascal0LikeBaseVisitor<AbstractDeclarati
 
         switch (type.op.getType()) {
 
-            case Pascal0LikeParser.STR: {
-                ret = VariableType.STRING;
-                break;
-            }
             case Pascal0LikeParser.REAL: {
                 ret = VariableType.REAL;
                 break;

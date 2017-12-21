@@ -3,7 +3,10 @@ package cz.zcu.kiv.fjp.compiler.visitors;
 import cz.zcu.kiv.fjp.Pascal0LikeBaseVisitor;
 import cz.zcu.kiv.fjp.Pascal0LikeParser;
 import cz.zcu.kiv.fjp.abstracts.AbstractAtom;
-import cz.zcu.kiv.fjp.compiler.types.atoms.*;
+import cz.zcu.kiv.fjp.compiler.types.atoms.AtomBoolean;
+import cz.zcu.kiv.fjp.compiler.types.atoms.AtomId;
+import cz.zcu.kiv.fjp.compiler.types.atoms.AtomInteger;
+import cz.zcu.kiv.fjp.compiler.types.atoms.AtomReal;
 
 /**
  * Atom Visitor
@@ -71,23 +74,5 @@ public class VisitorAtom extends Pascal0LikeBaseVisitor<AbstractAtom> {
         return new AtomId(ctx.getText());
 
     }
-
-    /**
-     * visits string atom
-     * @param ctx tree context
-     * @return AtomString
-     */
-    @Override
-    public AbstractAtom visitStringAtom(Pascal0LikeParser.StringAtomContext ctx) {
-
-        String str = ctx.getText();
-
-        // delete the quotes '  '
-        str = str.substring(1, str.length() - 1).replace("\"\"", "\"");
-
-        return new AtomString(str);
-
-    }
-
 
 }

@@ -14,8 +14,7 @@ public enum AtomType {
     INT("INTEGER"),
     REAL("REAL"),
     BOOLEAN("BOOLEAN"),
-    ID("IDENTIFIER"),
-    STRING("STRING");
+    ID("IDENTIFIER");
 
     private String name;
 

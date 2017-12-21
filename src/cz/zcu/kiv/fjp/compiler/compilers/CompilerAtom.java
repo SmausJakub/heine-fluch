@@ -2,8 +2,12 @@ package cz.zcu.kiv.fjp.compiler.compilers;
 
 import cz.zcu.kiv.fjp.abstracts.AbstractAtom;
 import cz.zcu.kiv.fjp.compiler.symbol.SymbolTableItem;
-import cz.zcu.kiv.fjp.compiler.types.atoms.*;
+import cz.zcu.kiv.fjp.compiler.types.atoms.AtomBoolean;
+import cz.zcu.kiv.fjp.compiler.types.atoms.AtomId;
+import cz.zcu.kiv.fjp.compiler.types.atoms.AtomInteger;
+import cz.zcu.kiv.fjp.compiler.types.atoms.AtomReal;
 import cz.zcu.kiv.fjp.enums.InstructionCode;
+import cz.zcu.kiv.fjp.enums.VariableType;
 import cz.zcu.kiv.fjp.instruction.Instruction;
 
 import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.*;
@@ -27,7 +31,7 @@ public class CompilerAtom {
         this.atom = atom;
     }
 
-    public void compileAtom() {
+    public VariableType compileAtom() {
         switch (atom.getAtomType()) {
 
             case INT:
@@ -36,7 +40,7 @@ public class CompilerAtom {
                 AtomInteger atomInteger = (AtomInteger) atom;
 
                 instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, atomInteger.getInteger()));
-                break;
+                return VariableType.INTEGER;
             case REAL:
                 // real - load constant to stack using LRT
 
@@ -44,7 +48,7 @@ public class CompilerAtom {
 
                 instructionList.add(new Instruction(InstructionCode.LRT.getName(), 0, atomReal.getReal()));
 
-                break;
+                return VariableType.REAL;
             case BOOLEAN:
                 // determine if true (1) or false (0) and LIT
 
@@ -53,7 +57,8 @@ public class CompilerAtom {
                 int val = atomBoolean.isBool() ? 1 : 0;
 
                 instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, val));
-                break;
+
+                return VariableType.BOOLEAN;
             case ID:
                 // need to find the item we are supposed to load
 
@@ -66,25 +71,19 @@ public class CompilerAtom {
                     case INTEGER:
                         // loading integer with LOD
                         instructionList.add(new Instruction(InstructionCode.LOD.getName(), currentLevel - item.getLevel(), item.getAddress()));
-                        break;
+                        return VariableType.INTEGER;
                     case REAL:
                         // loading real with LOR
                         instructionList.add(new Instruction(InstructionCode.LOR.getName(), currentLevel - item.getLevel(), item.getAddress()));
-                        break;
-                    case STRING:
-                        break;
+                        return VariableType.REAL;
                     case BOOLEAN:
                         // loading bool with LOD
                         instructionList.add(new Instruction(InstructionCode.LOD.getName(), currentLevel - item.getLevel(), item.getAddress()));
-                        break;
+                        return VariableType.BOOLEAN;
                 }
                 break;
-            case STRING:
-
-                AtomString atomString = (AtomString) atom;
-
-                break;
         }
+        return null;
     }
 
 }

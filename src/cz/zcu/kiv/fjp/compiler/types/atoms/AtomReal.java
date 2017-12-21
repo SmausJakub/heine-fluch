@@ -28,6 +28,6 @@ public class AtomReal extends AbstractAtom {
 
     @Override
     public String toString() {
-        return "" + real;
+        return String.valueOf(real);
     }
 }

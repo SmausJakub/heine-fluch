@@ -140,7 +140,7 @@ case_statement
     :
     CASE expression OF
     case_limb_list
-    END
+    END SEMI
     ;
 
 case_limb_list
@@ -150,7 +150,7 @@ case_limb_list
 
 case_limb
     :
-    case_label_list COLON statement
+    case_label_list DO statement
     ;
 
 case_label_list
@@ -160,7 +160,7 @@ case_label_list
 
 type
     :
-	op=( STR | REAL | INTEGER | BOOLEAN | VAR )
+	op=( REAL | INTEGER | BOOLEAN | VAR )
     ;
 
 expression
@@ -182,12 +182,8 @@ atom
     | FLOAT  #realAtom
     | op=(TRUE | FALSE) #booleanAtom
     | IDENT #idAtom
-    | STRING #stringAtom
     ;
 
-STRING
-    : '\'' ('\'\'' | ~ ('\''))* '\''
-    ;
 
 INT
  : [0-9]+
@@ -454,9 +450,6 @@ WHILE
    : W H I L E
    ;
 
-STR
-    : S T R I N G
-    ;
 
 CALL
     : C A L L
