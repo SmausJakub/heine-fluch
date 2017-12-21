@@ -3,6 +3,7 @@ package cz.zcu.kiv.fjp.compiler;
 import cz.zcu.kiv.fjp.Pascal0LikeLexer;
 import cz.zcu.kiv.fjp.Pascal0LikeParser;
 import cz.zcu.kiv.fjp.compiler.compilers.CompilerProgram;
+import cz.zcu.kiv.fjp.compiler.symbol.SymbolTable;
 import cz.zcu.kiv.fjp.compiler.types.Program;
 import cz.zcu.kiv.fjp.compiler.visitors.VisitorProgram;
 import org.antlr.v4.runtime.CharStream;
@@ -10,7 +11,11 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.printInstructionList;
 
 public class Compiler {
 
@@ -23,9 +28,20 @@ public class Compiler {
         return INSTANCE;
     }
 
-    public void compileFile(String inputFile, String outputFile) throws IOException {
+    public void compileFile(String inputFile, String outputFile, boolean printSymbol, String symbolFile) {
 
-        CharStream inputStream = CharStreams.fromFileName(inputFile);
+
+        System.out.println("Starting up compiler ....");
+        System.out.println("Loading source code from file " + inputFile);
+
+        CharStream inputStream = null;
+        try {
+            inputStream = CharStreams.fromFileName(inputFile);
+        } catch (IOException e) {
+            System.err.println("Error while loading file " + inputFile + "\n" + e.getMessage());
+        }
+
+        System.out.println("OK");
 
         Pascal0LikeLexer lexer = new Pascal0LikeLexer(inputStream);
 
@@ -40,15 +56,53 @@ public class Compiler {
         parser.removeErrorListeners();
         parser.addErrorListener(parserErrorListener);
 
+        System.out.println("ANTLR parsing tree ...");
+
         ParseTree tree = parser.program();
+
+        System.out.println("OK");
+
+        System.out.println("Visitor visiting tree ...");
 
         // visitor
         Program program = new VisitorProgram().visit(tree);
 
+        System.out.println("OK");
+        System.out.println("Compiler compiling tree using the " + program.getProgramMode().toString() + " mode");
+
         // compiler
         new CompilerProgram(program).compileProgram();
 
+        System.out.println("OK");
+
+        System.out.println("Writing output instructions into " + outputFile);
+
+        try {
+            PrintWriter pw = new PrintWriter(outputFile);
+
+            pw.print(printInstructionList());
+
+            if (printSymbol) {
+                if (symbolFile != null) {
+                    pw.close();
+                    System.out.println("Writing symbol table into " + symbolFile);
+                    pw = new PrintWriter(symbolFile);
+                    pw.print(SymbolTable.getInstance().printSymbolTable());
+                } else {
+                    System.out.println("Symbol Table:\n" + SymbolTable.getInstance().printSymbolTable());
+                }
+            }
+
+            pw.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("Error while writing into files\n" + e.getMessage());
+        }
+
+        System.out.println("Done");
+
     }
+
+
 
 
 }

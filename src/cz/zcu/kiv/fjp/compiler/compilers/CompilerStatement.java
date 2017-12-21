@@ -200,8 +200,7 @@ public class CompilerStatement {
 
         // if boolean is switched, throw error
         if (caseType == VariableType.BOOLEAN) {
-            System.err.println("Case does not support boolean expressions");
-            System.exit(20);
+            err.throwError(new ErrorCaseNoBoolean());
         }
 
         // case jumps - these jumps are for statement end, where they jump to the end of case
@@ -225,13 +224,11 @@ public class CompilerStatement {
                 // compile the atom and check it is not boolean
                 VariableType atomType = new CompilerAtom(atom).compileAtom();
                 if (atomType == VariableType.BOOLEAN) {
-                    System.err.println("Case does not support boolean expressions");
-                    System.exit(20);
+                    err.throwError(new ErrorCaseNoBoolean());
                 }
 
                 if (caseAtoms.contains(atom.toString())) {
-                    System.err.println("Not allowed multiple same atoms");
-                    System.exit(50);
+                    err.throwError(new ErrorCaseMultipleAtoms(atom.toString()));
                 } else {
                     caseAtoms.add(atom.toString());
                 }

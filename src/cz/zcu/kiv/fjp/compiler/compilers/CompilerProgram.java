@@ -47,9 +47,6 @@ public class CompilerProgram {
         checkGotoList();
         indexList();
 
-        System.out.println("Symbol Table : \n" + symbolTable.printSymbolTable());
-        System.out.println("Instruction List : \n" + printInstructionList());
-
     }
 
     /**

@@ -16,7 +16,7 @@ public class Main {
         System.out.println("PascaL0-like prekladac a interpret");
         System.out.println("Pouziti:");
         System.out.println("-h : zobraz napovedu");
-        System.out.println("-c [vstupni soubor] [vystupni soubor] : preloz vstupni soubor jazyka PascaL0-like do vystupniho souboru");
+        System.out.println("-c [vstupni soubor] [vystupni soubor] -s [symbol table soubor]: Prelozi vstupni soubor zdrojoveho kodu PascaL0-like do instrukci jazyka PascaL0-Like. Dalsi parametry jsou dobrovolne. -st vypisuje tabulku symbolu na obrazovku, ctctvrty parametr oznacuje soubor, do ktereho se tabulka symbolu ulozi.");
         System.out.println("-i [soubor] : interpretuj instrukce PL/0");
 
     }
@@ -37,10 +37,35 @@ public class Main {
 
                 if (args.length > 2) {
 
-                    Compiler.getInstance().compileFile(args[1], args[2]);
+                    String inputFile = args[1];
+                    String outputFile = args[2];
+
+                    if (args.length > 3) {
+
+                        if (args[3].equalsIgnoreCase("-s")) {
+
+                            if (args.length > 4) {
+
+                                String symbolTableFile = args[4];
+
+                                Compiler.getInstance().compileFile(inputFile, outputFile, true, symbolTableFile);
+
+
+                            } else {
+                                Compiler.getInstance().compileFile(inputFile, outputFile, true, null);
+                            }
+
+                        } else {
+                            System.err.println("Neznamy argument. Vypisuji pouziti.");
+                            usage();
+                        }
+
+                    } else {
+                        Compiler.getInstance().compileFile(inputFile, outputFile, false, null);
+                    }
 
                 } else {
-                    System.out.println("Spatne zadane parametry.");
+                    System.err.println("Spatne zadane parametry.");
                     usage();
                 }
 
@@ -65,11 +90,11 @@ public class Main {
 
 
                 } else {
-                    System.out.println("Nezadan nazev souboru.");
+                    System.err.println("Nezadan nazev souboru.");
                 }
 
             } else {
-                System.out.println("Neznamy argument. Vypisuji pouziti.");
+                System.err.println("Neznamy argument. Vypisuji pouziti.");
                 usage();
             }
 

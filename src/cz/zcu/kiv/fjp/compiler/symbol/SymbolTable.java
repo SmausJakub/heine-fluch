@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class SymbolTable {
 
-    private static SymbolTable instance = new SymbolTable();
+    private static final SymbolTable instance = new SymbolTable();
 
     private HashMap<String, SymbolTableItem> symbolTable;
 
