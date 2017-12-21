@@ -19,7 +19,7 @@ public class Compiler {
     private Compiler() {
     }
 
-    public static Compiler getInstace() {
+    public static Compiler getInstance() {
         return INSTANCE;
     }
 

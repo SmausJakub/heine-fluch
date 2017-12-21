@@ -37,7 +37,7 @@ public class Main {
 
                 if (args.length > 2) {
 
-                    Compiler.getInstace().compileFile(args[1], args[2]);
+                    Compiler.getInstance().compileFile(args[1], args[2]);
 
                 } else {
                     System.out.println("Spatne zadane parametry.");
