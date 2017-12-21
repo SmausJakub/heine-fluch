@@ -32,9 +32,6 @@ public class ErrorHandler {
         System.exit(error.getErrorType().getCode());
     }
 
-    public AbstractLineNumbered getCurrentPart() {
-        return currentPart;
-    }
 
     public void setCurrentPart(AbstractLineNumbered currentPart) {
         this.currentPart = currentPart;
