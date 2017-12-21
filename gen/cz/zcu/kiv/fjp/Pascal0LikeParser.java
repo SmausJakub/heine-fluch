@@ -30,7 +30,7 @@ public class Pascal0LikeParser extends Parser {
             LT = 49, LE = 50, GE = 51, GT = 52, LPAREN = 53, RPAREN = 54, PLUS = 55, MINUS = 56, LBRACK = 57,
             RBRACK = 58, TERNARY_ONE = 59, TERNARY_TWO = 60, IDENT = 61, WS = 62;
     public static final int
-		RULE_program = 0, RULE_declare_mode = 1, RULE_block = 2, RULE_declaration_part = 3, 
+            RULE_program = 0, RULE_declare_mode = 1, RULE_block = 2, RULE_declaration_part = 3,
 		RULE_procedure_declaration_part = 4, RULE_constant_declaration_part = 5, 
 		RULE_label_declaration_part = 6, RULE_variable_declaration_part = 7, RULE_label_list = 8, 
 		RULE_identifier_list = 9, RULE_expression_list = 10, RULE_statement_part = 11, 
@@ -168,15 +168,9 @@ public class Pascal0LikeParser extends Parser {
                     "\3\2\2\2\u0150\u014e\3\2\2\2\u0150\u014f\3\2\2\2\u0151A\3\2\2\2\27HV_" +
                     "a\u0087\u008e\u0096\u009e\u00a5\u00b8\u00c6\u00c8\u00ea\u00ef\u0111\u011d" +
                     "\u0128\u0139\u0147\u0149\u0150";
-    private static final String[] _LITERAL_NAMES = {
-            null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, "'*'", "'/'", "'%'", "'.'", "':='", "','", "';'", "':'",
-            "'='", "'<>'", "'<'", "'<='", "'>='", "'>'", "'('", "')'", "'+'", "'-'",
-            "'['", "']'", "'?'", "'!'"
-    };
-	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
+    public static final ATN _ATN =
+            new ATNDeserializer().deserialize(_serializedATN.toCharArray());
+    public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
 	/**
 	 * @deprecated Use {@link #VOCABULARY} instead.
@@ -519,15 +513,13 @@ public class Pascal0LikeParser extends Parser {
 		}
 	}
 
-    private static final String[] _SYMBOLIC_NAMES = {
-            null, "INT", "FLOAT", "BEGIN", "AND", "BOOLEAN", "CASE", "CONST", "DO",
-            "OF", "DOWNTO", "ELSE", "END", "FOR", "GOTO", "IF", "INTEGER", "LABEL",
-            "OR", "PROCEDURE", "REAL", "REPEAT", "THEN", "TO", "UNTIL", "WHILE", "CALL",
-            "READ", "WRITE", "NOT", "TRUE", "FALSE", "VAR", "LEGACY", "PROGRAM", "USE",
-            "DEFAULT", "STRICT", "ODD", "MULTIPLY", "DIVIDE", "MODULO", "DOT", "ASSIGN",
-            "COMMA", "SEMI", "COLON", "EQUAL", "NOT_EQUAL", "LT", "LE", "GE", "GT",
-            "LPAREN", "RPAREN", "PLUS", "MINUS", "LBRACK", "RBRACK", "TERNARY_ONE",
-            "TERNARY_TWO", "IDENT", "WS"
+    private static final String[] _LITERAL_NAMES = {
+            null, null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, "'*'", "'/'", "'%'", "'.'", "':='", "','", "';'", "':'",
+            "'='", "'<>'", "'<'", "'<='", "'>='", "'>'", "'('", "')'", "'+'", "'-'",
+            "'['", "']'", "'?'", "'!'"
     };
 
 	public static class Procedure_declaration_partContext extends ParserRuleContext {
@@ -2165,6 +2157,17 @@ public class Pascal0LikeParser extends Parser {
 		return _localctx;
 	}
 
+    private static final String[] _SYMBOLIC_NAMES = {
+            null, "INT", "FLOAT", "BEGIN", "AND", "BOOLEAN", "CASE", "CONST", "DO",
+            "OF", "DOWNTO", "ELSE", "END", "FOR", "GOTO", "IF", "INTEGER", "LABEL",
+            "OR", "PROCEDURE", "REAL", "REPEAT", "THEN", "TO", "UNTIL", "WHILE", "CALL",
+            "READ", "WRITE", "NOT", "TRUE", "FALSE", "VAR", "LEGACY", "PROGRAM", "USE",
+            "DEFAULT", "STRICT", "ODD", "MULTIPLY", "DIVIDE", "MODULO", "DOT", "ASSIGN",
+            "COMMA", "SEMI", "COLON", "EQUAL", "NOT_EQUAL", "LT", "LE", "GE", "GT",
+            "LPAREN", "RPAREN", "PLUS", "MINUS", "LBRACK", "RBRACK", "TERNARY_ONE",
+            "TERNARY_TWO", "IDENT", "WS"
+    };
+
     public final Declaration_partContext declaration_part() throws RecognitionException {
         Declaration_partContext _localctx = new Declaration_partContext(_ctx, getState());
         enterRule(_localctx, 6, RULE_declaration_part);
@@ -2222,6 +2225,42 @@ public class Pascal0LikeParser extends Parser {
         return _localctx;
     }
 
+    public static class Case_limb_listContext extends ParserRuleContext {
+        public List<Case_limbContext> case_limb() {
+            return getRuleContexts(Case_limbContext.class);
+        }
+
+        public Case_limbContext case_limb(int i) {
+            return getRuleContext(Case_limbContext.class, i);
+        }
+
+        public Case_limb_listContext(ParserRuleContext parent, int invokingState) {
+            super(parent, invokingState);
+        }
+
+        @Override
+        public int getRuleIndex() {
+            return RULE_case_limb_list;
+        }
+
+        @Override
+        public void enterRule(ParseTreeListener listener) {
+            if (listener instanceof Pascal0LikeListener) ((Pascal0LikeListener) listener).enterCase_limb_list(this);
+        }
+
+        @Override
+        public void exitRule(ParseTreeListener listener) {
+            if (listener instanceof Pascal0LikeListener) ((Pascal0LikeListener) listener).exitCase_limb_list(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof Pascal0LikeVisitor)
+                return ((Pascal0LikeVisitor<? extends T>) visitor).visitCase_limb_list(this);
+            else return visitor.visitChildren(this);
+        }
+    }
+
 	public final Case_statementContext case_statement() throws RecognitionException {
 		Case_statementContext _localctx = new Case_statementContext(_ctx, getState());
 		enterRule(_localctx, 50, RULE_case_statement);
@@ -2241,7 +2280,7 @@ public class Pascal0LikeParser extends Parser {
                 setState(278);
                 match(SEMI);
             }
-		}
+        }
 		catch (RecognitionException re) {
 			_localctx.exception = re;
 			_errHandler.reportError(this, re);
@@ -2253,32 +2292,6 @@ public class Pascal0LikeParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Case_limb_listContext extends ParserRuleContext {
-		public List<Case_limbContext> case_limb() {
-			return getRuleContexts(Case_limbContext.class);
-		}
-		public Case_limbContext case_limb(int i) {
-			return getRuleContext(Case_limbContext.class,i);
-		}
-		public Case_limb_listContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_case_limb_list; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof Pascal0LikeListener ) ((Pascal0LikeListener)listener).enterCase_limb_list(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof Pascal0LikeListener ) ((Pascal0LikeListener)listener).exitCase_limb_list(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof Pascal0LikeVisitor ) return ((Pascal0LikeVisitor<? extends T>)visitor).visitCase_limb_list(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
 	public final Case_limb_listContext case_limb_list() throws RecognitionException {
 		Case_limb_listContext _localctx = new Case_limb_listContext(_ctx, getState());
 		enterRule(_localctx, 52, RULE_case_limb_list);
@@ -2288,21 +2301,21 @@ public class Pascal0LikeParser extends Parser {
 			{
                 setState(281);
                 _errHandler.sync(this);
-			_la = _input.LA(1);
+                _la = _input.LA(1);
 			do {
 				{
 				{
                     setState(280);
                     case_limb();
-				}
+                }
 				}
                 setState(283);
                 _errHandler.sync(this);
-				_la = _input.LA(1);
+                _la = _input.LA(1);
             }
             while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << INT) | (1L << FLOAT) | (1L << TRUE) | (1L << FALSE) | (1L << IDENT))) != 0));
             }
-		}
+        }
 		catch (RecognitionException re) {
 			_localctx.exception = re;
 			_errHandler.reportError(this, re);
@@ -2326,7 +2339,7 @@ public class Pascal0LikeParser extends Parser {
                 match(DO);
                 setState(287);
                 statement();
-			}
+            }
 		}
 		catch (RecognitionException re) {
 			_localctx.exception = re;
@@ -2338,42 +2351,6 @@ public class Pascal0LikeParser extends Parser {
 		}
 		return _localctx;
 	}
-
-    public final Case_label_listContext case_label_list() throws RecognitionException {
-        Case_label_listContext _localctx = new Case_label_listContext(_ctx, getState());
-        enterRule(_localctx, 56, RULE_case_label_list);
-        int _la;
-        try {
-            enterOuterAlt(_localctx, 1);
-            {
-                setState(289);
-                atom();
-                setState(294);
-                _errHandler.sync(this);
-                _la = _input.LA(1);
-                while (_la == COMMA) {
-                    {
-                        {
-                            setState(290);
-                            match(COMMA);
-                            setState(291);
-                            atom();
-                        }
-                    }
-                    setState(296);
-                    _errHandler.sync(this);
-                    _la = _input.LA(1);
-                }
-            }
-        } catch (RecognitionException re) {
-            _localctx.exception = re;
-            _errHandler.reportError(this, re);
-            _errHandler.recover(this, re);
-        } finally {
-            exitRule();
-        }
-        return _localctx;
-    }
 
 	public static class Case_label_listContext extends ParserRuleContext {
 		public List<AtomContext> atom() {
@@ -2405,24 +2382,32 @@ public class Pascal0LikeParser extends Parser {
 		}
 	}
 
-    public final TypeContext type() throws RecognitionException {
-        TypeContext _localctx = new TypeContext(_ctx, getState());
-        enterRule(_localctx, 58, RULE_type);
+    public final Case_label_listContext case_label_list() throws RecognitionException {
+        Case_label_listContext _localctx = new Case_label_listContext(_ctx, getState());
+        enterRule(_localctx, 56, RULE_case_label_list);
         int _la;
-		try {
+        try {
 			enterOuterAlt(_localctx, 1);
 			{
-                setState(297);
-                ((TypeContext) _localctx).op = _input.LT(1);
+                setState(289);
+                atom();
+                setState(294);
+                _errHandler.sync(this);
                 _la = _input.LA(1);
-                if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << INTEGER) | (1L << REAL) | (1L << VAR))) != 0))) {
-                    ((TypeContext) _localctx).op = (Token) _errHandler.recoverInline(this);
-                } else {
-                    if (_input.LA(1) == Token.EOF) matchedEOF = true;
-                    _errHandler.reportMatch(this);
-                    consume();
+                while (_la == COMMA) {
+                    {
+                        {
+                            setState(290);
+                            match(COMMA);
+                            setState(291);
+                            atom();
+                        }
+                    }
+                    setState(296);
+                    _errHandler.sync(this);
+                    _la = _input.LA(1);
                 }
-			}
+            }
 		}
 		catch (RecognitionException re) {
 			_localctx.exception = re;
@@ -2460,179 +2445,24 @@ public class Pascal0LikeParser extends Parser {
 		}
 	}
 
-    private ExpressionContext expression(int _p) throws RecognitionException {
-        ParserRuleContext _parentctx = _ctx;
-        int _parentState = getState();
-        ExpressionContext _localctx = new ExpressionContext(_ctx, _parentState);
-        ExpressionContext _prevctx = _localctx;
-        int _startState = 60;
-        enterRecursionRule(_localctx, 60, RULE_expression, _p);
+    public final TypeContext type() throws RecognitionException {
+        TypeContext _localctx = new TypeContext(_ctx, getState());
+        enterRule(_localctx, 58, RULE_type);
         int _la;
-		try {
-            int _alt;
+        try {
             enterOuterAlt(_localctx, 1);
-			{
-                setState(311);
-                _errHandler.sync(this);
-                switch (_input.LA(1)) {
-                    case MINUS: {
-                        _localctx = new UnaryExprContext(_localctx);
-                        _ctx = _localctx;
-                        _prevctx = _localctx;
-
-                        setState(300);
-                        match(MINUS);
-                        setState(301);
-                        expression(9);
-                    }
-                    break;
-                    case NOT: {
-                        _localctx = new NotExprContext(_localctx);
-                        _ctx = _localctx;
-                        _prevctx = _localctx;
-                        setState(302);
-                        match(NOT);
-                        setState(303);
-                        expression(8);
-                    }
-                    break;
-                    case ODD: {
-                        _localctx = new OddExprContext(_localctx);
-                        _ctx = _localctx;
-                        _prevctx = _localctx;
-                        setState(304);
-                        match(ODD);
-                        setState(305);
-                        expression(7);
-                    }
-                    break;
-                    case INT:
-                    case FLOAT:
-                    case TRUE:
-                    case FALSE:
-                    case IDENT: {
-                        _localctx = new AtomExprContext(_localctx);
-                        _ctx = _localctx;
-                        _prevctx = _localctx;
-                        setState(306);
-                        atom();
-                    }
-                    break;
-                    case LPAREN: {
-                        _localctx = new ParExprContext(_localctx);
-                        _ctx = _localctx;
-                        _prevctx = _localctx;
-                        setState(307);
-                        match(LPAREN);
-                        setState(308);
-                        expression(0);
-                        setState(309);
-                        match(RPAREN);
-                    }
-                    break;
-                    default:
-                        throw new NoViableAltException(this);
+            {
+                setState(297);
+                ((TypeContext) _localctx).op = _input.LT(1);
+                _la = _input.LA(1);
+                if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BOOLEAN) | (1L << INTEGER) | (1L << REAL) | (1L << VAR))) != 0))) {
+                    ((TypeContext) _localctx).op = (Token) _errHandler.recoverInline(this);
+                } else {
+                    if (_input.LA(1) == Token.EOF) matchedEOF = true;
+                    _errHandler.reportMatch(this);
+                    consume();
                 }
-                _ctx.stop = _input.LT(-1);
-                setState(327);
-                _errHandler.sync(this);
-                _alt = getInterpreter().adaptivePredict(_input, 19, _ctx);
-                while (_alt != 2 && _alt != org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER) {
-                    if (_alt == 1) {
-                        if (_parseListeners != null) triggerExitRuleEvent();
-                        _prevctx = _localctx;
-                        {
-                            setState(325);
-                            _errHandler.sync(this);
-                            switch (getInterpreter().adaptivePredict(_input, 18, _ctx)) {
-                                case 1: {
-                                    _localctx = new MultiplicationExprContext(new ExpressionContext(_parentctx, _parentState));
-                                    pushNewRecursionContext(_localctx, _startState, RULE_expression);
-                                    setState(313);
-                                    if (!(precpred(_ctx, 6)))
-                                        throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-                                    setState(314);
-                                    ((MultiplicationExprContext) _localctx).op = _input.LT(1);
-                                    _la = _input.LA(1);
-                                    if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MULTIPLY) | (1L << DIVIDE) | (1L << MODULO))) != 0))) {
-                                        ((MultiplicationExprContext) _localctx).op = (Token) _errHandler.recoverInline(this);
-                                    } else {
-                                        if (_input.LA(1) == Token.EOF) matchedEOF = true;
-                                        _errHandler.reportMatch(this);
-                                        consume();
-                                    }
-                                    setState(315);
-                                    expression(7);
-                                }
-                                break;
-                                case 2: {
-                                    _localctx = new AdditiveExprContext(new ExpressionContext(_parentctx, _parentState));
-                                    pushNewRecursionContext(_localctx, _startState, RULE_expression);
-                                    setState(316);
-                                    if (!(precpred(_ctx, 5)))
-                                        throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-                                    setState(317);
-                                    ((AdditiveExprContext) _localctx).op = _input.LT(1);
-                                    _la = _input.LA(1);
-                                    if (!(_la == PLUS || _la == MINUS)) {
-                                        ((AdditiveExprContext) _localctx).op = (Token) _errHandler.recoverInline(this);
-                                    } else {
-                                        if (_input.LA(1) == Token.EOF) matchedEOF = true;
-                                        _errHandler.reportMatch(this);
-                                        consume();
-                                    }
-                                    setState(318);
-                                    expression(6);
-                                }
-                                break;
-                                case 3: {
-                                    _localctx = new RelationalExprContext(new ExpressionContext(_parentctx, _parentState));
-                                    pushNewRecursionContext(_localctx, _startState, RULE_expression);
-                                    setState(319);
-                                    if (!(precpred(_ctx, 4)))
-                                        throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-                                    setState(320);
-                                    ((RelationalExprContext) _localctx).op = _input.LT(1);
-                                    _la = _input.LA(1);
-                                    if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EQUAL) | (1L << NOT_EQUAL) | (1L << LT) | (1L << LE) | (1L << GE) | (1L << GT))) != 0))) {
-                                        ((RelationalExprContext) _localctx).op = (Token) _errHandler.recoverInline(this);
-                                    } else {
-                                        if (_input.LA(1) == Token.EOF) matchedEOF = true;
-                                        _errHandler.reportMatch(this);
-                                        consume();
-                                    }
-                                    setState(321);
-                                    expression(5);
-                                }
-                                break;
-                                case 4: {
-                                    _localctx = new LogicExprContext(new ExpressionContext(_parentctx, _parentState));
-                                    pushNewRecursionContext(_localctx, _startState, RULE_expression);
-                                    setState(322);
-                                    if (!(precpred(_ctx, 3)))
-                                        throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-                                    setState(323);
-                                    ((LogicExprContext) _localctx).op = _input.LT(1);
-                                    _la = _input.LA(1);
-                                    if (!(_la == AND || _la == OR)) {
-                                        ((LogicExprContext) _localctx).op = (Token) _errHandler.recoverInline(this);
-                                    } else {
-                                        if (_input.LA(1) == Token.EOF) matchedEOF = true;
-                                        _errHandler.reportMatch(this);
-                                        consume();
-                                    }
-                                    setState(324);
-                                    expression(4);
-                                }
-                                break;
-                            }
-                        }
-                    }
-                    setState(329);
-                    _errHandler.sync(this);
-                    _alt = getInterpreter().adaptivePredict(_input, 19, _ctx);
-                }
-			}
+            }
 		}
 		catch (RecognitionException re) {
 			_localctx.exception = re;
@@ -2640,9 +2470,9 @@ public class Pascal0LikeParser extends Parser {
 			_errHandler.recover(this, re);
 		}
 		finally {
-            unrollRecursionContexts(_parentctx);
+            exitRule();
         }
-		return _localctx;
+        return _localctx;
 	}
 
 	public static class ExpressionContext extends ParserRuleContext {
@@ -2866,68 +2696,189 @@ public class Pascal0LikeParser extends Parser {
 		return expression(0);
 	}
 
-    public final AtomContext atom() throws RecognitionException {
-        AtomContext _localctx = new AtomContext(_ctx, getState());
-        enterRule(_localctx, 62, RULE_atom);
+    private ExpressionContext expression(int _p) throws RecognitionException {
+        ParserRuleContext _parentctx = _ctx;
+        int _parentState = getState();
+        ExpressionContext _localctx = new ExpressionContext(_ctx, _parentState);
+        ExpressionContext _prevctx = _localctx;
+        int _startState = 60;
+        enterRecursionRule(_localctx, 60, RULE_expression, _p);
         int _la;
-		try {
-            setState(334);
-            _errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case INT:
-                _localctx = new IntAtomContext(_localctx);
-                enterOuterAlt(_localctx, 1);
+        try {
+            int _alt;
+            enterOuterAlt(_localctx, 1);
             {
-                setState(330);
-                match(INT);
-            }
-            break;
-                case FLOAT:
-                _localctx = new RealAtomContext(_localctx);
-                enterOuterAlt(_localctx, 2);
-            {
-                setState(331);
-                match(FLOAT);
-            }
-            break;
-                case TRUE:
-			case FALSE:
-                _localctx = new BooleanAtomContext(_localctx);
-                enterOuterAlt(_localctx, 3);
-            {
-                    setState(332);
-                    ((BooleanAtomContext) _localctx).op = _input.LT(1);
-                    _la = _input.LA(1);
-                    if (!(_la == TRUE || _la == FALSE)) {
-                        ((BooleanAtomContext) _localctx).op = (Token) _errHandler.recoverInline(this);
-                    } else {
-                        if (_input.LA(1) == Token.EOF) matchedEOF = true;
-                        _errHandler.reportMatch(this);
-                        consume();
-                    }
+                setState(311);
+                _errHandler.sync(this);
+                switch (_input.LA(1)) {
+                case MINUS: {
+                    _localctx = new UnaryExprContext(_localctx);
+                    _ctx = _localctx;
+                    _prevctx = _localctx;
+
+                    setState(300);
+                    match(MINUS);
+                    setState(301);
+                    expression(9);
                 }
-            break;
-                case IDENT:
-                    _localctx = new IdAtomContext(_localctx);
-                    enterOuterAlt(_localctx, 4);
-                {
-                    setState(333);
-                    match(IDENT);
+                break;
+                case NOT: {
+                    _localctx = new NotExprContext(_localctx);
+                    _ctx = _localctx;
+                    _prevctx = _localctx;
+                    setState(302);
+                    match(NOT);
+                    setState(303);
+                    expression(8);
+                }
+                break;
+                case ODD: {
+                    _localctx = new OddExprContext(_localctx);
+                    _ctx = _localctx;
+                    _prevctx = _localctx;
+                    setState(304);
+                    match(ODD);
+                    setState(305);
+                    expression(7);
+                }
+                break;
+                case INT:
+                case FLOAT:
+                case TRUE:
+                    case FALSE:
+                case IDENT: {
+                    _localctx = new AtomExprContext(_localctx);
+                    _ctx = _localctx;
+                    _prevctx = _localctx;
+                    setState(306);
+                    atom();
+                }
+                break;
+                case LPAREN: {
+                    _localctx = new ParExprContext(_localctx);
+                    _ctx = _localctx;
+                    _prevctx = _localctx;
+                    setState(307);
+                    match(LPAREN);
+                    setState(308);
+                    expression(0);
+                    setState(309);
+                    match(RPAREN);
                 }
                 break;
                 default:
                     throw new NoViableAltException(this);
             }
-		}
+                _ctx.stop = _input.LT(-1);
+                setState(327);
+                _errHandler.sync(this);
+                _alt = getInterpreter().adaptivePredict(_input, 19, _ctx);
+                while (_alt != 2 && _alt != org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER) {
+                    if (_alt == 1) {
+                        if (_parseListeners != null) triggerExitRuleEvent();
+                        _prevctx = _localctx;
+                        {
+                            setState(325);
+                            _errHandler.sync(this);
+                            switch (getInterpreter().adaptivePredict(_input, 18, _ctx)) {
+                                case 1: {
+                                    _localctx = new MultiplicationExprContext(new ExpressionContext(_parentctx, _parentState));
+                                    pushNewRecursionContext(_localctx, _startState, RULE_expression);
+                                    setState(313);
+                                    if (!(precpred(_ctx, 6)))
+                                        throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+                                    setState(314);
+                                    ((MultiplicationExprContext) _localctx).op = _input.LT(1);
+                                    _la = _input.LA(1);
+                                    if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MULTIPLY) | (1L << DIVIDE) | (1L << MODULO))) != 0))) {
+                                        ((MultiplicationExprContext) _localctx).op = (Token) _errHandler.recoverInline(this);
+                                    } else {
+                                        if (_input.LA(1) == Token.EOF) matchedEOF = true;
+                                        _errHandler.reportMatch(this);
+                                        consume();
+                                    }
+                                    setState(315);
+                                    expression(7);
+                                }
+                                break;
+                                case 2: {
+                                    _localctx = new AdditiveExprContext(new ExpressionContext(_parentctx, _parentState));
+                                    pushNewRecursionContext(_localctx, _startState, RULE_expression);
+                                    setState(316);
+                                    if (!(precpred(_ctx, 5)))
+                                        throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+                                    setState(317);
+                                    ((AdditiveExprContext) _localctx).op = _input.LT(1);
+                                    _la = _input.LA(1);
+                                    if (!(_la == PLUS || _la == MINUS)) {
+                                        ((AdditiveExprContext) _localctx).op = (Token) _errHandler.recoverInline(this);
+                                    } else {
+                                        if (_input.LA(1) == Token.EOF) matchedEOF = true;
+                                        _errHandler.reportMatch(this);
+                                        consume();
+                                    }
+                                    setState(318);
+                                    expression(6);
+                                }
+                                break;
+                                case 3: {
+                                    _localctx = new RelationalExprContext(new ExpressionContext(_parentctx, _parentState));
+                                    pushNewRecursionContext(_localctx, _startState, RULE_expression);
+                                    setState(319);
+                                    if (!(precpred(_ctx, 4)))
+                                        throw new FailedPredicateException(this, "precpred(_ctx, 4)");
+                                    setState(320);
+                                    ((RelationalExprContext) _localctx).op = _input.LT(1);
+                                    _la = _input.LA(1);
+                                    if (!((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << EQUAL) | (1L << NOT_EQUAL) | (1L << LT) | (1L << LE) | (1L << GE) | (1L << GT))) != 0))) {
+                                        ((RelationalExprContext) _localctx).op = (Token) _errHandler.recoverInline(this);
+                                    } else {
+                                        if (_input.LA(1) == Token.EOF) matchedEOF = true;
+                                        _errHandler.reportMatch(this);
+                                        consume();
+                                    }
+                                    setState(321);
+                                    expression(5);
+                                }
+                                break;
+                                case 4: {
+                                    _localctx = new LogicExprContext(new ExpressionContext(_parentctx, _parentState));
+                                    pushNewRecursionContext(_localctx, _startState, RULE_expression);
+                                    setState(322);
+                                    if (!(precpred(_ctx, 3)))
+                                        throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+                                    setState(323);
+                                    ((LogicExprContext) _localctx).op = _input.LT(1);
+                                    _la = _input.LA(1);
+                                    if (!(_la == AND || _la == OR)) {
+                                        ((LogicExprContext) _localctx).op = (Token) _errHandler.recoverInline(this);
+                                    } else {
+                                        if (_input.LA(1) == Token.EOF) matchedEOF = true;
+                                        _errHandler.reportMatch(this);
+                                        consume();
+                                    }
+                                    setState(324);
+                                    expression(4);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                    setState(329);
+                    _errHandler.sync(this);
+                    _alt = getInterpreter().adaptivePredict(_input, 19, _ctx);
+                }
+            }
+        }
 		catch (RecognitionException re) {
 			_localctx.exception = re;
 			_errHandler.reportError(this, re);
 			_errHandler.recover(this, re);
 		}
 		finally {
-            exitRule();
+            unrollRecursionContexts(_parentctx);
         }
-		return _localctx;
+        return _localctx;
 	}
 
 	public static class AtomContext extends ParserRuleContext {
@@ -2995,32 +2946,73 @@ public class Pascal0LikeParser extends Parser {
 		}
 	}
 
-    public static class RealAtomContext extends AtomContext {
-        public TerminalNode FLOAT() {
-            return getToken(Pascal0LikeParser.FLOAT, 0);
+    public final AtomContext atom() throws RecognitionException {
+        AtomContext _localctx = new AtomContext(_ctx, getState());
+        enterRule(_localctx, 62, RULE_atom);
+        int _la;
+        try {
+            setState(334);
+            _errHandler.sync(this);
+            switch (_input.LA(1)) {
+                case INT:
+                    _localctx = new IntAtomContext(_localctx);
+                    enterOuterAlt(_localctx, 1);
+                {
+                    setState(330);
+                    match(INT);
+                }
+                break;
+                case FLOAT:
+                    _localctx = new RealAtomContext(_localctx);
+                    enterOuterAlt(_localctx, 2);
+                {
+                    setState(331);
+                    match(FLOAT);
+                }
+                break;
+                case TRUE:
+                case FALSE:
+                    _localctx = new BooleanAtomContext(_localctx);
+                    enterOuterAlt(_localctx, 3);
+                {
+                    setState(332);
+                    ((BooleanAtomContext) _localctx).op = _input.LT(1);
+                    _la = _input.LA(1);
+                    if (!(_la == TRUE || _la == FALSE)) {
+                        ((BooleanAtomContext) _localctx).op = (Token) _errHandler.recoverInline(this);
+                    } else {
+                        if (_input.LA(1) == Token.EOF) matchedEOF = true;
+                        _errHandler.reportMatch(this);
+                        consume();
+                    }
+                }
+                break;
+                case IDENT:
+                    _localctx = new IdAtomContext(_localctx);
+                    enterOuterAlt(_localctx, 4);
+                {
+                    setState(333);
+                    match(IDENT);
+                }
+                break;
+                default:
+                    throw new NoViableAltException(this);
+            }
+        } catch (RecognitionException re) {
+            _localctx.exception = re;
+            _errHandler.reportError(this, re);
+            _errHandler.recover(this, re);
+        } finally {
+            exitRule();
         }
-
-        public RealAtomContext(AtomContext ctx) {
-            copyFrom(ctx);
-        }
-
-        @Override
-		public void enterRule(ParseTreeListener listener) {
-            if (listener instanceof Pascal0LikeListener) ((Pascal0LikeListener) listener).enterRealAtom(this);
-        }
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-            if (listener instanceof Pascal0LikeListener) ((Pascal0LikeListener) listener).exitRealAtom(this);
-        }
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-            if (visitor instanceof Pascal0LikeVisitor)
-                return ((Pascal0LikeVisitor<? extends T>) visitor).visitRealAtom(this);
-            else return visitor.visitChildren(this);
-		}
-	}
+        return _localctx;
+    }
 
     public static class Case_statementContext extends ParserRuleContext {
+        public Case_statementContext(ParserRuleContext parent, int invokingState) {
+            super(parent, invokingState);
+        }
+
         public TerminalNode CASE() {
             return getToken(Pascal0LikeParser.CASE, 0);
         }
@@ -3045,29 +3037,27 @@ public class Pascal0LikeParser extends Parser {
             return getToken(Pascal0LikeParser.SEMI, 0);
         }
 
-        public Case_statementContext(ParserRuleContext parent, int invokingState) {
-            super(parent, invokingState);
-        }
-
         @Override
         public int getRuleIndex() {
             return RULE_case_statement;
         }
 
         @Override
-		public void enterRule(ParseTreeListener listener) {
+        public void enterRule(ParseTreeListener listener) {
             if (listener instanceof Pascal0LikeListener) ((Pascal0LikeListener) listener).enterCase_statement(this);
         }
-		@Override
+
+        @Override
 		public void exitRule(ParseTreeListener listener) {
             if (listener instanceof Pascal0LikeListener) ((Pascal0LikeListener) listener).exitCase_statement(this);
         }
-		@Override
+
+        @Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
             if (visitor instanceof Pascal0LikeVisitor)
                 return ((Pascal0LikeVisitor<? extends T>) visitor).visitCase_statement(this);
             else return visitor.visitChildren(this);
-		}
+        }
 	}
 
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
@@ -3092,6 +3082,10 @@ public class Pascal0LikeParser extends Parser {
 	}
 
     public static class Case_limbContext extends ParserRuleContext {
+        public Case_limbContext(ParserRuleContext parent, int invokingState) {
+            super(parent, invokingState);
+        }
+
         public Case_label_listContext case_label_list() {
             return getRuleContext(Case_label_listContext.class, 0);
         }
@@ -3102,10 +3096,6 @@ public class Pascal0LikeParser extends Parser {
 
         public StatementContext statement() {
             return getRuleContext(StatementContext.class, 0);
-        }
-
-        public Case_limbContext(ParserRuleContext parent, int invokingState) {
-            super(parent, invokingState);
         }
 
         @Override
@@ -3131,9 +3121,34 @@ public class Pascal0LikeParser extends Parser {
         }
     }
 
-    public static final ATN _ATN =
-		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
-	static {
+    public static class RealAtomContext extends AtomContext {
+        public RealAtomContext(AtomContext ctx) {
+            copyFrom(ctx);
+        }
+
+        public TerminalNode FLOAT() {
+            return getToken(Pascal0LikeParser.FLOAT, 0);
+        }
+
+        @Override
+        public void enterRule(ParseTreeListener listener) {
+            if (listener instanceof Pascal0LikeListener) ((Pascal0LikeListener) listener).enterRealAtom(this);
+        }
+
+        @Override
+        public void exitRule(ParseTreeListener listener) {
+            if (listener instanceof Pascal0LikeListener) ((Pascal0LikeListener) listener).exitRealAtom(this);
+        }
+
+        @Override
+        public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+            if (visitor instanceof Pascal0LikeVisitor)
+                return ((Pascal0LikeVisitor<? extends T>) visitor).visitRealAtom(this);
+            else return visitor.visitChildren(this);
+        }
+    }
+
+    static {
 		_decisionToDFA = new DFA[_ATN.getNumberOfDecisions()];
 		for (int i = 0; i < _ATN.getNumberOfDecisions(); i++) {
 			_decisionToDFA[i] = new DFA(_ATN.getDecisionState(i), i);

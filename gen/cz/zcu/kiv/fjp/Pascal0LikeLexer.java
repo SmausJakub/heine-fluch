@@ -24,15 +24,7 @@ public class Pascal0LikeLexer extends Lexer {
             MODULO = 41, DOT = 42, ASSIGN = 43, COMMA = 44, SEMI = 45, COLON = 46, EQUAL = 47, NOT_EQUAL = 48,
             LT = 49, LE = 50, GE = 51, GT = 52, LPAREN = 53, RPAREN = 54, PLUS = 55, MINUS = 56, LBRACK = 57,
             RBRACK = 58, TERNARY_ONE = 59, TERNARY_TWO = 60, IDENT = 61, WS = 62;
-    public static String[] channelNames = {
-		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
-	};
-
-	public static String[] modeNames = {
-		"DEFAULT_MODE"
-	};
-
-	public static final String[] ruleNames = {
+    public static final String[] ruleNames = {
             "INT", "FLOAT", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K",
             "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y",
             "Z", "BEGIN", "AND", "BOOLEAN", "CASE", "CONST", "DO", "OF", "DOWNTO",
@@ -44,6 +36,15 @@ public class Pascal0LikeLexer extends Lexer {
             "RPAREN", "PLUS", "MINUS", "LBRACK", "RBRACK", "TERNARY_ONE", "TERNARY_TWO",
             "IDENT", "WS"
     };
+
+    public static String[] modeNames = {
+            "DEFAULT_MODE"
+    };
+    /**
+     * @deprecated Use {@link #VOCABULARY} instead.
+     */
+    @Deprecated
+    public static final String[] tokenNames;
     public static final String _serializedATN =
             "\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2@\u01fe\b\1\4\2\t" +
                     "\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13" +
@@ -211,6 +212,8 @@ public class Pascal0LikeLexer extends Lexer {
                     "\2\2\u01f9\u01f7\3\2\2\2\u01fa\u01fb\t\37\2\2\u01fb\u01fc\3\2\2\2\u01fc" +
                     "\u01fd\bY\2\2\u01fd\u00b2\3\2\2\2\t\2\u00b6\u00bb\u00c1\u00c8\u00ca\u01f7" +
                     "\3\b\2\2";
+    public static final ATN _ATN =
+            new ATNDeserializer().deserialize(_serializedATN.toCharArray());
     private static final String[] _LITERAL_NAMES = {
             null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null,
@@ -219,26 +222,40 @@ public class Pascal0LikeLexer extends Lexer {
             "'='", "'<>'", "'<'", "'<='", "'>='", "'>'", "'('", "')'", "'+'", "'-'",
             "'['", "']'", "'?'", "'!'"
     };
-	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
+    private static final String[] _SYMBOLIC_NAMES = {
+            null, "INT", "FLOAT", "BEGIN", "AND", "BOOLEAN", "CASE", "CONST", "DO",
+            "OF", "DOWNTO", "ELSE", "END", "FOR", "GOTO", "IF", "INTEGER", "LABEL",
+            "OR", "PROCEDURE", "REAL", "REPEAT", "THEN", "TO", "UNTIL", "WHILE", "CALL",
+            "READ", "WRITE", "NOT", "TRUE", "FALSE", "VAR", "LEGACY", "PROGRAM", "USE",
+            "DEFAULT", "STRICT", "ODD", "MULTIPLY", "DIVIDE", "MODULO", "DOT", "ASSIGN",
+            "COMMA", "SEMI", "COLON", "EQUAL", "NOT_EQUAL", "LT", "LE", "GE", "GT",
+            "LPAREN", "RPAREN", "PLUS", "MINUS", "LBRACK", "RBRACK", "TERNARY_ONE",
+            "TERNARY_TWO", "IDENT", "WS"
+    };
+    public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
+    public static String[] channelNames = {
+            "DEFAULT_TOKEN_CHANNEL", "HIDDEN"
+    };
 
-	/**
-	 * @deprecated Use {@link #VOCABULARY} instead.
-	 */
-	@Deprecated
-	public static final String[] tokenNames;
-	static {
-		tokenNames = new String[_SYMBOLIC_NAMES.length];
-		for (int i = 0; i < tokenNames.length; i++) {
-			tokenNames[i] = VOCABULARY.getLiteralName(i);
-			if (tokenNames[i] == null) {
-				tokenNames[i] = VOCABULARY.getSymbolicName(i);
-			}
+    static {
+        tokenNames = new String[_SYMBOLIC_NAMES.length];
+        for (int i = 0; i < tokenNames.length; i++) {
+            tokenNames[i] = VOCABULARY.getLiteralName(i);
+            if (tokenNames[i] == null) {
+                tokenNames[i] = VOCABULARY.getSymbolicName(i);
+            }
 
-			if (tokenNames[i] == null) {
-				tokenNames[i] = "<INVALID>";
-			}
-		}
-	}
+            if (tokenNames[i] == null) {
+                tokenNames[i] = "<INVALID>";
+            }
+        }
+    }
+
+
+    public Pascal0LikeLexer(CharStream input) {
+        super(input);
+        _interp = new LexerATNSimulator(this, _ATN, _decisionToDFA, _sharedContextCache);
+    }
 
 	@Override
 	@Deprecated
@@ -250,12 +267,6 @@ public class Pascal0LikeLexer extends Lexer {
 
 	public Vocabulary getVocabulary() {
 		return VOCABULARY;
-	}
-
-
-	public Pascal0LikeLexer(CharStream input) {
-		super(input);
-		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
@@ -275,19 +286,6 @@ public class Pascal0LikeLexer extends Lexer {
 
 	@Override
 	public ATN getATN() { return _ATN; }
-
-    private static final String[] _SYMBOLIC_NAMES = {
-            null, "INT", "FLOAT", "BEGIN", "AND", "BOOLEAN", "CASE", "CONST", "DO",
-            "OF", "DOWNTO", "ELSE", "END", "FOR", "GOTO", "IF", "INTEGER", "LABEL",
-            "OR", "PROCEDURE", "REAL", "REPEAT", "THEN", "TO", "UNTIL", "WHILE", "CALL",
-            "READ", "WRITE", "NOT", "TRUE", "FALSE", "VAR", "LEGACY", "PROGRAM", "USE",
-            "DEFAULT", "STRICT", "ODD", "MULTIPLY", "DIVIDE", "MODULO", "DOT", "ASSIGN",
-            "COMMA", "SEMI", "COLON", "EQUAL", "NOT_EQUAL", "LT", "LE", "GE", "GT",
-            "LPAREN", "RPAREN", "PLUS", "MINUS", "LBRACK", "RBRACK", "TERNARY_ONE",
-            "TERNARY_TWO", "IDENT", "WS"
-    };
-    public static final ATN _ATN =
-		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
 		_decisionToDFA = new DFA[_ATN.getNumberOfDecisions()];
 		for (int i = 0; i < _ATN.getNumberOfDecisions(); i++) {

@@ -6,7 +6,7 @@ import cz.zcu.kiv.fjp.instruction.Instruction;
 
 public class ErrorHandler {
 
-    private static ErrorHandler INSTANCE = new ErrorHandler();
+    private static final ErrorHandler INSTANCE = new ErrorHandler();
 
     private ErrorHandler() {
     }
