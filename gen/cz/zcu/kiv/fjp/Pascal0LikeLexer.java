@@ -36,10 +36,6 @@ public class Pascal0LikeLexer extends Lexer {
             "RPAREN", "PLUS", "MINUS", "LBRACK", "RBRACK", "TERNARY_ONE", "TERNARY_TWO",
             "IDENT", "WS"
     };
-
-    public static String[] modeNames = {
-            "DEFAULT_MODE"
-    };
     /**
      * @deprecated Use {@link #VOCABULARY} instead.
      */
@@ -235,6 +231,9 @@ public class Pascal0LikeLexer extends Lexer {
     public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
     public static String[] channelNames = {
             "DEFAULT_TOKEN_CHANNEL", "HIDDEN"
+    };
+    public static String[] modeNames = {
+            "DEFAULT_MODE"
     };
 
     static {
