@@ -1,6 +1,9 @@
 package cz.zcu.kiv.fjp.interpret;
 
 
+import cz.zcu.kiv.fjp.errors.ErrorHandler;
+import cz.zcu.kiv.fjp.errors.ErrorProgramCounter;
+import cz.zcu.kiv.fjp.errors.ErrorUnknownInstruction;
 import cz.zcu.kiv.fjp.instruction.Instruction;
 import cz.zcu.kiv.fjp.instruction.InstructionHandler;
 
@@ -25,6 +28,8 @@ public class Interpreter {
     private Instruction instruction;
     private Scanner sc = new Scanner(System.in);
 
+    public static ErrorHandler err = ErrorHandler.getInstance();
+
     /**
      * Interprets instruction in a file
      * @param instructions
@@ -45,7 +50,7 @@ public class Interpreter {
         System.out.println("START PL/0");
         do {
             if (programCounter < 0 || programCounter > STACK_SIZE) {
-                throw new IllegalArgumentException("Program counter is out of range");
+                err.throwError(new ErrorProgramCounter());
             }
 
             instruction = instructionsList.get(programCounter);
@@ -66,11 +71,6 @@ public class Interpreter {
                     break;
                 case "OPR":
                     switch (instruction.getOperand()) {
-                        case 0:
-                            stack.setValue(stack.getTop(), stack.getBase());
-                            programCounter = stack.getValue(stack.getBase() + 2);
-                            stack.setBase(stack.getValue(stack.getBase()));
-                            break;
                         case 1:    // NEG
                             value1 = stack.pop();
                             stack.push(-value1);
@@ -220,9 +220,9 @@ public class Interpreter {
                             stack.floatPush(returnFloatValue);
                             break;
                         case 6:  // MOD
-                            throw new IllegalArgumentException("Unknown instruction occured");
+                            err.throwError(new ErrorUnknownInstruction());
                         case 7:  // ODD
-                            throw new IllegalArgumentException("Unknown instruction occured");
+                            err.throwError(new ErrorUnknownInstruction());
                         case 8:  // EQ
                             valueFloat2 = stack.floatPop();
                             valueFloat1 = stack.floatPop();

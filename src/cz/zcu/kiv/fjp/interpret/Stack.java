@@ -1,5 +1,10 @@
 package cz.zcu.kiv.fjp.interpret;
 
+import cz.zcu.kiv.fjp.errors.ErrorStackOverflow;
+import cz.zcu.kiv.fjp.errors.ErrorStackUnderflow;
+import cz.zcu.kiv.fjp.errors.ErrorUnknownInstruction;
+
+import static cz.zcu.kiv.fjp.interpret.Interpreter.err;
 
 public class Stack {
 
@@ -17,7 +22,7 @@ public class Stack {
     public void push(int value) {
 
         if (top  > stackItems.length) {
-            throw new IllegalArgumentException("Doslo k preteceni zasobniku");
+            err.throwError(new ErrorStackOverflow());
         }
 
         stackItems[top] = value;
@@ -29,7 +34,7 @@ public class Stack {
         int item;
         top--;
         if (top < 0) {
-            throw new IllegalArgumentException("Doslo k podteceni zasobniku");
+            err.throwError(new ErrorStackUnderflow());
         }
 
         item = stackItems[top];
@@ -42,7 +47,7 @@ public class Stack {
         int item;
 
         if(top > STACK_SIZE) {
-            throw new IllegalArgumentException("Doslo k podteceni zasobniku");
+            err.throwError(new ErrorStackUnderflow());
         }
 
         item = stackItems[top-1];
@@ -72,7 +77,7 @@ public class Stack {
 
     public int getBaseOfItem(int level) {
         if(level < 0) {
-            throw new IllegalArgumentException("Instruction does not exist");
+            err.throwError(new ErrorUnknownInstruction());
         }
         int newBase = base;
 

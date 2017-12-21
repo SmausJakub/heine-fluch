@@ -2,13 +2,25 @@ package cz.zcu.kiv.fjp.errors;
 
 import cz.zcu.kiv.fjp.abstracts.AbstractError;
 import cz.zcu.kiv.fjp.abstracts.AbstractLineNumbered;
+import cz.zcu.kiv.fjp.instruction.Instruction;
 
 public class ErrorHandler {
+
+    public static ErrorHandler errorHandler = new ErrorHandler();
+
+    public static ErrorHandler getInstance() {
+        return errorHandler;
+    }
 
     private AbstractLineNumbered currentPart;
 
     public void throwError(AbstractError error) {
         System.err.println(error.toString() + "\nAt line " + currentPart.getLineNumber() + " " + currentPart.toString());
+        System.exit(error.getErrorType().getCode());
+    }
+
+    public void throwError(AbstractError error, Instruction instruction) {
+        System.err.println(error.toString() + "\nAt " + " " + instruction.toString());
         System.exit(error.getErrorType().getCode());
     }
 

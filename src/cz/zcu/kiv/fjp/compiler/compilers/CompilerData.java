@@ -50,16 +50,13 @@ public final class CompilerData {
      */
     public static List<Instruction> instructionList = new ArrayList<>();
 
-    /**
-     * error handler
-     */
-    public static ErrorHandler err = new ErrorHandler();
 
     /**
      * goto list - for gotos that do not know the address when compiled
      */
     public static List<Goto> gotoList = new ArrayList<>();
 
+    public static ErrorHandler err = ErrorHandler.getInstance();
 
     private CompilerData() {
     }
