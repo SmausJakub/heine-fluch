@@ -6,10 +6,13 @@ import cz.zcu.kiv.fjp.instruction.Instruction;
 
 public class ErrorHandler {
 
-    public static ErrorHandler errorHandler = new ErrorHandler();
+    private static ErrorHandler INSTANCE = new ErrorHandler();
+
+    private ErrorHandler() {
+    }
 
     public static ErrorHandler getInstance() {
-        return errorHandler;
+        return INSTANCE;
     }
 
     private AbstractLineNumbered currentPart;
