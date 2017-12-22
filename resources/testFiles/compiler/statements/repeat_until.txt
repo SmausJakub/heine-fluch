@@ -1,0 +1,8 @@
+
+integer a := 1;
+
+begin
+
+repeat begin a := a + 1; end until a < 3
+
+end.

@@ -8,14 +8,12 @@ import cz.zcu.kiv.fjp.instruction.Instruction;
 import cz.zcu.kiv.fjp.instruction.InstructionHandler;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.printInstructionList;
 
 /**
  * Interpreter
