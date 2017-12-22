@@ -8,16 +8,29 @@ import cz.zcu.kiv.fjp.instruction.Instruction;
 import cz.zcu.kiv.fjp.instruction.InstructionHandler;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
+import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.printInstructionList;
 
 /**
  * Interpreter
  * Interprets instructions made from Pascal0Like language
  */
 public class Interpreter {
+
+    private static final Interpreter INSTANCE = new Interpreter();
+
+    private Interpreter() {
+    }
+
+    public static Interpreter getInstance() {
+        return INSTANCE;
+    }
 
     private Stack stack = new Stack(1, 0);
     private List<Integer> heap = new ArrayList<Integer>();
@@ -31,11 +44,12 @@ public class Interpreter {
     public static ErrorHandler err = ErrorHandler.getInstance();
 
     /**
-     * Interprets instruction in a file
+     * Interprets instructions in a file
      * @param instructions
+     * @param printStack
      * @throws Exception
      */
-    public void interpret(File instructions) throws Exception {
+    public void interpret(File instructions, boolean printStack, String stackFile) throws Exception {
 
         instructionHandler = InstructionHandler.getInstance();
 
@@ -47,14 +61,13 @@ public class Interpreter {
         float returnFloatValue, valueFloat1, valueFloat2;
 
         programCounter = 0;
-        System.out.println("START Pascal0Like");
+        System.out.println("START PascaL/0-like");
         do {
             if (programCounter < 0 || programCounter > STACK_SIZE) {
                 err.throwError(new ErrorProgramCounter(), programCounter);
             }
 
             instruction = instructionsList.get(programCounter);
-            System.out.println(instruction.getInstructionCode());
 
             programCounter++;
 
@@ -303,12 +316,22 @@ public class Interpreter {
                     break;
             }
 
-            System.out.println(Arrays.toString(stack.getStackItems()));
-            System.out.println(stack.getTop());
-
         } while (programCounter != 0);
 
-        System.out.println("END Pascal0Like");
+        System.out.println("END PascaL/0-like");
+
+            if (printStack) {
+                if (stackFile != null) {
+                    PrintWriter pw;
+                    System.out.println("Writing stack into " + stackFile);
+                    pw = new PrintWriter(stackFile);
+                    pw.print(Arrays.toString(stack.getStackItems()));
+                    pw.close();
+                } else {
+                    System.out.println("Konecny zasobnik prekladace:\n" + Arrays.toString(stack.getStackItems()));
+                }
+            }
+
     }
 
 }
