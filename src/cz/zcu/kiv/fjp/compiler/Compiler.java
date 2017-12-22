@@ -17,6 +17,11 @@ import java.io.PrintWriter;
 
 import static cz.zcu.kiv.fjp.compiler.compilers.CompilerData.printInstructionList;
 
+/**
+ * Compiler class
+ * Compiles input file, writes the output to output file
+ * Depending on options, prints symbol table to console or a file
+ */
 public class Compiler {
 
     private static final Compiler INSTANCE = new Compiler();
@@ -28,6 +33,14 @@ public class Compiler {
         return INSTANCE;
     }
 
+    /**
+     * compiles given file and prints the output to output file. Supports printing symbol table to console or a file.
+     *
+     * @param inputFile   source code of PascaL0-Like
+     * @param outputFile  output file of instructions
+     * @param printSymbol whether to print a symbol table
+     * @param symbolFile  file for printed symbol table
+     */
     public void compileFile(String inputFile, String outputFile, boolean printSymbol, String symbolFile) {
 
 
@@ -101,8 +114,6 @@ public class Compiler {
         System.out.println("Done");
 
     }
-
-
 
 
 }

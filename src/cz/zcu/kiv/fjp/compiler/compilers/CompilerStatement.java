@@ -111,12 +111,13 @@ public class CompilerStatement {
         // we are in for cycle
         inForCycle = true;
 
-        // current level and address where we will store the iteration variable
-        int level = currentLevel;
+        // current address where we will store the iteration variable
         int address = currentAddress;
 
         // increase the address
         currentAddress++;
+
+        instructionList.add(new Instruction(InstructionCode.INT.getName(), 0, 1));
 
         // watch out for another user defined variable of the same name
         if (checkIfExists(statementFor.getIdentifier())) {
@@ -126,30 +127,19 @@ public class CompilerStatement {
         // compile the from expression
         new CompilerExpression(statementFor.getFrom(), VariableType.INTEGER).compileExpression();
 
-        // save it
-        instructionList.add(new Instruction(InstructionCode.STO.getName(), level, address));
-
-        // preparation for the second iteration variable
-        int level2 = 0;
-        int address2 = currentAddress;
-
-        // increase the address
-        currentAddress++;
-
-        // compile the to expression
-        new CompilerExpression(statementFor.getTo(), VariableType.INTEGER).compileExpression();
-
-        // store it
-        instructionList.add(new Instruction(InstructionCode.STO.getName(), level2, address2));
+        // save it to our iteration variable
+        instructionList.add(new Instruction(InstructionCode.STO.getName(), 0, address));
 
         // here is the start of for cycle
         int startIndex = instructionList.size();
 
-        // load both variables from stack
-        instructionList.add(new Instruction(InstructionCode.LOD.getName(), level, address));
-        instructionList.add(new Instruction(InstructionCode.LOD.getName(), level2, address2));
+        // load iteration variable
+        instructionList.add(new Instruction(InstructionCode.LOD.getName(), 0, address));
 
-        // depending on for type, either check for var1 <= var2 or var1 >= var2
+        // get the to / downto expression
+        new CompilerExpression(statementFor.getTo(), VariableType.INTEGER).compileExpression();
+
+        // depending on for type, either check for iter <= downto or iter >= to
         if (statementFor.getType() == ForType.TO) {
             instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.LE.getCode()));
         } else {
@@ -165,10 +155,10 @@ public class CompilerStatement {
 
         // end of cycle, now to increase / decrease our first iteration variable
         // load the variable and prepare a constant 1
-        instructionList.add(new Instruction(InstructionCode.LOD.getName(), level, address));
+        instructionList.add(new Instruction(InstructionCode.LOD.getName(), 0, address));
         instructionList.add(new Instruction(InstructionCode.LIT.getName(), 0, 1));
 
-        // depending on type, either var1 + 1 or var1 - 1
+        // depending on type, either iter + 1 or iter - 1
         if (statementFor.getType() == ForType.TO) {
             instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.ADD.getCode()));
         } else {
@@ -176,7 +166,7 @@ public class CompilerStatement {
         }
 
         // store it back
-        instructionList.add(new Instruction(InstructionCode.STO.getName(), level, address));
+        instructionList.add(new Instruction(InstructionCode.STO.getName(), 0, address));
 
         // jump back
         instructionList.add(new Instruction(InstructionCode.JMP.getName(), 0, startIndex));
@@ -195,13 +185,24 @@ public class CompilerStatement {
     private void compileCaseStatement() {
         StatementCase statementCase = (StatementCase) statement;
 
+        instructionList.add(new Instruction(InstructionCode.INT.getName(), 0, 1));
+
         // compile switched expression
         VariableType caseType = new CompilerExpression(statementCase.getExpression()).compileExpression();
+
+        int address = currentAddress;
 
         // if boolean is switched, throw error
         if (caseType == VariableType.BOOLEAN) {
             err.throwError(new ErrorCaseNoBoolean());
+        } else if (caseType == VariableType.INTEGER) {
+            instructionList.add(new Instruction(InstructionCode.STO.getName(), 0, address));
+        } else {
+            instructionList.add(new Instruction(InstructionCode.STR.getName(), 0, address));
         }
+
+        currentAddress++;
+
 
         // case jumps - these jumps are for statement end, where they jump to the end of case
         List<Instruction> caseJumps = new ArrayList<>();
@@ -219,6 +220,12 @@ public class CompilerStatement {
 
             // go through all atoms (always at least one)
             for (AbstractAtom atom : caseLimb.getAtomList()) {
+
+                if (caseType == VariableType.INTEGER) {
+                    instructionList.add(new Instruction(InstructionCode.LOD.getName(), 0, address));
+                } else {
+                    instructionList.add(new Instruction(InstructionCode.LOR.getName(), 0, address));
+                }
 
 
                 // compile the atom and check it is not boolean
