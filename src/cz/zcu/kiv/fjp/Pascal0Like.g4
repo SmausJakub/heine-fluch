@@ -1,5 +1,9 @@
 grammar Pascal0Like;
 
+options {
+	language=Java;
+}
+
 
 /**
 * Rules

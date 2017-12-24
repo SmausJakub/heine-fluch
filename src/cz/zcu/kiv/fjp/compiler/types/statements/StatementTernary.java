@@ -23,7 +23,7 @@ public class StatementTernary extends AbstractStatement {
     /**
      * condition
      */
-    private AbstractExpression expression;
+    private AbstractExpression condition;
 
     /**
      * identifier
@@ -32,15 +32,15 @@ public class StatementTernary extends AbstractStatement {
 
     /**
      * @param identifier    identifier
-     * @param expression    condition
+     * @param condition    condition
      * @param expressionOne first expression
      * @param expressionTwo second expression
      * @param line          line number
      */
-    public StatementTernary(String identifier, AbstractExpression expression, AbstractExpression expressionOne, AbstractExpression expressionTwo, int line) {
+    public StatementTernary(String identifier, AbstractExpression condition, AbstractExpression expressionOne, AbstractExpression expressionTwo, int line) {
         super(StatementType.TERNARY, line);
         this.identifier = identifier;
-        this.expression = expression;
+        this.condition = condition;
         this.expressionOne = expressionOne;
         this.expressionTwo = expressionTwo;
     }
@@ -54,8 +54,8 @@ public class StatementTernary extends AbstractStatement {
         return expressionTwo;
     }
 
-    public AbstractExpression getExpression() {
-        return expression;
+    public AbstractExpression getCondition() {
+        return condition;
     }
 
     public String getIdentifier() {
@@ -66,7 +66,7 @@ public class StatementTernary extends AbstractStatement {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(super.toString());
-        builder.append(identifier).append(" := ").append(expression.toString()).append(" ? ").append(expressionOne.toString()).append(" ! ").append(expressionTwo.toString()).append(";");
+        builder.append(identifier).append(" := ").append(condition.toString()).append(" ? ").append(expressionOne.toString()).append(" ! ").append(expressionTwo.toString()).append(";");
 
         return builder.toString();
     }

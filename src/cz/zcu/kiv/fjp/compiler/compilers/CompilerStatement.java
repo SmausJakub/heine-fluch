@@ -7,10 +7,7 @@ import cz.zcu.kiv.fjp.compiler.symbol.SymbolTableItem;
 import cz.zcu.kiv.fjp.compiler.types.CaseLimb;
 import cz.zcu.kiv.fjp.compiler.types.Goto;
 import cz.zcu.kiv.fjp.compiler.types.statements.*;
-import cz.zcu.kiv.fjp.enums.ForType;
-import cz.zcu.kiv.fjp.enums.InstructionCode;
-import cz.zcu.kiv.fjp.enums.InstructionOperation;
-import cz.zcu.kiv.fjp.enums.VariableType;
+import cz.zcu.kiv.fjp.enums.*;
 import cz.zcu.kiv.fjp.errors.*;
 import cz.zcu.kiv.fjp.instruction.Instruction;
 
@@ -525,14 +522,16 @@ public class CompilerStatement {
     private void compileTernaryStatement() {
         StatementTernary statementTernary = (StatementTernary) statement;
 
-        if (symbolTable.contains(statementTernary.getIdentifier())) {
+        String identifier = statementTernary.getIdentifier();
 
-            SymbolTableItem item = symbolTable.getItem(statementTernary.getIdentifier());
+        if (checkIfExists(identifier) && checkIfCanBeAccessed(identifier)) {
 
-            if (checkVariableNotConstant(item.getType())) {
+            SymbolTableItem item = symbolTable.getItem(identifier);
+
+            checkVariableAssignment(item.getType(), identifier);
 
                 // compile the condition
-                new CompilerExpression(statementTernary.getExpression(), VariableType.BOOLEAN).compileExpression();
+            new CompilerExpression(statementTernary.getCondition(), VariableType.BOOLEAN).compileExpression();
 
                 // first jump conditional - if true = do not jump, continue on, if false - jump to the second ternary expression
                 Instruction ternaryJumpOne = new Instruction(InstructionCode.JMC.getName(), 0, 0);
@@ -563,13 +562,8 @@ public class CompilerStatement {
                 item.setSize(1);
 
 
-            } else {
-                err.throwError(new ErrorConstantReassign(item.getName()));
-            }
-
-
         } else {
-            err.throwError(new ErrorUnknownIdentifier(statementTernary.getIdentifier()));
+            err.throwError(new ErrorUnknownIdentifier(identifier));
         }
 
     }
@@ -635,45 +629,45 @@ public class CompilerStatement {
     private void compileAssignmentStatement() {
         StatementAssignment statementAssignment = (StatementAssignment) statement;
 
-        if (symbolTable.contains(statementAssignment.getIdentifier())) {
+        String identifier = statementAssignment.getIdentifier();
 
-            SymbolTableItem item = symbolTable.getItem(statementAssignment.getIdentifier());
+        if (checkIfExists(identifier) && checkIfCanBeAccessed(identifier)) {
 
-            if (checkVariableNotConstant(item.getType())) {
+            SymbolTableItem item = symbolTable.getItem(identifier);
 
-                new CompilerExpression(statementAssignment.getExpression(), item.getVariableType()).compileExpression();
+            checkVariableAssignment(item.getType(), identifier);
 
-                // determine the store instruction
-                if (item.getVariableType() == VariableType.INTEGER || item.getVariableType() == VariableType.BOOLEAN) {
-                    instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel - item.getLevel(), item.getAddress()));
-                } else if (item.getVariableType() == VariableType.REAL) {
-                    instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel - item.getLevel(), item.getAddress()));
-                }
+            new CompilerExpression(statementAssignment.getExpression(), item.getVariableType()).compileExpression();
 
-                // variable is assigned (if it was not before)
-                item.setSize(1);
-
-            } else {
-                err.throwError(new ErrorConstantReassign(item.getName()));
+            // determine the store instruction
+            if (item.getVariableType() == VariableType.INTEGER || item.getVariableType() == VariableType.BOOLEAN) {
+                instructionList.add(new Instruction(InstructionCode.STO.getName(), currentLevel - item.getLevel(), item.getAddress()));
+            } else if (item.getVariableType() == VariableType.REAL) {
+                instructionList.add(new Instruction(InstructionCode.STR.getName(), currentLevel - item.getLevel(), item.getAddress()));
             }
+
+            // variable is assigned (if it was not before)
+            item.setSize(1);
 
 
         } else {
-            err.throwError(new ErrorUnknownIdentifier(statementAssignment.getIdentifier()));
+            err.throwError(new ErrorUnknownIdentifier(identifier));
         }
 
     }
 
-    /**
-     * check that variable is not a constant
-     * @param type variable to check
-     * @return true or false
-     */
-    private boolean checkVariableNotConstant(String type) {
-        String[] split = type.split("\\s+");
-        String declarationType = split[0];
+    private void checkVariableAssignment(String type, String identifier) {
 
-        return declarationType.equalsIgnoreCase("variable");
+        if (type.equalsIgnoreCase(IdentifierType.PROCEDURE.getName())) {
+            err.throwError(new ErrorUnknownIdentifier(identifier));
+        } else {
+            String[] split = type.split("\\s+");
+            String declarationType = split[0];
+
+            if (declarationType.equalsIgnoreCase(IdentifierType.CONSTANT.getName())) {
+                err.throwError(new ErrorConstantReassign(identifier));
+            }
+        }
 
     }
 

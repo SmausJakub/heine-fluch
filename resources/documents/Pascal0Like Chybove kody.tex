@@ -31,31 +31,31 @@ czech
 \hline
 		\textbf{Kód} & \textbf{Chyba} & \textbf{Komentář} \\
 \hline\hline
+\rule{0pt}{3ex}0 & \texttt{Žádná chyba} & Program proběhl správně \\ \hline
 \multicolumn{3}{|l|}{\textbf{Překladač}}\\ \hline
-\rule{0pt}{3ex}0 & \texttt{Žádná chyba} & Překlad proběhl správně \\ \hline
 \rule{0pt}{3ex}1 & \texttt{Variable not initialized} & Použili jste hodnotu předtím, než byla inicializována \\ \hline
 \rule{0pt}{3ex}2 & \texttt{Variable already declared} & Pokoušíte se deklarovat proměnnou, která již byla deklarována \\ \hline
-\rule{0pt}{3ex}3 & \texttt{Constant reassign} & Pokoušíte se  změnit hodnotu konstanty \\ \hline
+\rule{0pt}{3ex}3 & \texttt{Constant reassign} & Pokoušíte se změnit hodnotu konstanty \\ \hline
 \rule{0pt}{3ex}4 & \texttt{Unknown identifier} & Vyskytl se neznámý identifikátor \\ \hline
 \rule{0pt}{3ex}5 & \texttt{Unknown label} & Vyskytlo se neznámé návěští \\ \hline
 \rule{0pt}{3ex}6 & \texttt{Unknown procedure} & Vyskytla se neznámá procedura \\ \hline
-\rule{0pt}{3ex}7 & \texttt{Parallel declaration number mismatch} & Pokoušíte se paralelně deklarovat číslo špatným způsobem\\ \hline
-\rule{0pt}{3ex}8 & \texttt{Incompatible types} & Neslučitelné typy \\ \hline
-\rule{0pt}{3ex}9 & \texttt{Expression variable type mismatch} & Pokoušíte se.......... \\ \hline
-\rule{0pt}{3ex}10 & \texttt{Strict mode expression variable type mismatch} & Pokoušíte se použít chybný výraz ve striktní módu \\ \hline
-\rule{0pt}{3ex}11 & \texttt{Can not assign loop variable} & Pokoušíte se přiřadit proměnnou cyklu \\ \hline
-\rule{0pt}{3ex}12 & \texttt{Label used elsewhere} & Návěští je již použito jinde \\ \hline
+\rule{0pt}{3ex}7 & \texttt{Parallel declaration number mismatch} & Paralelní deklarace vyžaduje stejný počet proměnných a výrazů\\ \hline
+\rule{0pt}{3ex}8 & \texttt{Incompatible types} & Typový výsledek výrazu neodpovídá očekávanému typu \\ \hline
+\rule{0pt}{3ex}9 & \texttt{Expression variable type mismatch} & Ve výrazu se vyskytly neslučitelné typy \\ \hline
+\rule{0pt}{3ex}10 & \texttt{Strict mode expression variable type mismatch} & Striktní mód nedovoluje smíšení různých typů ve výrazu \\ \hline
+\rule{0pt}{3ex}11 & \texttt{Can not assign loop variable} & Nepoužil jste unikátní proměnnou jako iterační proměnnou \texttt{for} cyklu \\ \hline
+\rule{0pt}{3ex}12 & \texttt{Label used elsewhere} & Návěští již bylo použito jinde \\ \hline
 \rule{0pt}{3ex}13 & \texttt{Label out of reach} & Návěští je mimo dosah \\ \hline
-\rule{0pt}{3ex}14 & \texttt{Label never used} & Návěští není nikde použito \\ \hline
+\rule{0pt}{3ex}14 & \texttt{Label never used} & Skáčete na návěští, které není v programu použito \\ \hline
 \rule{0pt}{3ex}15 & \texttt{Label not allowed in for cycle} & Návěští není povoleno ve \texttt{for} cyklu \\ \hline
-\rule{0pt}{3ex}16 & \texttt{No boolean type in case} & Pokoušíte se použít \texttt{boolean} v příkazu \texttt{case} \\ \hline
-\rule{0pt}{3ex}17 & \texttt{Case atom used multiple times} & Větev příkazu case je použita několikrát \\ \hline
-\rule{0pt}{3ex}18 & \texttt{Legacy mode only allows var type} & Legacy mód povoluje pouze typ \texttt{var} \\ \hline
-\rule{0pt}{3ex}19 & \texttt{Legacy mode real constant not allowed} & Legacy mód nepovoluje typ \texttt{constant} \\ \hline
-\rule{0pt}{3ex}20 & \texttt{Legacy mode boolean constant not allowed} & Legacy mód nepovoluje výrazy \\ \hline
-\rule{0pt}{3ex}21 & \texttt{Legacy mode logical expression not allowed} & Legacy mód nepovoluje logické výrazy \\ \hline
-\rule{0pt}{3ex}22 & \texttt{Legacy mode negation expression not allowed} & negované výrazy \\ \hline
-\rule{0pt}{3ex}23 & \texttt{Non legacy mode var type not allowed} & pois \\ \hline
+\rule{0pt}{3ex}16 & \texttt{No boolean type in case} & \texttt{Case} větev nepodporuje logický datový typ \\ \hline
+\rule{0pt}{3ex}17 & \texttt{Case atom used multiple times} & Definujete \texttt{case} větev, která již byl použita \\ \hline
+\rule{0pt}{3ex}18 & \texttt{Legacy mode only allows var type} & \texttt{Legacy} mód povoluje pouze typ \texttt{var} \\ \hline
+\rule{0pt}{3ex}19 & \texttt{Legacy mode real constant not allowed} & \texttt{Legacy} mód nepovoluje konstatní reálné číslo \\ \hline
+\rule{0pt}{3ex}20 & \texttt{Legacy mode boolean constant not allowed} & \texttt{Legacy} mód nepovoluje logickou konstantu \\ \hline
+\rule{0pt}{3ex}21 & \texttt{Legacy mode logical expression not allowed} & \texttt{Legacy} mód nepovoluje logické výrazy \\ \hline
+\rule{0pt}{3ex}22 & \texttt{Legacy mode negation expression not allowed} & \texttt{Legacy} mód nepovoluje výraz negace \\ \hline
+\rule{0pt}{3ex}23 & \texttt{Non legacy mode var type not allowed} & \texttt{Var} typ není povolen v \texttt{non-legacy} módu \\ \hline
 \multicolumn{3}{|l|}{\textbf{Interpret}}\\ \hline
 \rule{0pt}{3ex}24 & \texttt{Stack overflow} & Došlo k přetečení zásobníku \\ \hline
 \rule{0pt}{3ex}25 & \texttt{Stack underflow} & Došlo k podtečení zásobníku \\ \hline
