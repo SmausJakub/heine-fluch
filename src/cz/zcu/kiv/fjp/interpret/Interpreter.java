@@ -46,7 +46,7 @@ public class Interpreter {
 
     /**
      * Interprets instructions in a file
-     * @param instructions      source code of compiled PascaL0-Like
+     * @param instructions      source code of compiled Pascal0Like
      * @param printStack        whether to print a stack
      * @param stackFile         file for printed stack
      * @throws Exception
@@ -63,7 +63,7 @@ public class Interpreter {
         float returnFloatValue, valueFloat1, valueFloat2;
 
         programCounter = 0;
-        System.out.println("START PascaL/0-like");
+        System.out.println("START Pascal0Like");
         do {
             if (programCounter < 0 || programCounter > STACK_SIZE) {
                 err.throwError(new ErrorProgramCounter(), programCounter);
@@ -320,7 +320,7 @@ public class Interpreter {
 
         } while (programCounter != 0);
 
-        System.out.println("END PascaL0-like");
+        System.out.println("END Pascal0Like");
 
             if (printStack) {
                 if (stackFile != null) {

@@ -382,7 +382,7 @@ Typy jsou následující:
 
 	\texttt{Visitory} mají za úkol projít ANTLR derivační strom a vytvořit naši vlastní reprezentaci programu z výše popsaných tříd. Všechny třídy \texttt{visitorů} se nacházejí v balíku \texttt{visitors}.
 	
-	Každý \texttt{visitor} dědí ANTLR třídu \texttt{PascaL0LikeBaseVisitor}. Tato třída je typovaná a tento typ je právě návratová hodnota, kterou bude \texttt{visitor} vracet. Tím je nyní možnost vytvořit si třídy \texttt{visitorů} odpovídající různým typům, které jsme si popsali výše. Pro to, aby to fungovalo tak, jak požadujeme, je ještě třeba typy obalit do jednoho unikátního typu, abychom nemuseli mít pro každé pravidlo jeden \texttt{visitor}. Proto byly vytvořeny abstraktní třídy AbstractAtom, AbstractDeclaration, AbstractExpression a AbstractStatement. Nacházejí se v balíku \texttt{abstracts}. 
+	Každý \texttt{visitor} dědí ANTLR třídu \texttt{Pascal0LikeBaseVisitor}. Tato třída je typovaná a tento typ je právě návratová hodnota, kterou bude \texttt{visitor} vracet. Tím je nyní možnost vytvořit si třídy \texttt{visitorů} odpovídající různým typům, které jsme si popsali výše. Pro to, aby to fungovalo tak, jak požadujeme, je ještě třeba typy obalit do jednoho unikátního typu, abychom nemuseli mít pro každé pravidlo jeden \texttt{visitor}. Proto byly vytvořeny abstraktní třídy AbstractAtom, AbstractDeclaration, AbstractExpression a AbstractStatement. Nacházejí se v balíku \texttt{abstracts}.
 	 
 	Jednotlivé \texttt{visitory} jsou:
 	 
@@ -821,8 +821,8 @@ Pro úplnost, v tabulce \ref{instrukce} jsou uvedeny všechny instrukce a jejich
 \rule{0pt}{3ex} 19 & \texttt{DEL 0, 0} & \textbf{Uvolnění místa na haldě}; odebere ze zásobníku jednu hodnotu a to adresu na haldě, kterou uvolní \\ \hline
 \rule{0pt}{3ex} 20 & \texttt{LDA 0, 0} & \textbf{Načtení hodnoty z haldy}; odebere ze zásobníku hodnotu a vloží hodnotu z haldy \\ \hline
 \rule{0pt}{3ex} 21 & \texttt{STA 0, 0} & \textbf{Uložení hodnoty na haldu}; odebere dvě hodnoty zásobníku. Na první představující adresu uloží druhou v haldě \\ \hline
-\rule{0pt}{3ex} 22 & \texttt{PLD 0, 0} & \textbf{Dynamické načtení hodnoty z místa určeného L/A}; odebere ze zásobníku dvě hodnoty. První je úroveň zanoření a druhá je relativní pozice \\ \hline
-\rule{0pt}{3ex} 23 & \texttt{PST 0, 0} & \textbf{Dynamické uložení hodnoty z místa určeného L/A}; odebere ze zásobníku tři hodnoty. První je úroveň zanoření, druhá relativní pozice a třetí \\ \hline
+\rule{0pt}{3ex} 22 & \texttt{PLD 0, 0} & \textbf{Dynamické načtení hodnoty z místa určeného L/A}; odebere ze zásobníku dvě hodnoty. První je úroveň zanoření a druhá je relativní pozice. Z té se načte hodnota na vrchol zásobníku  \\ \hline
+\rule{0pt}{3ex} 23 & \texttt{PST 0, 0} & \textbf{Dynamické uložení hodnoty z místa určeného L/A}; odebere ze zásobníku tři hodnoty. První je úroveň zanoření, druhá relativní pozice a třetí odebraná hodnota představuje hodnotu k uložení \\ \hline
 \end{longtable}
 \section{Chyby programu}
 Program při vykonávání může narazit na několik různých chyb při překladu. Problémy nalezené při analýze řeší ANTLR a program je pouze zachycuje a vyhazuje jako výjimku. Chyby při syntéze a interpretaci jsou již v rukách tvůrců a tak byly sestaveny jednotlivé chyby, jejich kód a popis chyby. Program zároveň vrací tento kód chyby jako svůj návratový kód. Tyto chyby jsou zaneseny do tabulky \ref{chyby}.
