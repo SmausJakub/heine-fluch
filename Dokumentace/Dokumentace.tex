@@ -217,7 +217,7 @@ Pravidlo \texttt{ident} odpovídá definici identifikátoru a pravidlo \texttt{e
 
 Popis gramatiky implementován dle analýzy je v souboru \texttt{Pascal0Like EBNF Gramatika.pdf}. Gramatika v tomto souboru odpovídá té gramatice z \texttt{Pascal0Like.g4}, jen je vedena ve formátu EBNF pro lepší čitelnost.
 
-Základní minimální gramatika programu PascaL0Like vypadá takto:
+Základní minimální gramatika programu Pascal0Like vypadá takto:
 \begin{lstlisting}
 program(test);
 
@@ -228,6 +228,86 @@ end.
 \end{lstlisting}
 
 Na začátku je nutné deklarovat jméno programu. Následuje deklarace programového módu, o tom více v \ref{programMode}. Nyní je zde prostor pro deklarace, které ale nejsou povinné. Následuje povinná příakzová část ohraničená klíčovými slovy \textit{begin} a \textit{end}. Poté musí následovat tečka indikující konec programu.
+
+Všechny symboly gramatiky Pascal0Like jsou k dispozici v tabulce \ref{symboly} a všechna klíčová slova v tabulce \ref{slova}.
+
+\begin{longtable}{|c|c|p{8cm}|}
+\caption{Symboly}
+\label{symboly}
+\endfirsthead
+\endhead
+\hline
+		\textbf{Symbol} & \textbf{Název} & \textbf{Popis} \\
+\hline
++ & \texttt{PLUS} & sčítání ve výrazech \\ \hline
+- & \texttt{MINUS} & odečítání ve výrazech \\ \hline
+* & \texttt{MULTIPLY} & násobení ve výrazech \\ \hline
+/ & \texttt{DIVIDE} & dělení ve výrazech \\ \hline
+\% & \texttt{MODULO} & modulo ve výrazech \\ \hline
+= & \texttt{EQUAL} &  kontrola rovnosti dvou výrazů \\ \hline
+<> & \texttt{NOT\_EQUAL} & kontrola nerovnosti dvou výrazů \\ \hline
+< & \texttt{LT} & kontrola, že levý výraz je menší než pravý výraz \\ \hline
+<= & \texttt{LE} & kontrola, že levý výraz je menší nebo stejně velký jako pravý výraz \\ \hline
+>= & \texttt{GE} & kontrola, že levý výraz je větší nebo stejně velký jako pravý výraz \\ \hline
+> & \texttt{GT} & kontrola, že levý výraz je větší než pravý výraz \\ \hline
+:= & \texttt{ASSIGN} & přiřazení proměnné \\ \hline
+? & \texttt{TERNARY\_ONE} & ternární operátor 1 \\ \hline
+! & \texttt{TERNARY\_TWO} & ternární operátor 2 \\ \hline
+; & \texttt{SEMI} & konec příkazu \\ \hline
+, & \texttt{COMMA} & oddělovač proměnných \\ \hline
+: & \texttt{COLON} & inicializace návěští \\ \hline
+( & \texttt{LPAREN} & levá závorka výrazu \\ \hline
+) & \texttt{RPAREN} & pravá závorka výrazu \\ \hline
+[ & \texttt{LBRACK} & počátek výrazů paralelní deklarace \\ \hline
+] & \texttt{RBRACK} & konec výrazů paralelní deklarace \\ \hline
+. & \texttt{DOT} & konec programu \\ \hline
+\end{longtable}
+
+
+\begin{longtable}{|c|c|p{8cm}|}
+\caption{Klíčová slova}
+\label{slova}
+\endfirsthead
+\endhead
+\hline
+		\textbf{Název} &\textbf{Použití} \\
+\hline
+\texttt{BEGIN} & počátek bloku příkazů \\ \hline
+\texttt{END} & konec bloku příkazů \\ \hline
+\texttt{ODD} & kontrola, zda je výraz lichý \\ \hline
+\texttt{AND} & logické AND ve výrazech \\ \hline
+\texttt{OR} & logické OR ve výrazech \\ \hline
+\texttt{NOT} & logická negace ve výrazech \\ \hline
+\texttt{TRUE} & logická 1 \\ \hline
+\texttt{FALSE} & logická 0 \\ \hline
+\texttt{CONST} & deklarace konstanty \\ \hline
+\texttt{INTEGER} & deklarace číselného datového typu \\ \hline
+\texttt{REAL} & deklarace číselného datového typu s plovoucí čárkou \\ \hline
+\texttt{BOOLEAN} & deklarace logického datového typu \\ \hline
+\texttt{VAR} & deklarace číselného typu v \textit{legacy} módu \\ \hline
+\texttt{LABEL} & deklarace návěští \\ \hline
+\texttt{PROCEDURE} & deklarace procedury \\ \hline
+\texttt{PROGRAM} & deklarace programu \\ \hline
+\texttt{USE} & příkaz pro použití módu \\ \hline
+\texttt{LEGACY} & \textit{legacy} mód \\ \hline
+\texttt{DEFAULT} & \textit{default} mód \\ \hline
+\texttt{STRICT} & \textit{strict} mód \\ \hline
+\texttt{GOTO} & příkaz skoku na návěští \\ \hline
+\texttt{IF} & součást \textit{if-then} větve \\ \hline
+\texttt{THEN} & součást \textit{if-then} a \textit{else-then} větve \\ \hline
+\texttt{ELSE} & součást \textit{else-then} větve a \textit{case} větve \\ \hline
+\texttt{REPAT} & začátek \textit{repeat-until} cyklu \\ \hline
+\texttt{UNTIL} & konec \textit{repeat-until} cyklu \\ \hline
+\texttt{WHILE} & začátek \textit{while-do} cyklu a konec \textit{do-while} cyklu \\ \hline
+\texttt{DO} & začátek \textit{do-while} cyklu a konec \textit{while-do} cyklu, součástí \textit{for} cyklu \\ \hline
+\texttt{READ} & příkaz I/O vstupu \\ \hline
+\texttt{WRITE} & příkaz I/O výstupu \\ \hline
+\texttt{FOR} & začátek \textit{for} cyklu \\ \hline
+\texttt{TO} & indikace pro \textit{for} cyklus přičítat k iterační proměnné \\ \hline
+\texttt{DOWNTO} & indikace pro \textit{for} cyklus odečítat od iterační proměnné \\ \hline
+\texttt{CASE} & začátek větvícího příkazu \textit{case-of} \\ \hline
+\texttt{OF} & součást větvícího příkazu \textit{case-of} \\ \hline
+\end{longtable}
 	
 \subsection{Derivační strom}
  
@@ -608,7 +688,7 @@ For cyklus je nejsložitější cyklus v programu. Na rozdíl od ostatních zmí
 \end{enumerate}
 \end{enumerate}
 
-Implementace cyklu postupuje podle tohoto návodu. Je deklarována iterační proměnná a získává hodnotu dolní meze. V závislosti na typu for cyklu je je provedeno srovnání. Skokem JMC nyní budeme kontrolovat vykonání cyklu nebo výskok z cyklu pryč. Na konci cyklu již jen stačí přičíst/odečíst konstantní 1 a skokem JMP se vrátit do bodu srovnání.
+Implementace cyklu postupuje podle tohoto návodu. Je deklarována iterační proměnná a získává hodnotu dolní meze. Tuto hodnotu je nutné uložit na zásobník, abychom jí mohli v průběhu cyklu měnit. V závislosti na typu for cyklu je je provedeno srovnání. Skokem JMC nyní budeme kontrolovat vykonání cyklu nebo výskok z cyklu pryč. Na konci cyklu již jen stačí přičíst/odečíst konstantní 1 a skokem JMP se vrátit do bodu srovnání.
 
 Cyklus for je zobrazen na obrázku \ref{for}.
 
@@ -629,7 +709,40 @@ Cyklus for je zobrazen na obrázku \ref{for}.
 \end{itemize}
 \end{itemize}
 
-Příkaz case je nejsložitější příkaz v programu. Jde o obdobu příkazu if-else s tím rozdílem, že umožňuje definovat více větví s více možnostmi.
+Příkaz case je nejsložitější příkaz v programu. Jde o obdobu příkazu if-else s tím rozdílem, že umožňuje definovat více větví s více možnostmi. Základní algoritmus pro příkaz case pascalovského typu byx mohl vypadat následovně:
+\begin{enumerate}
+\item Vyhodnoťme kontrolní výraz
+\item Vezměme atomické hodnoty první větve. Srovnejme postupně s každou hodnotou kontrolní výraz, jestli se rovnají.
+\item Pokud pro jednu z atomických hodnot vyhodnotíme pravdivě, vykonejme příkaz této větve, po tomto příkazu konec case. 
+\item Pokud se ani jedna atomická hodnota nerovná s kontrolním výrazem, opakujeme pro další větve.
+\item Pokud se výraz nerovná s žádnou atomickou hodnotou z žádných větví a neexistuje defaultní větev, program nic nevykoná, jinak vykoná defaultní větev.
+\end{enumerate}
+
+Při implementaci case postupujeme podle pravidel pascalovského case, které zde ještě zdůrazníme:
+\begin{itemize}
+\item Kontrolní výraz může být pouze číselného typu
+\item Jedna větev může mít více atomických hodnot
+\item Atomické hodnoty musejí být číselné
+\item Po vykonání příkazu ve větvi program pokračuje za case příkazem
+\item Podpora defaultní větve
+\end{itemize}
+
+Na začátku vyhodnotíme kontrolní výraz a uložíme ho na zásobník. Nyní budeme postupně procházet všechny větve a srovnávat výsledek kontrolního výrazu s atomickými hodnotami. 
+
+Podívejme se na jednotlivá porovnávání. Zjistíme, jestli se kontrolní výraz rovná atomické hodnotě. Pokud se mu rovná, chceme přeskočit další vyhodnocování ostatních atomických výrazů ve stejné větvi a skočit rovnou do příkazové části. Jenže nemáme k dispozici instrukci skoku při hodnotě 1, tedy true, takže si vypomůžeme menším trikem - výsledek operace znegujeme a doplníme instrukci JMC. Nyní budeme skákat na příkazovou část větve při false, tedy srovnání bylo vyhodnoceno pravdivě, a při true, tedy srovnání bylo vyhodnoceno nepravdivě, pokračujeme na další atomickou hodnotu. 
+
+Poslední atomická hodnota ve větvi je výjimkou od ostatních v tom, že při jejím vyhodnocení true, respektive false, potřebujeme skočit na další větev a tím se vyhnout příkazové části větve. Proto sem doplníme instrukci JMP. Tu samou instrukci doplníme i na konec příkazové části, abychom přeskočili zbylé větve a vyskočili z case příkazu (jde vlastně o automatickou obdobu break příkazu v jiných jazycích).
+
+Po zkompilování všech větví se podíváme, jestli existuje defaultní větev. Pokud ano, zkompilujeme jí. Žádné atomické srovnání a skoky se zde neřeší. Po tomto je case příkaz hotov.
+
+Příkaz case je ukázán na obrázku \ref{case}.
+
+\begin{figure}[H]
+\caption{Příkaz case}
+\label{case}
+\includegraphics[width=\textwidth]{case.png}
+\end{figure}
+
  
 \section{Interpret}
 Posledním krokem implementační části je vytvoření interpretu. Ten má za úkol správně interpretovat instrukce, které vytvoří překladač. Tyto instrukce jsou inspirovány instrukční sadou rozšířené PL/0. 
@@ -712,6 +825,50 @@ Pro úplnost, v tabulce \ref{instrukce} jsou uvedeny všechny instrukce a jejich
 \rule{0pt}{3ex} 23 & \texttt{PST 0, 0} & \textbf{Dynamické uložení hodnoty z místa určeného L/A}; odebere ze zásobníku tři hodnoty. První je úroveň zanoření, druhá relativní pozice a třetí \\ \hline
 \end{longtable}
 \section{Chyby programu}
+Program při vykonávání může narazit na několik různých chyb při překladu. Problémy nalezené při analýze řeší ANTLR a program je pouze zachycuje a vyhazuje jako výjimku. Chyby při syntéze a interpretaci jsou již v rukách tvůrců a tak byly sestaveny jednotlivé chyby, jejich kód a popis chyby. Program zároveň vrací tento kód chyby jako svůj návratový kód. Tyto chyby jsou zaneseny do tabulky \ref{chyby}.
+
+\begin{longtable}{|c|p{5.5cm}|p{6.5cm}|}
+\caption{Chybové kódy}
+\label{chyby}
+\endfirsthead
+\endhead
+\hline
+		\textbf{Kód} & \textbf{Chyba} & \textbf{Komentář} \\
+\hline\hline
+\rule{0pt}{3ex}0 & \texttt{Žádná chyba} & Program proběhl správně \\ \hline
+\multicolumn{3}{|l|}{\textbf{Překladač}}\\ \hline
+\rule{0pt}{3ex}1 & \texttt{Variable not initialized} & Použili jste hodnotu předtím, než byla inicializována \\ \hline
+\rule{0pt}{3ex}2 & \texttt{Variable already declared} & Pokoušíte se deklarovat proměnnou, která již byla deklarována \\ \hline
+\rule{0pt}{3ex}3 & \texttt{Constant reassign} & Pokoušíte se změnit hodnotu konstanty \\ \hline
+\rule{0pt}{3ex}4 & \texttt{Unknown identifier} & Vyskytl se neznámý identifikátor \\ \hline
+\rule{0pt}{3ex}5 & \texttt{Unknown label} & Vyskytlo se neznámé návěští \\ \hline
+\rule{0pt}{3ex}6 & \texttt{Unknown procedure} & Vyskytla se neznámá procedura \\ \hline
+\rule{0pt}{3ex}7 & \texttt{Parallel declaration number mismatch} & Paralelní deklarace vyžaduje stejný počet proměnných a výrazů\\ \hline
+\rule{0pt}{3ex}8 & \texttt{Incompatible types} & Typový výsledek výrazu neodpovídá očekávanému typu \\ \hline
+\rule{0pt}{3ex}9 & \texttt{Expression variable type mismatch} & Ve výrazu se vyskytly neslučitelné typy \\ \hline
+\rule{0pt}{3ex}10 & \texttt{Strict mode expression variable type mismatch} & Striktní mód nedovoluje smíšení různých typů ve výrazu \\ \hline
+\rule{0pt}{3ex}11 & \texttt{Can not assign loop variable} & Nepoužil jste unikátní proměnnou jako iterační proměnnou \texttt{for} cyklu \\ \hline
+\rule{0pt}{3ex}12 & \texttt{Label used elsewhere} & Návěští již bylo použito jinde \\ \hline
+\rule{0pt}{3ex}13 & \texttt{Label out of reach} & Návěští je mimo dosah \\ \hline
+\rule{0pt}{3ex}14 & \texttt{Label never used} & Skáčete na návěští, které není v programu použito \\ \hline
+\rule{0pt}{3ex}15 & \texttt{Label not allowed in for cycle} & Návěští není povoleno ve \texttt{for} cyklu \\ \hline
+\rule{0pt}{3ex}16 & \texttt{No boolean type in case} & \texttt{Case} větev nepodporuje logický datový typ \\ \hline
+\rule{0pt}{3ex}17 & \texttt{Case atom used multiple times} & Definujete \texttt{case} větev, která již byl použita \\ \hline
+\rule{0pt}{3ex}18 & \texttt{Legacy mode only allows var type} & \texttt{Legacy} mód povoluje pouze typ \texttt{var} \\ \hline
+\rule{0pt}{3ex}19 & \texttt{Legacy mode real constant not allowed} & \texttt{Legacy} mód nepovoluje konstatní reálné číslo \\ \hline
+\rule{0pt}{3ex}20 & \texttt{Legacy mode boolean constant not allowed} & \texttt{Legacy} mód nepovoluje logickou konstantu \\ \hline
+\rule{0pt}{3ex}21 & \texttt{Legacy mode logical expression not allowed} & \texttt{Legacy} mód nepovoluje logické výrazy \\ \hline
+\rule{0pt}{3ex}22 & \texttt{Legacy mode negation expression not allowed} & \texttt{Legacy} mód nepovoluje výraz negace \\ \hline
+\rule{0pt}{3ex}23 & \texttt{Non legacy mode var type not allowed} & \texttt{Var} typ není povolen v \texttt{non-legacy} módu \\ \hline
+\multicolumn{3}{|l|}{\textbf{Interpret}}\\ \hline
+\rule{0pt}{3ex}24 & \texttt{Stack overflow} & Došlo k přetečení zásobníku \\ \hline
+\rule{0pt}{3ex}25 & \texttt{Stack underflow} & Došlo k podtečení zásobníku \\ \hline
+\rule{0pt}{3ex}26 & \texttt{Unknown instruction} & Tato instrukce není známa \\ \hline
+\rule{0pt}{3ex}27 & \texttt{Program counter is out of range} & Čítač instrukcí je mimo rozsah \\ \hline
+\end{longtable}
+
+
+ 
 
 \chapter{Uživatelská dokumentace} 
 
@@ -720,5 +877,15 @@ Pro úplnost, v tabulce \ref{instrukce} jsou uvedeny všechny instrukce a jejich
 \section{Používání programu}
 
 \chapter{Závěr}
+
+\section{Nedosažené cíle}
+Od původní analýzy se implementovaný program liší ve dvou věcech.
+
+ Za prvé původním cílem byl překlad našeho jazyka do instrukcí PL/0. To bylo splněno částečně vzhledem k tomu, že pro realizaci překladu reálných čísel byly použity vlastní instrukce a nikoli instrukce rozšířené PL/0.
+ 
+ Za druhé nebyl realizován datový typ řetězec. Z důvodů časové tísně a dalších povinností byla implementace tohoto datového typu nejdříve odložena načež zrušena. 
+
+\section{Dosažené cíle}
+
 
 \end{document}
