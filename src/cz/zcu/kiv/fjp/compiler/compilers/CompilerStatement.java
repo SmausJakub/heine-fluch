@@ -138,9 +138,9 @@ public class CompilerStatement {
 
         // depending on for type, either check for iter <= downto or iter >= to
         if (statementFor.getType() == ForType.TO) {
-            instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.LE.getCode()));
+            instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.LT.getCode()));
         } else {
-            instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.GE.getCode()));
+            instructionList.add(new Instruction(InstructionCode.OPR.getName(), 0, InstructionOperation.GT.getCode()));
         }
 
         // our for jump out of the cycle, jumping only if false
@@ -305,6 +305,11 @@ public class CompilerStatement {
             }
             caseBranchJumps.clear();
 
+        }
+
+        // check if there is default statement
+        if (statementCase.getDefaultStatament() != null) {
+            new CompilerStatement(statementCase.getDefaultStatament(), inForCycle).compileStatement();
         }
 
         // here the case jumps jump

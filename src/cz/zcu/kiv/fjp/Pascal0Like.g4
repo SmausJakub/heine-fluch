@@ -144,6 +144,7 @@ case_statement
     :
     CASE expression OF
     case_limb_list
+    default_limb?
     END SEMI
     ;
 
@@ -160,6 +161,11 @@ case_limb
 case_label_list
     :
     atom ( COMMA atom )*
+    ;
+
+default_limb
+    :
+    ELSE DO statement
     ;
 
 type

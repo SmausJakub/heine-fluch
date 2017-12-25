@@ -274,7 +274,11 @@ public class VisitorStatement extends Pascal0LikeBaseVisitor<AbstractStatement> 
             limbList.add(caseLimb);
         }
 
-
-        return new StatementCase(expression, limbList, ctx.getStart().getLine());
+        if (ctx.default_limb() != null) {
+            AbstractStatement defaultStatement = new VisitorStatement().visit(ctx.default_limb());
+            return new StatementCase(expression, limbList, defaultStatement, ctx.getStart().getLine());
+        } else {
+            return new StatementCase(expression, limbList, ctx.getStart().getLine());
+        }
     }
 }

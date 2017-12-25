@@ -23,6 +23,8 @@ public class StatementCase extends AbstractStatement {
      */
     private List<CaseLimb> limbList;
 
+    private AbstractStatement defaultStatament;
+
     /**
      * @param expression expression
      * @param limbList   limb list
@@ -34,12 +36,23 @@ public class StatementCase extends AbstractStatement {
         this.limbList = limbList;
     }
 
+    public StatementCase(AbstractExpression expression, List<CaseLimb> limbList, AbstractStatement defaultStatament, int line) {
+        super(StatementType.CASE, line);
+        this.expression = expression;
+        this.limbList = limbList;
+        this.defaultStatament = defaultStatament;
+    }
+
     public AbstractExpression getExpression() {
         return expression;
     }
 
     public List<CaseLimb> getLimbList() {
         return limbList;
+    }
+
+    public AbstractStatement getDefaultStatament() {
+        return defaultStatament;
     }
 
     @Override

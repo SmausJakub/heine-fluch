@@ -364,6 +364,16 @@ public interface Pascal0LikeListener extends ParseTreeListener {
 	 */
 	void exitCase_label_list(Pascal0LikeParser.Case_label_listContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link Pascal0LikeParser#default_limb}.
+	 * @param ctx the parse tree
+	 */
+	void enterDefault_limb(Pascal0LikeParser.Default_limbContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Pascal0LikeParser#default_limb}.
+	 * @param ctx the parse tree
+	 */
+	void exitDefault_limb(Pascal0LikeParser.Default_limbContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link Pascal0LikeParser#type}.
 	 * @param ctx the parse tree
 	 */

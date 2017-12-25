@@ -240,7 +240,7 @@ Na začátku je nutné deklarovat jméno programu. Následuje deklarace programo
  
  \section{Překladač}
  
- Překladač má nyní za úkol projít derivační strom vygenerovaný ANTLRem, provést syntézu a vygenerovat instrukce. Po zralé úvaze je vybrána možnost přes \texttt{Visitory}, jež nabízí možnost vytvořit si vlastní třídy. Tím otvírají možnost pro větší kontrolu a kvalitnější syntézu programu. Veškeré třídy překladače se nacházejí v balíku \texttt{compiler}.
+ Překladač má nyní za úkol projít derivační strom vygenerovaný ANTLR, provést syntézu a vygenerovat instrukce. Po zralé úvaze je vybrána možnost přes \texttt{Visitory}, jež nabízí možnost vytvořit si vlastní třídy. Tím otvírají možnost pro větší kontrolu a kvalitnější syntézu programu. Veškeré třídy překladače se nacházejí v balíku \texttt{compiler}.
  
  \subsection{Programové třídy}
  Předtím, než je možné se zabývat \texttt{visitory} je nutné podívat se na programové třídy. Tyto třídy jsou navrženy tak, aby reprezentovaly vstupní program. Svým způsobem se podobají derivačnímu stromu, jen neobsahují "zbytečnosti" navíc, jako symboly v pravidlech. Nacházejí se v balíku \texttt{types}. 
@@ -369,7 +369,7 @@ Datové typy jsou reprezentovány v programu výčtovým typem VariableType.
   
  \subsection{Compilery}
  
- \texttt{Compilery} mají za úkol projít vygenerované programové třídy, provést syntézu a vytvořit odpovídající instrukce PL/0. Nacházejí se v balíku \texttt{compilers}. Existují různé třídy \texttt{compilerů} v závislosti na tom, co kompilují. Všechny třídy pracují se třídou CompilerData, která obsahuje globální proměnné a metody, které jsou využívány všemi třídami.
+ \texttt{Compilery} mají za úkol projít vygenerované programové třídy, provést syntézu a vytvořit odpovídající instrukce. Nacházejí se v balíku \texttt{compilers}. Existují různé třídy \texttt{compilerů} v závislosti na tom, co kompilují. Všechny třídy pracují se třídou CompilerData, která obsahuje globální proměnné a metody, které jsou využívány všemi třídami.
  
  Jednotliví \texttt{compilery} budou nyní popsány.
  
@@ -514,23 +514,40 @@ Kompilátor nejdříve kompiluje podmínku. Poté připraví skok JMC. Pokud byl
 
 Ternární příkaz je ukázán na obrázku \ref{statementTernary}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \caption{Ternární příkaz}
 \label{statementTernary}
 \includegraphics[width=\textwidth]{statementTernary.png}
 \end{figure}
 
+\paragraph{Příkaz if} - pracuje se třídou Statementif, která obsahuje:
+\begin{itemize}
+\item \textbf{condition} - podmínka
+\item \textbf{statement} - příkaz if
+\item \textbf{elseStatement} příkaz else
+\end{itemize}
+
+Příkaz if vyhodnocuje podmínku, při pravdě vykoná příkaz if, jinak přeskočí na příkaz else, pokud existuje, jinak do zbytku programu. Implementace spočívá ve skoku JMC, kterým buď vykonáme příkaz if nebo skočíme do příkazu else. Pak jen stačí zajistit přidání skoku na konec if příkazu pro přeskočení else příkazu.
+
+Příkaz if je ukázán na obrázku \ref{if}.
+
+\begin{figure}[H]
+\caption{Příkaz if}
+\label{if}
+\includegraphics[width=\textwidth]{if.png}
+\end{figure}
+
 \paragraph{Příkaz while-do} - pracuje s třídou StatementWhileDo, která obsahuje:
 \begin{itemize}
 \item \textbf{condition} - podmínka
-\item \textbf{statement} - příkaz
+\item \textbf{statement} - příkaz cyklus
 \end{itemize}
 
 Tento cyklus testuje podmínku na začátku cyklu. Pokud tato podmínka je pravdivá, provede cyklus. Pokud není, provede skok mimo cyklus do zbytku programu. Toto kompilujeme pomocí instrukce JMC. Na konec cyklu nyní stačí přidat instrukci skoku JMP, kterou se dostaneme zpátky na začátek k testování podmínky.
 
 Cyklus while-do je zobrazen na obrázku \ref{whileDo}. 
 
-\begin{figure}[h]
+\begin{figure}[H]
 \caption{Cyklus while-do}
 \label{whileDo}
 \includegraphics[width=\textwidth]{whileDo.png}
@@ -539,25 +556,85 @@ Cyklus while-do je zobrazen na obrázku \ref{whileDo}.
 \paragraph{Příkaz do-while} - pracuje s třídou StatementDoWhile, která obsahuje:
 \begin{itemize}
 \item \textbf{condition} - podmínka
-\item \textbf{statement} - příkaz
+\item \textbf{statement} - příkaz cyklu
 \end{itemize}
 
 Tento cyklus testuje podmínku na konci cyklu. Nejdříve vykoná cyklus. Poté vyhodnotí podmínku. Pokud je pravdivá, potřebujeme skočit zpátky a pokud nepravdivá, tak pryč. Dosáhneme toho tak, že připravíme instrukci JMC a za ní instrukci skoku JMP. Skok JMP bude skákat vždy na začátek cyklu, tím dosáhneme toho, že při vyhodnocení podmínky pravdivě skočíme zpět. Nyní jen stačí nastavit JMC ven z cyklu, kam při nepravdě skočí do zbytku programu.
 
 Cyklus do-while je zobrazen na obrázku \ref{doWhile}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \caption{Cyklus do-while}
 \label{doWhile}
 \includegraphics[width=\textwidth]{doWhile.png}
 \end{figure}
 
-\paragraph{Příkaz repeat-until}
+\paragraph{Příkaz repeat-until} -  pracuje s třídou StatementRepeat, která obsahuje:
+\begin{itemize}
+\item \textbf{condition} - podmínka
+\item \textbf{statement} - příkaz cyklu
+\end{itemize}
 
-\paragraph{Příkaz for}
+Tento cyklus testuje podmínku na konci cyklu. Co ho odlišuje od cyklu do-while je to, že tento cyklus probíhá, dokud je podmínka nepravdivá. Toho dosáhneme jednoduše tak, že nám stačí skok JMC na začátek cyklu.
 
-\paragraph{Příkaz case}
+Cyklus repeat-until je zobrazen na obrázku \ref{repeatUntil}.
 
+\begin{figure}[H]
+\caption{Cyklus repeat-until}
+\label{repeatUntil}
+\includegraphics[width=\textwidth]{repeatUntil.png}
+\end{figure}
+
+\paragraph{Příkaz for} - pracuje se třídou StatementFor, která obsahuje:
+\begin{itemize}
+\item \textbf{identifier} - identifikátor iterační proměnné
+\item \textbf{from} - výraz dolní meze
+\item \textbf{to} - výraz horní meze
+\item \textbf{statement} - příkaz cyklus
+\end{itemize}
+
+For cyklus je nejsložitější cyklus v programu. Na rozdíl od ostatních zmíněných cyklů nekontroluje pouze podmínku, ale cyklus je řízen tzv. iterační proměnnou. Cyklus spočívá v následujících krocích:
+\begin{enumerate}
+\item Deklarace iterační proměnné, dolní a horní meze
+\item Přiřazení dolní meze do iterační proměnné
+\item Cyklus for vzrůstající:
+\begin{enumerate}
+\item Srovnání, jestli je iterační proměnná menší než horní mez
+\item Pokud ano, proveďme cyklus, pokud ne, konec cyklu
+\item Na konci cyklu připočtěme konstantní 1 k iterační proměnné
+\item Skok zpět na srovnání
+\end{enumerate}
+\item Cyklus for klesající:
+\begin{enumerate}
+\item Srovnání, jestli je iterační proměnná větší než horní mez
+\item Pokud ano, proveďme cyklus, pokud ne, konec cyklu
+\item Na konci cyklu odečtěme konstatní 1 od iterační proměnné
+\item Skok zpět na srovnání
+\end{enumerate}
+\end{enumerate}
+
+Implementace cyklu postupuje podle tohoto návodu. Je deklarována iterační proměnná a získává hodnotu dolní meze. V závislosti na typu for cyklu je je provedeno srovnání. Skokem JMC nyní budeme kontrolovat vykonání cyklu nebo výskok z cyklu pryč. Na konci cyklu již jen stačí přičíst/odečíst konstantní 1 a skokem JMP se vrátit do bodu srovnání.
+
+Cyklus for je zobrazen na obrázku \ref{for}.
+
+\begin{figure}[H]
+\caption{Cyklus for}
+\label{for}
+\includegraphics[width=\textwidth]{for.png}
+\end{figure}
+
+\paragraph{Příkaz case} - pracuje se třídou StatementCase, která obsahuje:
+\begin{itemize}
+\item \textbf{expression} - kontrolní výraz
+\item \textbf{defaultStateemt} - příkaz defaultní větve
+\item \textbf{limbList} - seznam objektů CaseLimb, jež obsahují:
+\begin{itemize}
+\item \textbf{statement} - příkaz větve
+\item \textbf{atomList} - seznam objektů Atom
+\end{itemize}
+\end{itemize}
+
+Příkaz case je nejsložitější příkaz v programu. Jde o obdobu příkazu if-else s tím rozdílem, že umožňuje definovat více větví s více možnostmi.
  
  \section{Interpret}
  

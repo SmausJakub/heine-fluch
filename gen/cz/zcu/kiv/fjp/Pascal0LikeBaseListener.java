@@ -424,6 +424,18 @@ public class Pascal0LikeBaseListener implements Pascal0LikeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterDefault_limb(Pascal0LikeParser.Default_limbContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDefault_limb(Pascal0LikeParser.Default_limbContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterType(Pascal0LikeParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}

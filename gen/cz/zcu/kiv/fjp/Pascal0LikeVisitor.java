@@ -223,6 +223,12 @@ public interface Pascal0LikeVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCase_label_list(Pascal0LikeParser.Case_label_listContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link Pascal0LikeParser#default_limb}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDefault_limb(Pascal0LikeParser.Default_limbContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link Pascal0LikeParser#type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
