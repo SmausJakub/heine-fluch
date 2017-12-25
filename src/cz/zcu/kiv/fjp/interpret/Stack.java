@@ -5,11 +5,30 @@ import cz.zcu.kiv.fjp.errors.ErrorStackUnderflow;
 
 import static cz.zcu.kiv.fjp.interpret.Interpreter.err;
 
+/**
+ * Stack
+ * Represents stack used by interpreter
+ */
 public class Stack {
 
-    private int base;                       // Baze
-    private int top;                        // Vrchol
+    /**
+     * Base of stack
+     */
+    private int base;
+
+    /**
+     * Top of stack
+     */
+    private int top;
+
+    /**
+     * Size of stack
+     */
     private int STACK_SIZE = 500;
+
+    /**
+     * Array for items in stack
+     */
     private int[] stackItems = new int[STACK_SIZE];
 
 
@@ -18,6 +37,10 @@ public class Stack {
         this.top = top;
     }
 
+    /**
+     * Push int value to stack
+     * @param value
+     */
     public void push(int value) {
 
         if (top  > stackItems.length) {
@@ -28,6 +51,10 @@ public class Stack {
         top++;
     }
 
+    /**
+     * Pop int value from stack
+     * @return
+     */
     public int pop() {
 
         int item;
@@ -41,6 +68,10 @@ public class Stack {
         return item;
     }
 
+    /**
+     * Show int value from stack
+     * @return
+     */
     public int top() {
 
         int item;
@@ -51,6 +82,54 @@ public class Stack {
 
         item = stackItems[top-1];
         return item;
+    }
+
+    /**
+     * Push float value to stack
+     * @param value
+     */
+    public void floatPush(float value) {
+        int intValue = Float.floatToRawIntBits(value);
+        push(intValue);
+    }
+
+    /**
+     * Pop float value from stack
+     * @return
+     */
+    public float floatPop() {
+        int value = pop();
+        return Float.intBitsToFloat(value);
+    }
+
+    /**
+     * Finds base
+     * @param level
+     * @return
+     */
+    public int getBaseOfItem(int level) {
+        int newBase = base;
+
+        for(int i = 0; i < level; i++) {
+            newBase = stackItems[base];
+        }
+        return newBase;
+    }
+
+    /**
+     * Increases top by given value
+     * @param value
+     */
+    public void increaseTop(int value){
+        this.top += value;
+    }
+
+    /**
+     * Reduces top by given value
+     * @param value
+     */
+    public void reduceTop(int value){
+        this.top -= value;
     }
 
     public int getValue(int item) {
@@ -73,26 +152,8 @@ public class Stack {
         stackItems[item-1] = Float.floatToRawIntBits(value);
     }
 
-
-    public int getBaseOfItem(int level) {
-        int newBase = base;
-
-        for(int i = 0; i < level; i++) {
-            newBase = stackItems[base];
-        }
-        return newBase;
-    }
-
     public int[] getStackItems() {
         return stackItems;
-    }
-
-    public void increaseTop(int value){
-        this.top += value;
-    }
-
-    public void reduceTop(int value){
-        this.top -= value;
     }
 
     public int getBase() {
@@ -109,21 +170,6 @@ public class Stack {
 
     public void setTop(int top) {
         this.top = top;
-    }
-
-    public float floatTop() {
-        int value = top();
-        return Float.intBitsToFloat(value);
-    }
-
-    public float floatPop() {
-        int value = pop();
-        return Float.intBitsToFloat(value);
-    }
-
-    public void floatPush(float value) {
-        int intValue = Float.floatToRawIntBits(value);
-        push(intValue);
     }
 
 }

@@ -18,6 +18,8 @@ import java.util.Scanner;
 /**
  * Interpreter
  * Interprets instructions made from Pascal0Like language
+ * Interprets input file, writes the output to output file
+ * Depending on options, prints stack to console or a file
  */
 public class Interpreter {
 
@@ -33,7 +35,8 @@ public class Interpreter {
     private Stack stack = new Stack(1, 0);
     private List<Integer> heap = new ArrayList<Integer>();
 
-    private int programCounter;                 // Citac instrukci
+    private int programCounter;
+
     private InstructionHandler instructionHandler;
     private List<Instruction> instructionsList;
     private Instruction instruction;
@@ -43,8 +46,9 @@ public class Interpreter {
 
     /**
      * Interprets instructions in a file
-     * @param instructions
-     * @param printStack
+     * @param instructions      source code of compiled PascaL0-Like
+     * @param printStack        whether to print a stack
+     * @param stackFile         file for printed stack
      * @throws Exception
      */
     public void interpret(File instructions, boolean printStack, String stackFile) throws Exception {
@@ -316,7 +320,7 @@ public class Interpreter {
 
         } while (programCounter != 0);
 
-        System.out.println("END PascaL/0-like");
+        System.out.println("END PascaL0-like");
 
             if (printStack) {
                 if (stackFile != null) {

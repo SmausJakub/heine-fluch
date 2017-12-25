@@ -82,7 +82,6 @@ titlepage
 \setcounter{page}{1}
 
 \section{Tvorba překladače zvoleného jazyka}
-
 Cílem práce bude vytvoření překladače zvoleného jazyka. Je možné inspirovat se jazykem PL/0, vybrat si podmnožinu nějakého existujícího jazyka nebo si navrhnout jazyk zcela vlastní. Dále je také potřeba zvolit si pro jakou architekturu bude jazyk překládán (doporučeny jsou instrukce PL/0, ale je možné zvolit jakoukoliv instrukční sadu pro kterou budete mít interpret). 
 
 Jazyk musí mít minimálně následující konstrukce:
@@ -97,10 +96,8 @@ Jazyk musí mít minimálně následující konstrukce:
 \item definice podprogramu (procedura, funkce, metoda) a jeho volání
 \end{itemize}
 
-Překladač který bude umět tyto základní věci bude hodnocen deseti body. Další body (alespoň do minimálních 20) je možné získat na základě rozšíření, jsou rozděleny do dvou skupin, jednodušší za jeden bod a složitější za dva až tři body. Další rozšíření je možno doplnit po konzultaci, s ohodnocením podle odhadnuté náročnosti. 
-
-Jednoduchá rozšíření (1 bod):
-
+Překladač který bude umět tyto základní věci bude hodnocen deseti body. Další body (alespoň do minimálních 20) je možné získat na základě rozšíření, jsou rozděleny do dvou skupin, jednodušší za jeden bod a složitější za dva až tři body. Další rozšíření je možno doplnit po konzultaci, s ohodnocením podle odhadnuté náročnosti.\newline
+\textbf{Jednoduchá rozšíření (1 bod):}
 \begin{itemize}
 \item každý další typ cyklu (for, do .. while, while .. do, repeat .. until, foreach pro pole)
 \item else větev
@@ -111,10 +108,9 @@ Jednoduchá rozšíření (1 bod):
 \item násobné přiřazení (a = b = c = d = 3;)
 \item podmíněné přiřazení / ternární operátor (min = (a < b) ? a : b;)
 \item paralelní přiřazení ({a, b, c, d} = {1, 2, 3, 4};)
-\item příkazy pro vstup a výstup (read, write - potřebuje vhodné instrukce které bude možné využít)
+\item příkazy pro vstup a výstup (read, write -- potřebuje vhodné instrukce které bude možné využít)
 \end{itemize}
-
-složitěší rozšíření (2 body):
+\textbf{Složitější rozšíření (2 body):}
 \begin{itemize}
 \item příkaz GOTO (pozor na vzdálené skoky)
 \item datový typ ratio (s celočíselnými instrukcemi)
@@ -126,11 +122,10 @@ složitěší rozšíření (2 body):
 \item objekty bez polymorfismu
 \item anonymní vnitřní funkce (lambda výrazy)
 \end{itemize}
-
-Rozšíření vyžadující složitější instrukční sadu než má PL/0 (3 body):
+\textbf{Rozšíření vyžadující složitější instrukční sadu než má PL/0 (3 body):}
 
 \begin{itemize}
-\item dynamicky přiřazovaná paměť - práce s ukazateli
+\item dynamicky přiřazovaná paměť -- práce s ukazateli
 \item parametry předávané odkazem
 \item objektové konstrukce s polymorfním chováním
 \item instanceof operátor
@@ -145,7 +140,7 @@ Vlastní interpret (řádkový, bez rozhraní, složitý alespoň jako rozšíř
 Kromě toho že by program měl fungovat se zohledňují i další věci, které mohou pozitivně nebo negativně ovlivnit bodování:
 
 \begin{itemize}
-\item testování - tvorba rozumné automatické testovací sady +3 body (pro inspiraci hledejte test suit pro LLVM nebo se podívejte na \href{http://www.plumhall.com/suites.html}{Plum Hall testy}, ale jde skutečně jen o inspiraci, stačí výrazně jednodušší řešení). Užitečné a stručné povídání na dané téma najdete také \href{http://www.engr.mun.ca/~theo/Publications/compiler-testing.pdf}{tady}.
+\item testování -- tvorba rozumné automatické testovací sady +3 body (pro inspiraci hledejte test suit pro LLVM nebo se podívejte na \href{http://www.plumhall.com/suites.html}{Plum Hall testy}, ale jde skutečně jen o inspiraci, stačí výrazně jednodušší řešení). Užitečné a stručné povídání na dané téma najdete také \href{http://www.engr.mun.ca/~theo/Publications/compiler-testing.pdf}{tady}.
 \item Kvalita dokumentace -x bodů až +2 body podle kvality a prohřešků (vynechaná gramatika, nesrozumitelné věty, příliš chyb a překlepů, bitmapové obrázky pro diagramy s kompresními artefakty, ...).
 \item Vedení projektu v GITu -x bodů až +2 body podle důslednosti a struktury příspěvků.
 \item Kvalita zdrojového textu -x bodů až +2 body podle obecně známých pravidel ze ZSWI, PPA a podobně (magická čísla, struktura programu a dekompozice problému, božské třídy a metody, ...)
@@ -157,11 +152,11 @@ Překladač je obecně program, který převádí zdrojový kód do nějakého c
 
 \section{Analýza překladače}
 
-Základem překladače je tedy určit, jaký zdrojový kód bude překládán. Definicí tohoto kódu je gramatika. Jde o souhrn pravidel nejčastěji ve formátu EBNF(\textit{Extended Backus–Naur form}), která jednoznačně určují, jestli zadaný kód (či jazyk) patří či nepatří do našeho překládaného kódu. 
+Základem překladače je tedy určit, jaký zdrojový kód bude překládán. Definicí tohoto kódu je gramatika. Jde o souhrn pravidel nejčastěji ve formátu \textbf{EBNF}(\textit{Extended Backus–Naur form}), která jednoznačně určují, jestli zadaný kód (či jazyk) patří či nepatří do našeho překládaného kódu. 
 
 Další částí překladače je lexikální analyzátor. Ten projde zdrojový kód a nahradí jeho jednotlivé části tzv. tokény. Výstup tohoto analyzátoru je předán syntaktickému analyzátoru, jenž kontroluje za pomocí definované gramatiky strukturu programu. Výstupem je často derivační strom. V této chvíli je možné zdrojový program dále zpracovat, např. kontrola typů, proměnných apod. dle definovaných pravidel vlastního programovacího jazyka. Poslední částí překladače je samotný překlad do instrukcí cílové platformy. Nyní přichází na řadu program, jenž cílový kód bude interpretovat.
 
-Pro všechny tyto komponenty bude nutné vytvořit vlastní řešení s výjimkou lexikálního/syntaktického analyzátoru, kde je možnost použít některé existující nástroje jako YACC a ANTLR. Oba dva dělají ve své podstatě to samé, jen YACC vyžaduje implementaci překladače v programovacím jazyce C, zatímco ANTLR v Javě. Jde tedy o osobní preferenci, který z těchto nástrojů použít.
+Pro všechny tyto komponenty bude nutné vytvořit vlastní řešení s výjimkou lexikálního/syntaktického analyzátoru, kde je možnost použít některé existující nástroje jako \textbf{YACC} a \textbf{ANTLR}. Oba dva dělají ve své podstatě to samé, jen YACC vyžaduje implementaci překladače v programovacím jazyce C, zatímco ANTLR v Javě. Jde tedy o osobní preferenci, který z těchto nástrojů použít.
 
 Náš tým se rozhodl pro ANTLR a tedy pro Javu. Překládaný jazyk bude postaven na vyučovací gramatice PL/0, doplněn o některé vlastnosti jazyka Pascal. Samotný PL/0 je jazyk velice jednoduchý a pouhou jeho implementací by zadání nebylo splněno na požadovaný počet bodů. Původní návrh také počítá s tím, že překladač bude překládat do instrukcí PL/0 tak, aby mohl být interpretován libovolným interpretem PL/0. 
 
@@ -198,7 +193,7 @@ Tato základní gramatika bude za pomoci Pascalu udělána složitější a bude
 
 \chapter{Implementace}
  
- Vzhledem k použití nástroje ANTLR se implementace dělí do tří částí - samotný nástroj ANTLR pro lexikální a syntaktickou analýzu, náš překladač pro syntézu vstupního programu a převod do instrukcí PL/0, a nakonec interpret pro interpretaci těchto instrukcí.
+ Vzhledem k použití nástroje ANTLR se implementace dělí do tří částí -- samotný nástroj ANTLR pro lexikální a syntaktickou analýzu, náš překladač pro syntézu vstupního programu a převod do instrukcí rozšířené PL/0, a nakonec interpret pro interpretaci těchto instrukcí.
  
  \section{ANTLR}
  
@@ -222,7 +217,7 @@ Pravidlo \texttt{ident} odpovídá definici identifikátoru a pravidlo \texttt{e
 
 Popis gramatiky implementován dle analýzy je v souboru \texttt{Pascal0Like EBNF Gramatika.pdf}. Gramatika v tomto souboru odpovídá té gramatice z \texttt{Pascal0Like.g4}, jen je vedena ve formátu EBNF pro lepší čitelnost.
 
-Základní minimální gramatika programu PascaL0-like vypadá takto:
+Základní minimální gramatika programu PascaL0Like vypadá takto:
 \begin{lstlisting}
 program(test);
 
@@ -234,177 +229,177 @@ end.
 
 Na začátku je nutné deklarovat jméno programu. Následuje deklarace programového módu, o tom více v \ref{programMode}. Nyní je zde prostor pro deklarace, které ale nejsou povinné. Následuje povinná příakzová část ohraničená klíčovými slovy \textit{begin} a \textit{end}. Poté musí následovat tečka indikující konec programu.
 	
- \subsection{Derivační strom}
+\subsection{Derivační strom}
  
- ANTLR vytvoří z definované gramatiky tokény (lexikální analýza). Následně vygeneruje derivační strom a třídy, jež obsahují metody pro práci s tímto stromem. Nabízí dvě možnosti, jak strom procházet - přes \texttt{Listenerey} nebo \texttt{Visitory}. \texttt{Listener} umožňuje pracovat s pravidlem při vstupu a výstupu z pravidla. \texttt{Visitor} nabízí jednu metodu na pravidlo, ale umožňuje vracet libovolnou třídu jako návratovou hodnotu. Pro použití těchto dvou metod stačí vytvořit novou třídu, která je zdědí a přepíše jejich metody pro práci s pravidly.
+ANTLR vytvoří z definované gramatiky tokény (lexikální analýza). Následně vygeneruje derivační strom a třídy, jež obsahují metody pro práci s tímto stromem. Nabízí dvě možnosti, jak strom procházet -- přes \texttt{Listenerey} nebo \texttt{Visitory}. \texttt{Listener} umožňuje pracovat s pravidlem při vstupu a výstupu z pravidla. \texttt{Visitor} nabízí jednu metodu na pravidlo, ale umožňuje vracet libovolnou třídu jako návratovou hodnotu. Pro použití těchto dvou metod stačí vytvořit novou třídu, která je zdědí a přepíše jejich metody pro práci s pravidly.
  
- \section{Překladač}
+\section{Překladač}
  
- Překladač má nyní za úkol projít derivační strom vygenerovaný ANTLR, provést syntézu a vygenerovat instrukce. Po zralé úvaze je vybrána možnost přes \texttt{Visitory}, jež nabízí možnost vytvořit si vlastní třídy. Tím otvírají možnost pro větší kontrolu a kvalitnější syntézu programu. Veškeré třídy překladače se nacházejí v balíku \texttt{compiler}.
+Překladač má nyní za úkol projít derivační strom vygenerovaný ANTLR, provést syntézu a vygenerovat instrukce. Po zralé úvaze je vybrána možnost přes \texttt{Visitory}, jež nabízí možnost vytvořit si vlastní třídy. Tím otvírají možnost pro větší kontrolu a kvalitnější syntézu programu. Veškeré třídy překladače se nacházejí v balíku \texttt{compiler}.
  
- \subsection{Programové třídy}
- Předtím, než je možné se zabývat \texttt{visitory} je nutné podívat se na programové třídy. Tyto třídy jsou navrženy tak, aby reprezentovaly vstupní program. Svým způsobem se podobají derivačnímu stromu, jen neobsahují "zbytečnosti" navíc, jako symboly v pravidlech. Nacházejí se v balíku \texttt{types}. 
+\subsection{Programové třídy}
+Předtím, než je možné se zabývat \texttt{visitory} je nutné podívat se na programové třídy. Tyto třídy jsou navrženy tak, aby reprezentovaly vstupní program. Svým způsobem se podobají derivačnímu stromu, jen neobsahují ``zbytečnosti'' navíc, jako symboly v pravidlech. Nacházejí se v balíku \texttt{types}. 
  
 
- Některé typy jsou rozděleny do dalších balíků pro lepší čitelnost a strukturu.
- Typy jsou následující:
- \begin{itemize}
- \item balík \texttt{atoms} - Atomy programu pro jednotlivé typy, tedy:
- 	\begin{itemize}
- 	\item \textbf{AtomBoolean} - logická konstanta \texttt{true} nebo \texttt{false}
- 	\item \textbf{AtomReal} - reálná konstanta
- 	\item \textbf{AtomInteger} - číselná konstanta
- 	\item \textbf{AtomId} - identifikátor
+Některé typy jsou rozděleny do dalších balíků pro lepší čitelnost a strukturu.
+Typy jsou následující:
+\begin{itemize}
+\item balík \texttt{atoms} -- Atomy programu pro jednotlivé typy, tedy:
+	\begin{itemize}
+ 	\item \textbf{AtomBoolean} -- logická konstanta \texttt{true} nebo \texttt{false}
+ 	\item \textbf{AtomReal} -- reálná konstanta
+ 	\item \textbf{AtomInteger} -- číselná konstanta
+ 	\item \textbf{AtomId} -- identifikátor
  	\end{itemize}
-\item balík \texttt{declarations} - jednotlivé deklarace programu, obsahuje:
+\item balík \texttt{declarations} -- jednotlivé deklarace programu, obsahuje:
 	\begin{itemize}
-	\item \textbf{DeclarationConstant} - deklarace konstanty
-	\item \textbf{DeclarationLabel} - deklarace návěští
-	\item \textbf{DeklarationProcedure} - deklarace procedury
-	\item \textbf{DeclarationVariableParallel} - paralelní deklarace proměnných
-	\item \textbf{DeclarationVariableSimple} - deklarace proměnných
+	\item \textbf{DeclarationConstant} -- deklarace konstanty
+	\item \textbf{DeclarationLabel} -- deklarace návěští
+	\item \textbf{DeklarationProcedure} -- deklarace procedury
+	\item \textbf{DeclarationVariableParallel} -- paralelní deklarace proměnných
+	\item \textbf{DeclarationVariableSimple} -- deklarace proměnných
 	\end{itemize}	
-\item balík \texttt{expressions} - jednotlivé podporované výrazy programu, jde o:
+\item balík \texttt{expressions} -- jednotlivé podporované výrazy programu, jde o:
 	\begin{itemize}
-	\item \textbf{ExpressionAdditive} - výraz sčítání
-	\item \textbf{ExpressionAtom} - atomický výraz - obsahuje Atom
-	\item \textbf{ExpressionLogic} - výraz logického AND nebo OR
-	\item \textbf{ExpressionMultiplication} - výraz násobení
-	\item \textbf{ExpressionNot} - logická negace
-	\item \textbf{ExpressionOdd} - test lichosti
-	\item \textbf{ExpressionPar} - závorkovaný výraz
-	\item \textbf{ExpressionRelational} - výraz srovnání
-	\item \textbf{ExpressionUnary} - unární mínus
+	\item \textbf{ExpressionAdditive} -- výraz sčítání
+	\item \textbf{ExpressionAtom} -- atomický výraz -- obsahuje Atom
+	\item \textbf{ExpressionLogic} -- výraz logického AND nebo OR
+	\item \textbf{ExpressionMultiplication} -- výraz násobení
+	\item \textbf{ExpressionNot} -- logická negace
+	\item \textbf{ExpressionOdd} -- test lichosti
+	\item \textbf{ExpressionPar} -- závorkovaný výraz
+	\item \textbf{ExpressionRelational} -- výraz srovnání
+	\item \textbf{ExpressionUnary} -- unární mínus
 	\end{itemize}
-\item balík \texttt{statements} - jednotlivé příkazy programu, jde o:
+\item balík \texttt{statements} -- jednotlivé příkazy programu, jde o:
 	 \begin{itemize}
-	 \item \textbf{StatementAssignment} - příkaz přiřazení
-	 \item \textbf{StatementCase} - příkaz case větvení
-	 \item \textbf{StatementCompound} - strukturovaný příkaz
-	 \item \textbf{StatementDoWhile} - příkaz do-while cyklu
-	 \item \textbf{StatementFor} - příkaz for cyklu
-	 \item \textbf{StatementGoto} - příkaz skoku
-	 \item \textbf{StatementIf} - příkaz if podmínky
-	 \item \textbf{StatementIO} - příkaz I/O
-	 \item \textbf{StatementProcedure} - příkaz volání procedury
-	 \item \textbf{StatementRepeat} - příkaz repeat-until cyklu
-	 \item \textbf{StatementTernary} - příkaz ternárního operátoru
-	 \item \textbf{StatementWhileDo} - příkaz while-do cyklu
+	 \item \textbf{StatementAssignment} -- příkaz přiřazení
+	 \item \textbf{StatementCase} -- příkaz case větvení
+	 \item \textbf{StatementCompound} -- strukturovaný příkaz
+	 \item \textbf{StatementDoWhile} -- příkaz do-while cyklu
+	 \item \textbf{StatementFor} -- příkaz for cyklu
+	 \item \textbf{StatementGoto} -- příkaz skoku
+	 \item \textbf{StatementIf} -- příkaz if podmínky
+	 \item \textbf{StatementIO} -- příkaz I/O
+	 \item \textbf{StatementProcedure} -- příkaz volání procedury
+	 \item \textbf{StatementRepeat} -- příkaz repeat-until cyklu
+	 \item \textbf{StatementTernary} -- příkaz ternárního operátoru
+	 \item \textbf{StatementWhileDo} -- příkaz while-do cyklu
 	 \end{itemize}
-\item Block - blok programu a procedur
-\item CaseLimb - větev case
-\item Constant - konstanta
-\item Goto - uchovává informace o skoku
+\item Block -- blok programu a procedur
+\item CaseLimb -- větev case
+\item Constant -- konstanta
+\item Goto -- uchovává informace o skoku
 \item Label - návěští
-\item Procedure - procedura
-\item Program - program
-\item Variable - proměnná	 
- \end{itemize}
+\item Procedure -- procedura
+\item Program -- program
+\item Variable -- proměnná	 
+\end{itemize}
  
-	 Tyto třídy uchovávají informace o jednotlivých částech programu a dohromady tvoří zpracovávaný program.
+	Tyto třídy uchovávají informace o jednotlivých částech programu a dohromady tvoří zpracovávaný program.
  
- \subsection{Visitory}
+\subsection{Visitory}
 
 	\texttt{Visitory} mají za úkol projít ANTLR derivační strom a vytvořit naši vlastní reprezentaci programu z výše popsaných tříd. Všechny třídy \texttt{visitorů} se nacházejí v balíku \texttt{visitors}.
 	
-	 Každý \texttt{visitor} dědí ANTLR třídu \texttt{PascaL0LikeBaseVisitor}. Tato třída je typovaná a tento typ je právě návratová hodnota, kterou bude \texttt{visitor} vracet. Tím je nyní možnost vytvořit si třídy \texttt{visitorů} odpovídající různým typům, které jsme si popsali výše. Pro to, aby to fungovalo tak, jak požadujeme, je ještě třeba typy obalit do jednoho unikátního typu, abychom nemuseli mít pro každé pravidlo jeden \texttt{visitor}. Proto byly vytvořeny abstraktní třídy AbstractAtom, AbstractDeclaration, AbstractExpression a AbstractStatement. Nacházejí se v balíku \texttt{abstracts}. 
+	Každý \texttt{visitor} dědí ANTLR třídu \texttt{PascaL0LikeBaseVisitor}. Tato třída je typovaná a tento typ je právě návratová hodnota, kterou bude \texttt{visitor} vracet. Tím je nyní možnost vytvořit si třídy \texttt{visitorů} odpovídající různým typům, které jsme si popsali výše. Pro to, aby to fungovalo tak, jak požadujeme, je ještě třeba typy obalit do jednoho unikátního typu, abychom nemuseli mít pro každé pravidlo jeden \texttt{visitor}. Proto byly vytvořeny abstraktní třídy AbstractAtom, AbstractDeclaration, AbstractExpression a AbstractStatement. Nacházejí se v balíku \texttt{abstracts}. 
 	 
-	 Jednotlivé \texttt{visitory} jsou:
+	Jednotlivé \texttt{visitory} jsou:
 	 
-	 \begin{itemize}
-	 \item \textbf{VisitorAtom} - vrací jednotlivé druhy atomů jako AbstractAtom
-	 \item \textbf{VisitorBlock} - vrací třídu Blok
-	 \item \textbf{VisitorCase} - vrací case větev (třída CaseLimb)
-	 \item \textbf{VisitorDeclaration} - vrací jednotlivé druhy deklarací jako AbstractDeclaration
-	 \item \textbf{VisitorExpression} - vrací jednotlivé druhy výrazů jako AbstractExpression
-	 \item \textbf{VisitorProgram} - vrací třídu Program
-	 \item \textbf{VisitorProgramMode} - vrací výčtový typ ProgramMode
-	 \item \textbf{VisitorStatement} - vrací jednotlivé druhy příkazů jako AbstractStatement
+	\begin{itemize}
+	\item \textbf{VisitorAtom} -- vrací jednotlivé druhy atomů jako AbstractAtom
+	\item \textbf{VisitorBlock} -- vrací třídu Blok
+	\item \textbf{VisitorCase} -- vrací case větev (třída CaseLimb)
+	\item \textbf{VisitorDeclaration} -- vrací jednotlivé druhy deklarací jako AbstractDeclaration
+	\item \textbf{VisitorExpression} -- vrací jednotlivé druhy výrazů jako AbstractExpression
+	\item \textbf{VisitorProgram} -- vrací třídu Program
+	\item \textbf{VisitorProgramMode} -- vrací výčtový typ ProgramMode
+	\item \textbf{VisitorStatement} -- vrací jednotlivé druhy příkazů jako AbstractStatement
 	 \end{itemize} 
 	 
 ANTLR \texttt{visitor} poskytuje metody pro jednotlivá pravidla. Tyto metody jsou v určitých \texttt{visitorech} přepsány a následně volány. Takto se projde celý derivační strom a vytvoří se programové třídy, jež mu odpovídají.	
  
- \subsection{Datové typy}
+\subsection{Datové typy}
 Před kapitolou o programovém módu je nejdříve nutné ukázat, jaké datové typy překladač podporuje. Jde o tři typy:
 \begin{itemize}
-\item \textbf{celé číslo} - datový typ celého čísla. V programu se značí klíčovým slovem \textit{integer} nebo \textit{var} v závislosti na módu (viz \ref{programMode}). 
-\item \textbf{reálné číslo} - datový typ čísla s plovoucí čárkou. V programu se značí klíčovým slovem \textit{real}.
-\item \textbf{logická hodnota} - datový typ logické hodnoty. V programu se značí klíčovým slovem \textit{boolean}. Logické konstanty jsou \textit{true} a \textit{false}. 
+\item \textbf{celé číslo} -- datový typ celého čísla. V programu se značí klíčovým slovem \textit{integer} nebo \textit{var} v závislosti na módu (viz \ref{programMode}). 
+\item \textbf{reálné číslo} -- datový typ čísla s plovoucí čárkou. V programu se značí klíčovým slovem \textit{real}.
+\item \textbf{logická hodnota} -- datový typ logické hodnoty. V programu se značí klíčovým slovem \textit{boolean}. Logické konstanty jsou \textit{true} a \textit{false}. 
 \end{itemize} 
 
 Datové typy jsou reprezentovány v programu výčtovým typem VariableType.
  
 \subsection{Programový mód}   \label{programMode}
-  Před samotným popisem \texttt{compilerů} je třeba si ještě osvětlit programový mód. Překladač umí pracovat ve třech různých módech - \textit{legacy}, \textit{default} a \textit{strict}. Tento mód je možné deklarovat před deklaracemi proměnných (viz \ref{gramatika}). Pokud není deklarován mód, automaticky je použit \textit{default}.
+  Před samotným popisem \texttt{compilerů} je třeba si ještě osvětlit programový mód. Překladač umí pracovat ve třech různých módech -- \textit{legacy}, \textit{default} a \textit{strict}. Tento mód je možné deklarovat před deklaracemi proměnných (viz \ref{gramatika}). Pokud není deklarován mód, automaticky je použit \textit{default}.
   Jednotlivé módy se od sebe liší v kompilační části. Popíšeme si je:
-  \begin{itemize}
-  \item \textbf{legacy mód} - tento mód slouží pro kompatibilitu s PL/0. V tomto módu je jediný povolený datový typ \textit{var}, reprezentující celé číslo,  a jsou zakázány logické výrazy AND, OR a negace. Tento mód umožňuje vzít libovolný programový kód základní PL/0 a bez problémů ho přeložit naším překladačem. Datový typ \textit{var} je v ostatních módech zakázán.
-  \item \textbf{strict mód} - tento mód je striktní v tom smyslu, že nepovoluje míchání typů. Není možné sečíst reálné číslo a celé číslo například. Přetypování není v tomto módu možné.
-  \item \textbf{default mód} - základní mód překladače. Přetypování je možné a vždy se řídí podle levého výrazu. Například při sečtení reálného čísla a celého čísla (\textit{integer x := 3.14 + 1}) bude pravý výraz převeden na reálné číslo, poté se provede operace a až poté se výsledek převede na celé číslo a uloží do proměnné \textit{x}. Při obrácení výrazů (\textit{integer x := 1 + 3.14}) se pravý výraz převede na celé číslo, provede se operace a výsledek se uloží do proměnné \textit{x}. 
-  \end{itemize}
+\begin{itemize}
+\item \textbf{legacy mód} -- tento mód slouží pro kompatibilitu s PL/0. V tomto módu je jediný povolený datový typ \textit{var}, reprezentující celé číslo,  a jsou zakázány logické výrazy AND, OR a negace. Tento mód umožňuje vzít libovolný programový kód základní PL/0 a bez problémů ho přeložit naším překladačem. Datový typ \textit{var} je v ostatních módech zakázán.
+\item \textbf{strict mód} -- tento mód je striktní v tom smyslu, že nepovoluje míchání typů. Není možné sečíst reálné číslo a celé číslo například. Přetypování není v tomto módu možné.
+\item \textbf{default mód} -- základní mód překladače. Přetypování je možné a vždy se řídí podle levého výrazu. Například při sečtení reálného čísla a celého čísla (\textit{integer x := 3.14 + 1}) bude pravý výraz převeden na reálné číslo, poté se provede operace a až poté se výsledek převede na celé číslo a uloží do proměnné \textit{x}. Při obrácení výrazů (\textit{integer x := 1 + 3.14}) se pravý výraz převede na celé číslo, provede se operace a výsledek se uloží do proměnné \textit{x}. 
+\end{itemize}
   
-  \subsection{Tabulka symbolů}
+\subsection{Tabulka symbolů}
   
   Tabulka symbolů je struktura, ve které se uchovávají proměnné a informace o nich. V programu reprezentováno ve třídách SymbolTable a SymbolTableItem v balíku \textit{symbol}. Jednotlivý záznam v tabulce symbolů (tedy symbol) obsahuje:
-  \begin{itemize}
-  \item \textbf{name} - název proměnné (identifikátor). Unikátní pro záznam.
-  \item \textbf{level} - úroveň, ve které byla proměnná deklarována
-  \item \textbf{type} - typ proměnné (konstanta, proměnná, procedura, návěští)
-  \item \textbf{address} - v závislosti na typu symbolu má různý význam:
-  \begin{itemize}
-  \item \textbf{proměnná} - adresa na zásobníku
-  \item \textbf{návěští} - začíná na 0, po použití v programu obsahuje číslo instrukce, kam je třeba skočit
-  \item \textbf{procedura} - číslo instrukce, kde procedura začíná
-  \end{itemize}
-  \item \textbf{size} - v závislosti na typu symbolu má různý význam:
-  \begin{itemize}
-  \item \textbf{proměnná} - jestli byla inicializována (1) nebo ne (0)
-  \item \textbf{návěští} - jestli bylo použito (1) nebo ne (0)
-  \item \textbf{procedura} - velikost procedury (počet instrukcí)
+\begin{itemize}
+\item \textbf{name} -- název proměnné (identifikátor). Unikátní pro záznam.
+\item \textbf{level} -- úroveň, ve které byla proměnná deklarována
+\item \textbf{type} -- typ proměnné (konstanta, proměnná, procedura, návěští)
+\item \textbf{address} -- v závislosti na typu symbolu má různý význam:
+\begin{itemize}
+\item \textbf{proměnná} -- adresa na zásobníku
+\item \textbf{návěští} -- začíná na 0, po použití v programu obsahuje číslo instrukce, kam je třeba skočit
+\item \textbf{procedura} -- číslo instrukce, kde procedura začíná
+\end{itemize}
+\item \textbf{size} -- v závislosti na typu symbolu má různý význam:
+\begin{itemize}
+\item \textbf{proměnná} -- jestli byla inicializována (1) nebo ne (0)
+\item \textbf{návěští} -- jestli bylo použito (1) nebo ne (0)
+\item \textbf{procedura} -- velikost procedury (počet instrukcí)
 \end{itemize} 
-\item \textbf{variableType} - pouze proměnné, určuje jejich datový typ  
-  \end{itemize} 
+\item \textbf{variableType} -- pouze proměnné, určuje jejich datový typ  
+\end{itemize} 
   
-  Tabulka symbolů je staticky přístupná celému programu, ale používají ji pouze \texttt{compilery}.
+Tabulka symbolů je staticky přístupná celému programu, ale používají ji pouze \texttt{compilery}.
   
- \subsection{Compilery}
+\subsection{Compilery}
  
- \texttt{Compilery} mají za úkol projít vygenerované programové třídy, provést syntézu a vytvořit odpovídající instrukce. Nacházejí se v balíku \texttt{compilers}. Existují různé třídy \texttt{compilerů} v závislosti na tom, co kompilují. Všechny třídy pracují se třídou CompilerData, která obsahuje globální proměnné a metody, které jsou využívány všemi třídami.
+\texttt{Compilery} mají za úkol projít vygenerované programové třídy, provést syntézu a vytvořit odpovídající instrukce. Nacházejí se v balíku \texttt{compilers}. Existují různé třídy \texttt{compilerů} v závislosti na tom, co kompilují. Všechny třídy pracují se třídou CompilerData, která obsahuje globální proměnné a metody, které jsou využívány všemi třídami.
  
- Jednotliví \texttt{compilery} budou nyní popsány.
+Jednotliví \texttt{compilery} budou nyní popsány.
  
 \subsubsection{CompilerProgram}
 První volaný kompilátor. Pracuje s třídou Program, která obsahuje:
 \begin{itemize}
-\item \textbf{block} - hlavní blok programu
-\item \textbf{identifier} - název programu
-\item \textbf{programMode} - programový mód programu
+\item \textbf{block} -- hlavní blok programu
+\item \textbf{identifier} -- název programu
+\item \textbf{programMode} -- programový mód programu
 \end{itemize}
     
-    Tento kompilátor uloží programový mód do CompilerData a předá hlavní programový blok CompilerBlock. Jeho poslední úlohou je zkontrolování seznamu Goto, ale to popíšeme až později u kompilace příkazu skoku.
+   Tento kompilátor uloží programový mód do CompilerData a předá hlavní programový blok CompilerBlock. Jeho poslední úlohou je zkontrolování seznamu Goto, ale to popíšeme až později u kompilace příkazu skoku.
     
 \subsubsection{CompilerBlock}
 Druhý volaný kompilátor. Pracuje s třídou Block, která obsahuje:
 \begin{itemize}
-\item \textbf{declarationList} - seznam deklarací
-\item \textbf{statementList} - seznam příkazů
+\item \textbf{declarationList} -- seznam deklarací
+\item \textbf{statementList} -- seznam příkazů
 \end{itemize}
 
 Úkolem kompilátoru je předat deklaračním a příkazovým kompilátorům jednotlivé deklarace a příkazy. Jenže zde nastávají komplikace.
 
 Ukládání proměnných na zásobník vyžaduje zvýšení vrcholu zásobníku o počet deklarací. Kompilátor tedy počítá, kolik deklarací se provedlo, a zásobník zvýší o požadovaný počet.
 
-Výraznější problém nastává při deklaraci procedury. Ta totiž obsahuje svůj vlastní blok s dalšími deklaracemi a příkazy. Kvůli tomu je nutné nulovat používané proměnné - počet deklarací a stávající adresu. Tím se zamezí chybám v deklaracích proměnných procedury. Kompilátor poté přidá instrukci skoku, aby přeskočil tělo procedury, jelikož procedura se smí provádět až tehdy, kdy je zavolána a první kód, který je čten je hlavní příkazový blok programu. Kompilátor kompiluje proceduru ihned, ale skokem, kterým proceduru přeskočíme, zajistíme, že interpret bude interpretovat instrukce v pořadí takovém, jaké chceme. 
+Výraznější problém nastává při deklaraci procedury. Ta totiž obsahuje svůj vlastní blok s dalšími deklaracemi a příkazy. Kvůli tomu je nutné nulovat používané proměnné -- počet deklarací a stávající adresu. Tím se zamezí chybám v deklaracích proměnných procedury. Kompilátor poté přidá instrukci skoku, aby přeskočil tělo procedury, jelikož procedura se smí provádět až tehdy, kdy je zavolána a první kód, který je čten je hlavní příkazový blok programu. Kompilátor kompiluje proceduru ihned, ale skokem, kterým proceduru přeskočíme, zajistíme, že interpret bude interpretovat instrukce v pořadí takovém, jaké chceme. 
 
 Posledním problémem může být deklarace proměnných po proceduře obzvláště pokud se v proceduře tyto proměnné používají. Proto kompilátor deklarace řadí podle jejich typu tak, že deklarace procedur jsou vždy poslední.
 
 \subsubsection{CompilerAtom}
-Kompilátor nejnižší úrovně jazyka - atomů. Pracuje v závislosti na typech atomu:
+Kompilátor nejnižší úrovně jazyka -- atomů. Pracuje v závislosti na typech atomu:
 \begin{itemize}
-\item \textbf{AtomInteger} - celočíselná konstant
-\item \textbf{AtomReal} - reálná konstanta
-\item \textbf{AtomBoolean} - logická konstanta
-\item \textbf{AtomId} - identifikátor
+\item \textbf{AtomInteger} -- celočíselná konstant
+\item \textbf{AtomReal} -- reálná konstanta
+\item \textbf{AtomBoolean} -- logická konstanta
+\item \textbf{AtomId} -- identifikátor
 \end{itemize}
 
 V závislosti na typu je použita určitá instrukce. V případě identifikátor musí kompilátor načíst požadovaný záznam z tabulky symbolů a dle datového typu postupuje obdobně, jako s ostatními atom typy.
@@ -415,40 +410,40 @@ Tento kompilátor nikdy nic nekontroluje, tedy při reálné konstantě nekontro
 
 Tento kompilátor zpracovává deklarace v závislosti na jejich typu.
 
-\paragraph{Deklarace návěští} - pracuje s třídou DeclarationLabel, která obsahuje seznam objektů Label. Kompilátor pro každý z nich vytvoří záznam v tabulce symbolů
+\paragraph{Deklarace návěští} -- pracuje s třídou DeclarationLabel, která obsahuje seznam objektů Label. Kompilátor pro každý z nich vytvoří záznam v tabulce symbolů
 
-\paragraph{Deklarace procedury} - pracuje s třídou DeclarationProcedure, ta obsahuje:
+\paragraph{Deklarace procedury} -- pracuje s třídou DeclarationProcedure, ta obsahuje:
 \begin{itemize}
-\item \textbf{identifier} - identifikátor procedury
-\item \textbf{procedureBlock} - blok procedury
+\item \textbf{identifier} -- identifikátor procedury
+\item \textbf{procedureBlock} -- blok procedury
 \end{itemize}
 
 Kompilátor vytvoří záznam pro novou proceduru a předá řízení CompilerBlock, který řeší náležitosti týkající se nového bloku. Kompilátor jen zvyšuje stávající úroveň, která se tímto zvětší. Po návratu z bloku je úroveň opět snížena.
 
-\paragraph{Deklarace proměnné} - pracuje s třídou DeclarationVariableSimple, která obsahuje:
+\paragraph{Deklarace proměnné} -- pracuje s třídou DeclarationVariableSimple, která obsahuje:
 \begin{itemize}
-\item \textbf{variableList} - seznam deklarovaných proměnných
-\item \textbf{expression} - přiřazovaný výraz
-\item \textbf{init} - logická hodnota, jestli jsou proměnné inicializovány uživatelem
-\item \textbf{type} - datový typ proměnných
+\item \textbf{variableList} -- seznam deklarovaných proměnných
+\item \textbf{expression} -- přiřazovaný výraz
+\item \textbf{init} -- logická hodnota, jestli jsou proměnné inicializovány uživatelem
+\item \textbf{type} -- datový typ proměnných
 \end{itemize} 
 
 Kompilátor postupuje po jedné proměnné, nejdříve vytvoří záznam v tabulce symbolů. Z důvodu optimalizace provede jen a pouze napoprvé kompilaci výrazu. Pokud proměnné nebyly inicializovány uživatelem, kompilátor je inicializuje na implicitní hodnoty.
 
-\paragraph{Deklarace paralelních proměnných} - pracuje s třídou DeclarationVariableParallel, která obsahuje:
+\paragraph{Deklarace paralelních proměnných} -- pracuje s třídou DeclarationVariableParallel, která obsahuje:
 \begin{itemize}
-\item \textbf{variableList} - seznam deklarovaných proměnných
-\item \textbf{expressionList} - seznam přiřazovaných výrazů
-\item \textbf{type} - datový typ proměnných
+\item \textbf{variableList} -- seznam deklarovaných proměnných
+\item \textbf{expressionList} -- seznam přiřazovaných výrazů
+\item \textbf{type} -- datový typ proměnných
 \end{itemize}
 
 Kompilátor postupuje po jedné proměnné, vytvoří záznam v tabulce symbolů a poté kompiluje daný výraz. V každé iteraci cyklu kompiluje výraz, jelikož je tento výraz jiný pro každou proměnnou. Počet proměnných a výrazů musí souhlasit, jinak je vyhozena chyba.
 
-\paragraph{Deklarace konstanty} - pracuje s třídou DeclarationConstant, která obsahuje:
+\paragraph{Deklarace konstanty} -- pracuje s třídou DeclarationConstant, která obsahuje:
 \begin{itemize}
-\item \textbf{constantList} - list konstantních proměnných
-\item \textbf{value} - atomická přiřazovaná hodnota
-\item \textbf{type} - datový typ proměnných
+\item \textbf{constantList} -- list konstantních proměnných
+\item \textbf{value} -- atomická přiřazovaná hodnota
+\item \textbf{type} -- datový typ proměnných
 \end{itemize}
 
 Kompilátor postupuje stejně jako při deklaraci proměnných, jen nekompiluje výraz, ale atom.
@@ -457,9 +452,9 @@ Kompilátor postupuje stejně jako při deklaraci proměnných, jen nekompiluje 
 
 Tento kompilátor zpracovává výrazy v závislosti na jejich typu. I přesto, že v programu rozeznáváme různé druhy výrazů, dají se generalizovat na tři typy:
 \begin{itemize}
-\item \textbf{Obalovací výrazy} - tyto výrazy obsahují další výraz, který obalují. Jde o ExpressionOdd, ExpressionUnary, ExpressionPar, ExpressionNot.
-\item \textbf{Atomický výraz} - tento výraz neobsahuje žádné další výrazy, ale pouze atomickou hodnotu. Jde o ExpressionAtom.
-\item \textbf{Operativní výrazy} - tyto výrazy obsahují vždy dva další výrazy, levou a pravou stranu, a operátor. Jde o ExpressionMultiplication, ExpressionAdditive, ExpressionRelational, ExpressionLogic.
+\item \textbf{Obalovací výrazy} -- tyto výrazy obsahují další výraz, který obalují. Jde o ExpressionOdd, ExpressionUnary, ExpressionPar, ExpressionNot.
+\item \textbf{Atomický výraz} -- tento výraz neobsahuje žádné další výrazy, ale pouze atomickou hodnotu. Jde o ExpressionAtom.
+\item \textbf{Operativní výrazy} -- tyto výrazy obsahují vždy dva další výrazy, levou a pravou stranu, a operátor. Jde o ExpressionMultiplication, ExpressionAdditive, ExpressionRelational, ExpressionLogic.
 \end{itemize}
 
 Kompilace výrazů probíhá rekurzivně, kde návratová hodnota je datový typ. Každý výraz vždy zkontroluje datový typ, se kterým pracuje, v závislosti na svém typu a programovém módu potom rozhoduje, zda je možné s tímto typem pracovat. Operativní výrazy srovnávají oba typy svých dvou výrazů a jejich možné kombinace.
@@ -469,10 +464,10 @@ Jakousi výjimku tvoří ExpressionPar a ExpressionAtom, které žádné typy ne
 \subsubsection{CompilerStatement}
 Tento kompilátor kompiluje příkazy v závislosti na jejich typu. Ještě předtím se podívá, jestli příkaz neobsahuje návěští. V případě, že ano, aktualizuje daný záznam tabulky symbolů a řízení předá dále.
 
-\paragraph{Příkaz přiřazení} - pracuje se třídou StatementAssignment, jež obsahuje:
+\paragraph{Příkaz přiřazení} -- pracuje se třídou StatementAssignment, jež obsahuje:
 \begin{itemize}
-\item \textbf{identifier} - identifikátor proměnné
-\item \textbf{expression} - přiřazovaný výraz
+\item \textbf{identifier} -- identifikátor proměnné
+\item \textbf{expression} -- přiřazovaný výraz
 \end{itemize}
 
 Kompilátor musí zkontrolovat několik věcí:
@@ -482,33 +477,33 @@ Kompilátor musí zkontrolovat několik věcí:
 \item Záznam nesmí být typu konstanty či procedury
 \end{itemize}
 
-\paragraph{Příkaz volání procedury} - pracuje se třídou StatementProcedure, jež obsahuje \textbf{identifier} - identifikátor procedury. Kompilátor zkontroluje, že je možné tuto proceduru zavolat a pak jí zavolá.
+\paragraph{Příkaz volání procedury} -- pracuje se třídou StatementProcedure, jež obsahuje \textbf{identifier} -- identifikátor procedury. Kompilátor zkontroluje, že je možné tuto proceduru zavolat a pak jí zavolá.
 
-\paragraph{Příkaz skoku} - pracuje se třídou StatementGoto, jež obsahuje \textbf{value} - číslo návěští, kam se má skočit. Nyní je třeba zkontrolovat, že návěští existuje v tabulce symbolů (tedy bylo deklarováno) a že je přístupné dle úrovní. Následně mohou nastat dvě věcí dle atributu \textit{size}:
+\paragraph{Příkaz skoku} -- pracuje se třídou StatementGoto, jež obsahuje \textbf{value} -- číslo návěští, kam se má skočit. Nyní je třeba zkontrolovat, že návěští existuje v tabulce symbolů (tedy bylo deklarováno) a že je přístupné dle úrovní. Následně mohou nastat dvě věcí dle atributu \textit{size}:
 \begin{itemize}
-\item \textbf{size je 1} - to znamená, že víme kam skočit, takže to není problém a vytvoříme instrukci skoku na adresu návěští
-\item \textbf{size je 0} - v této chvíli nevíme, kam skočit, jelikož návěští nebylo v programu ještě použito. Instrukce skoku se stejně připravíme s dočasnou nulovou hodnotou jako adresou. Následně se do seznamu objektů \textit{Goto} uloží nový záznam. Tento záznam obsahuje vytvořenou instrukci, název návěští a stávající úroveň. Právě tento seznam později projíždí CompilerProgram. Podívá se na adresu záznamu a pokud je různá od nuly (tedy návěští bylo někde použito a adresa je číslo instrukce skoku), aktualizuje instrukci skoku objektu Goto poté, co zkontroluje úrovně, jinak vyhazuje chybu, protože skok nelze provést.
+\item \textbf{size je 1} -- to znamená, že víme kam skočit, takže to není problém a vytvoříme instrukci skoku na adresu návěští
+\item \textbf{size je 0} -- v této chvíli nevíme, kam skočit, jelikož návěští nebylo v programu ještě použito. Instrukce skoku se stejně připravíme s dočasnou nulovou hodnotou jako adresou. Následně se do seznamu objektů \textit{Goto} uloží nový záznam. Tento záznam obsahuje vytvořenou instrukci, název návěští a stávající úroveň. Právě tento seznam později projíždí CompilerProgram. Podívá se na adresu záznamu a pokud je různá od nuly (tedy návěští bylo někde použito a adresa je číslo instrukce skoku), aktualizuje instrukci skoku objektu Goto poté, co zkontroluje úrovně, jinak vyhazuje chybu, protože skok nelze provést.
 \end{itemize}
 
-\paragraph{Příkaz I/O} - pracuje se třídou StatementIO, která obsahuje:
+\paragraph{Příkaz I/O} -- pracuje se třídou StatementIO, která obsahuje:
 \begin{itemize}
-\item \textbf{identifier} - identifikátor proměnné
-\item \textbf{type} - I/o typ - vstupní či výstupní
+\item \textbf{identifier} -- identifikátor proměnné
+\item \textbf{type} -- I/o typ -- vstupní či výstupní
 \end{itemize}
 
 Kompilátor zkontroluje dostupnost záznamu daného identifikátor a poté již jen doplní instrukce dle I/O typu.
 
-\paragraph{Příkaz strukturovaný} - pracuje se třídou StatementCompound, která obsahuje seznam příkazů. Tento kompilátor sám o sobě nic nedělá, vzhledem k tomu, že strukturovaný příkaz je obalovací příkaz dalších příkazů. Kompilátor tedy jen zavolá další kompilátory na jednotlivé příkazy.
+\paragraph{Příkaz strukturovaný} -- pracuje se třídou StatementCompound, která obsahuje seznam příkazů. Tento kompilátor sám o sobě nic nedělá, vzhledem k tomu, že strukturovaný příkaz je obalovací příkaz dalších příkazů. Kompilátor tedy jen zavolá další kompilátory na jednotlivé příkazy.
 
-\paragraph{Příkaz ternární} - pracuje se třídou StatementTernary, jež obsahuje:
+\paragraph{Příkaz ternární} -- pracuje se třídou StatementTernary, jež obsahuje:
 \begin{itemize}
-\item \textbf{expression} - podmínka
-\item \textbf{expressionOne} - první výraz
-\item \textbf{expressionTwo} - druhý výraz
-\item \textbf{identifier} - identifikátor proměnné
+\item \textbf{expression} -- podmínka
+\item \textbf{expressionOne} -- první výraz
+\item \textbf{expressionTwo} -- druhý výraz
+\item \textbf{identifier} -- identifikátor proměnné
 \end{itemize}
 
-Ternární operátor je kombinací podmíněného výrazu a přiřazovacího. Pokud platí podmínka, přiřadíme první výraz, pokud ne, přiřadíme druhý. Instrukční sada je vysvětlena později v dokumentu, ale nyní nám budou stačit dvě instrukce - instrukce skoku JMP a instrukce skoku při 0 JMC. 
+Ternární operátor je kombinací podmíněného výrazu a přiřazovacího. Pokud platí podmínka, přiřadíme první výraz, pokud ne, přiřadíme druhý. Instrukční sada je vysvětlena později v dokumentu, ale nyní nám budou stačit dvě instrukce -- instrukce skoku JMP a instrukce skoku při 0 JMC. 
 
 Kompilátor nejdříve kompiluje podmínku. Poté připraví skok JMC. Pokud byla podmínka vyhodnocena jako pravda, program dále pokračuje do prvního výrazu. Pokud byla vyhodnocena jako nepravda, program skáče na druhý výraz. Nyní je třeba si dávat pozor, jelikož bez dalších úprav by po dokončení prvního výrazu začal program vykonávat druhý výraz, proto je nutné na konec prvního výrazu doplnit instrukci skoku JMP a vyhnout se tak druhému výrazu. Na konci druhého výrazu není třeba nic měnit.
 
@@ -520,10 +515,10 @@ Ternární příkaz je ukázán na obrázku \ref{statementTernary}.
 \includegraphics[width=\textwidth]{statementTernary.png}
 \end{figure}
 
-\paragraph{Příkaz if} - pracuje se třídou Statementif, která obsahuje:
+\paragraph{Příkaz if} -- pracuje se třídou Statementif, která obsahuje:
 \begin{itemize}
-\item \textbf{condition} - podmínka
-\item \textbf{statement} - příkaz if
+\item \textbf{condition} -- podmínka
+\item \textbf{statement} -- příkaz if
 \item \textbf{elseStatement} příkaz else
 \end{itemize}
 
@@ -537,10 +532,10 @@ Příkaz if je ukázán na obrázku \ref{if}.
 \includegraphics[width=\textwidth]{if.png}
 \end{figure}
 
-\paragraph{Příkaz while-do} - pracuje s třídou StatementWhileDo, která obsahuje:
+\paragraph{Příkaz while-do} -- pracuje s třídou StatementWhileDo, která obsahuje:
 \begin{itemize}
-\item \textbf{condition} - podmínka
-\item \textbf{statement} - příkaz cyklus
+\item \textbf{condition} -- podmínka
+\item \textbf{statement} -- příkaz cyklus
 \end{itemize}
 
 Tento cyklus testuje podmínku na začátku cyklu. Pokud tato podmínka je pravdivá, provede cyklus. Pokud není, provede skok mimo cyklus do zbytku programu. Toto kompilujeme pomocí instrukce JMC. Na konec cyklu nyní stačí přidat instrukci skoku JMP, kterou se dostaneme zpátky na začátek k testování podmínky.
@@ -553,10 +548,10 @@ Cyklus while-do je zobrazen na obrázku \ref{whileDo}.
 \includegraphics[width=\textwidth]{whileDo.png}
 \end{figure}
 
-\paragraph{Příkaz do-while} - pracuje s třídou StatementDoWhile, která obsahuje:
+\paragraph{Příkaz do-while} -- pracuje s třídou StatementDoWhile, která obsahuje:
 \begin{itemize}
-\item \textbf{condition} - podmínka
-\item \textbf{statement} - příkaz cyklu
+\item \textbf{condition} -- podmínka
+\item \textbf{statement} -- příkaz cyklu
 \end{itemize}
 
 Tento cyklus testuje podmínku na konci cyklu. Nejdříve vykoná cyklus. Poté vyhodnotí podmínku. Pokud je pravdivá, potřebujeme skočit zpátky a pokud nepravdivá, tak pryč. Dosáhneme toho tak, že připravíme instrukci JMC a za ní instrukci skoku JMP. Skok JMP bude skákat vždy na začátek cyklu, tím dosáhneme toho, že při vyhodnocení podmínky pravdivě skočíme zpět. Nyní jen stačí nastavit JMC ven z cyklu, kam při nepravdě skočí do zbytku programu.
@@ -569,10 +564,10 @@ Cyklus do-while je zobrazen na obrázku \ref{doWhile}
 \includegraphics[width=\textwidth]{doWhile.png}
 \end{figure}
 
-\paragraph{Příkaz repeat-until} -  pracuje s třídou StatementRepeat, která obsahuje:
+\paragraph{Příkaz repeat-until} --  pracuje s třídou StatementRepeat, která obsahuje:
 \begin{itemize}
-\item \textbf{condition} - podmínka
-\item \textbf{statement} - příkaz cyklu
+\item \textbf{condition} -- podmínka
+\item \textbf{statement} -- příkaz cyklu
 \end{itemize}
 
 Tento cyklus testuje podmínku na konci cyklu. Co ho odlišuje od cyklu do-while je to, že tento cyklus probíhá, dokud je podmínka nepravdivá. Toho dosáhneme jednoduše tak, že nám stačí skok JMC na začátek cyklu.
@@ -585,12 +580,12 @@ Cyklus repeat-until je zobrazen na obrázku \ref{repeatUntil}.
 \includegraphics[width=\textwidth]{repeatUntil.png}
 \end{figure}
 
-\paragraph{Příkaz for} - pracuje se třídou StatementFor, která obsahuje:
+\paragraph{Příkaz for} -- pracuje se třídou StatementFor, která obsahuje:
 \begin{itemize}
-\item \textbf{identifier} - identifikátor iterační proměnné
-\item \textbf{from} - výraz dolní meze
-\item \textbf{to} - výraz horní meze
-\item \textbf{statement} - příkaz cyklus
+\item \textbf{identifier} -- identifikátor iterační proměnné
+\item \textbf{from} -- výraz dolní meze
+\item \textbf{to} -- výraz horní meze
+\item \textbf{statement} -- příkaz cyklus
 \end{itemize}
 
 For cyklus je nejsložitější cyklus v programu. Na rozdíl od ostatních zmíněných cyklů nekontroluje pouze podmínku, ale cyklus je řízen tzv. iterační proměnnou. Cyklus spočívá v následujících krocích:
@@ -623,26 +618,100 @@ Cyklus for je zobrazen na obrázku \ref{for}.
 \includegraphics[width=\textwidth]{for.png}
 \end{figure}
 
-\paragraph{Příkaz case} - pracuje se třídou StatementCase, která obsahuje:
+\paragraph{Příkaz case} -- pracuje se třídou StatementCase, která obsahuje:
 \begin{itemize}
-\item \textbf{expression} - kontrolní výraz
-\item \textbf{defaultStateemt} - příkaz defaultní větve
-\item \textbf{limbList} - seznam objektů CaseLimb, jež obsahují:
+\item \textbf{expression} -- kontrolní výraz
+\item \textbf{defaultStateemt} -- příkaz defaultní větve
+\item \textbf{limbList} -- seznam objektů CaseLimb, jež obsahují:
 \begin{itemize}
-\item \textbf{statement} - příkaz větve
-\item \textbf{atomList} - seznam objektů Atom
+\item \textbf{statement} -- příkaz větve
+\item \textbf{atomList} -- seznam objektů Atom
 \end{itemize}
 \end{itemize}
 
 Příkaz case je nejsložitější příkaz v programu. Jde o obdobu příkazu if-else s tím rozdílem, že umožňuje definovat více větví s více možnostmi.
  
- \section{Interpret}
- 
- \subsection{Instrukční sada}
- 
- \subsection{Interpretace}
- 
- \section{Chyby programu}
+\section{Interpret}
+Posledním krokem implementační části je vytvoření interpretu. Ten má za úkol správně interpretovat instrukce, které vytvoří překladač. Tyto instrukce jsou inspirovány instrukční sadou rozšířené PL/0. 
+
+\subsection{Interpretace}
+V balíku \texttt{interpret} se nachází 2 třídy, které slouží k interpretací:
+\begin{itemize}
+\item \textbf{Interpreter} -- představuje instanci interpretu 
+\item \textbf{Stack} -- představuje zásobník a příslušné metody 
+\end{itemize}
+
+Interpretace funguje tak, že se postupným průchodem souboru provádějí jednotlivé instrukce, které jsou v souboru obsaženy. V podstatě se jedná o jeden velký přepínač--switch, ve kterém se podle názvu instrukce provede to, co má. Většina základních instrukcí se shoduje s těmi, kterými disponuje základní i rozšířená verze jazyka PL/0. Protože jsme se rozhodli pro implementaci reálných čísel v \texttt{IEEE-format} bylo nutné pro tyto čísla vytvořit nové instrukce. Díky tomu je možné reálné číslo uložit pouze na jednu pozici v zásobníku.
+\begin{itemize}
+\item LRT -- vloží konstantní reálnou hodnotu 
+\item LOR -- načte reálnou hodnotu vrcholu
+\item STR -- uloží reálnou hodnotu vrcholu
+\item RER -- načte reálné číslo ze vstupu a uloží jej na zásobník
+\item WRR -- odebere reálné číslo z vrcholu zásobníku a vypíše jej na vstup
+\end{itemize}
+\subsection{Instrukční sada}
+Pro úplnost, v tabulce \ref{instrukce} jsou uvedeny všechny instrukce a jejich popis, co interpret podporuje.
+\begin{longtable}{|c|l|p{10cm}|}
+\caption{Instrukce}
+\label{instrukce}
+\endfirsthead
+\endhead
+\hline
+		Kód & Instrukce & Popis \\
+\hline\hline
+\rule{0pt}{3ex}1 & \texttt{LIT 0, M} & Vloží konstantní celou hodnotu (\texttt{literál}) \texttt{M} do zásobníku \\ \hline
+\rule{0pt}{3ex}2 & \texttt{LRT 0, M} & Vloží konstantní reálnou hodnotu (\texttt{literál}) \texttt{M} do zásobníku \\ \hline
+\rule{0pt}{3ex}3 & \texttt{OPR 0, M} & \textbf{Operace}, která se provede nad vrcholem zásobníku \textbf{pro celé čísla} \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 1} & \textbf{Negace}; vybere vrchol a vrátí negativní hodnotu \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 2} & \textbf{Sčítání}; vybere dvě hodnoty, sečte a vrátí \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 3} & \textbf{Odečítání}; vybere dvě hodnoty, odečte druhou první a vrátí výsledek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 4} & \textbf{Násobení}; vybere dvě hodnoty, vynásobí a vrátí výsledek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 5} & \textbf{Dělení}; vybere dvě hodnoty, vydělí druhou první \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 6} & \textbf{Lichost}; vybere vrchol a vloží 1 když liché, 0 když sudé \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 7} & \textbf{Modulo}; vybere dvě hodnoty, vydělí druhý prvním a vloží zbytek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 8} & \textbf{Rovnost}; vybere dvě hodnoty, a vloží 1 pokud se rovnají, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 9} & \textbf{Nerovnost}; vybere dvě hodnoty a vloží 0 pokud se rovnají, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 10} & \textbf{Menší než}; vybere dvě hodnoty a vloží 1 pokud je první menší než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 11} & \textbf{Větší nebo rovno než}; vybere dvě hodnoty a vloží 1 pokud je první větší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 12} & \textbf{Větší}; vybere dvě hodnoty a vloží 1 pokud je první větší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPR 0, 13} & \textbf{Menší nebo rovno než}; vybere dvě hodnoty a vloží 1 pokud je první menší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex}4 & \texttt{LOD L, M} & \textbf{Načtení}; načte hodnotu vrcholu z umístění dané offsetem M od L lexikografických úrovní dolů \\ \hline
+\rule{0pt}{3ex}5 & \texttt{STO L, M} & \textbf{Uložení}; uloží hodnotu vrcholu z umístění dané offsetem M od L lexikografických úrovní dolů \\ \hline
+\rule{0pt}{3ex}4 & \texttt{LOR L, M} & \textbf{Načtení}; načte reálnou hodnotu vrcholu z umístění dané offsetem M od L lexikografických úrovní dolů \\ \hline
+\rule{0pt}{3ex}5 & \texttt{STR L, M} & \textbf{Uložení}; uloží reálnou hodnotu vrcholu z umístění dané offsetem M od L lexikografických úrovní dolů \\ \hline
+\rule{0pt}{3ex}6 & \texttt{CAL L, M} & \textbf{Volání procedury} v kódovém indexu \textbf{M} \\ \hline
+\rule{0pt}{3ex}7 & \texttt{RET 0, 0} & \textbf{Návrat z procedury}; vrátí se z procedury do volající procedury \\ \hline
+\rule{0pt}{3ex}8 & \texttt{INT 0, M} & \textbf{Alokování} místa pro M hodnot na vrcholo zásobníku \\ \hline
+\rule{0pt}{3ex}9 & \texttt{JMP 0, M} & Provede skok do instrukce \textbf{M} \\ \hline
+\rule{0pt}{3ex}10 & \texttt{JMC 0, M} & Vybere vrchol a skočí k instrukci M pokud je rovna 0, \textbf{podmíněný skok} \\ \hline
+\rule{0pt}{3ex}11 & \texttt{REA L, M} & \textbf{Načte celé číslo} ze vstupu a uloží jej na zásobník \\ \hline
+\rule{0pt}{3ex}12 & \texttt{WRI L, M} & Odebere celé číslo z vrcholu zásobníku a \textbf{vypíše jej na vstup} \\ \hline
+\rule{0pt}{3ex}13 & \texttt{RER L, M} & \textbf{Načte reálné číslo} ze vstupu a uloží jej na zásobník \\ \hline
+\rule{0pt}{3ex}14 & \texttt{WRR L, M} & Odebere reálné číslo z vrcholu zásobníku a \textbf{vypíše jej na vstup} \\ \hline
+\rule{0pt}{3ex}15 & \texttt{OPF 0, M} & \textbf{Operace}, která se provede nad vrcholem zásobníku \textbf{pro reálná čísla} \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 1} & \textbf{Negace}; vybere vrchol a vrátí negativní hodnotu \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 2} & \textbf{Sčítání}; vybere dvě hodnoty, sečte a vrátí \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 3} & \textbf{Odečítání}; vybere dvě hodnoty, odečte druhou první a vrátí výsledek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 4} & \textbf{Násobení}; vybere dvě hodnoty, vynásobí a vrátí výsledek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 5} & \textbf{Dělení}; vybere dvě hodnoty, vydělí druhou první \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 6} & \textbf{Lichost}; vybere vrchol a vloží 1 když liché, 0 když sudé \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 7} & \textbf{Modulo}; vybere dvě hodnoty, vydělí druhý prvním a vloží zbytek \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 8} & \textbf{Rovnost}; vybere dvě hodnoty, a vloží 1 pokud se rovnají, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 9} & \textbf{Nerovnost}; vybere dvě hodnoty a vloží 0 pokud se rovnají, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 10} & \textbf{Menší než}; vybere dvě hodnoty a vloží 1 pokud je první menší než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 11} & \textbf{Větší nebo rovno než}; vybere dvě hodnoty a vloží 1 pokud je první větší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 12} & \textbf{Větší}; vybere dvě hodnoty a vloží 1 pokud je první větší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} & \texttt{OPF 0, 13} & \textbf{Menší nebo rovno než}; vybere dvě hodnoty a vloží 1 pokud je první menší nebo rovno než druhá, jinak 0 \\ \hline
+\rule{0pt}{3ex} 16 & \texttt{RTI 0, 0} & \textbf{Reálné číslo na celé číslo}; vybere jednu hodnotu ze zásobníku a vloží celou část čísla do zásobníku \\ \hline
+\rule{0pt}{3ex} 17 & \texttt{ITR 0, 0} & \textbf{Celé číslo na reálné číslo}; vybere jednu hodnotu ze zásobníku a vloží číslo jako reálné do zásobníku \\ \hline
+\rule{0pt}{3ex} 18 & \texttt{NEW 0, 0} &  \textbf{Alokace na haldě}; alokuje se jedno místo na haldě, na zásobník vloží hodnotu představující pozici místa v haldě \\ \hline
+\rule{0pt}{3ex} 19 & \texttt{DEL 0, 0} & \textbf{Uvolnění místa na haldě}; odebere ze zásobníku jednu hodnotu a to adresu na haldě, kterou uvolní \\ \hline
+\rule{0pt}{3ex} 20 & \texttt{LDA 0, 0} & \textbf{Načtení hodnoty z haldy}; odebere ze zásobníku hodnotu a vloží hodnotu z haldy \\ \hline
+\rule{0pt}{3ex} 21 & \texttt{STA 0, 0} & \textbf{Uložení hodnoty na haldu}; odebere dvě hodnoty zásobníku. Na první představující adresu uloží druhou v haldě \\ \hline
+\rule{0pt}{3ex} 22 & \texttt{PLD 0, 0} & \textbf{Dynamické načtení hodnoty z místa určeného L/A}; odebere ze zásobníku dvě hodnoty. První je úroveň zanoření a druhá je relativní pozice \\ \hline
+\rule{0pt}{3ex} 23 & \texttt{PST 0, 0} & \textbf{Dynamické uložení hodnoty z místa určeného L/A}; odebere ze zásobníku tři hodnoty. První je úroveň zanoření, druhá relativní pozice a třetí \\ \hline
+\end{longtable}
+\section{Chyby programu}
 
 \chapter{Uživatelská dokumentace} 
 
