@@ -54,7 +54,6 @@ Thumbs.db
 ######################
 *.doc
 *.docx
-*.txt
 *.aux
 *.out
 *.toc
