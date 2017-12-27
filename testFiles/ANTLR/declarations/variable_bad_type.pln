@@ -1,0 +1,7 @@
+program(variable_bad_type);
+
+use default;
+
+float x;
+
+begin end.

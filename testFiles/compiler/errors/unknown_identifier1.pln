@@ -1,0 +1,7 @@
+program(unknown_identifier1);
+
+use default;
+
+integer x := y + 1;
+
+begin end.

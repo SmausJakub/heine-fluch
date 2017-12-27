@@ -1,0 +1,9 @@
+program(non_legacy_mode_var_type);
+
+use default;
+
+var x;
+
+begin
+
+ end.

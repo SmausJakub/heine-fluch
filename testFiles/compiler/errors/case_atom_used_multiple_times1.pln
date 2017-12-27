@@ -1,0 +1,16 @@
+program(case_atom_used_multiple_times);
+
+use default;
+
+integer x;
+
+begin
+
+case x of
+1 do x := x + 1;
+2 do x := x + 2;
+1 do x := x + 5;
+end;
+
+
+ end.

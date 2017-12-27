@@ -1,0 +1,7 @@
+program(log1);
+
+use default;
+
+boolean x := true and false;
+
+begin end.

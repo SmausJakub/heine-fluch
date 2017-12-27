@@ -1,0 +1,7 @@
+program(variable_integer1);
+
+use default;
+
+integer x;
+
+begin end.

@@ -1,0 +1,7 @@
+program(variable_legacy1);
+
+use legacy;
+
+var x;
+
+begin end.

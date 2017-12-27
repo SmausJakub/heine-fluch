@@ -1,0 +1,8 @@
+program(procedure2);
+
+use default;
+
+procedure x;
+integer x;
+
+begin end.

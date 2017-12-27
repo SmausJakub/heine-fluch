@@ -1,0 +1,7 @@
+program(odd3);
+
+use default;
+
+boolean x := 2 odd 2;
+
+begin end.

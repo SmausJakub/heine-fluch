@@ -1,0 +1,12 @@
+program(for1);
+
+use default;
+
+integer x;
+
+begin 
+
+for i := 1 to 5 do
+x := x + i;
+
+end.

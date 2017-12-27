@@ -1,0 +1,7 @@
+program(not1);
+
+use default;
+
+boolean x := not true;
+
+begin end.

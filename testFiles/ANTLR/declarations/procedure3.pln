@@ -1,0 +1,9 @@
+program(procedure3);
+
+use default;
+
+procedure x;
+integer x;
+begin end;
+
+begin end.

@@ -1,0 +1,7 @@
+program(constant1);
+
+use default;
+
+const integer x;
+
+begin end.

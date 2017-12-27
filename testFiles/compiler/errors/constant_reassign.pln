@@ -1,0 +1,11 @@
+program(constant_reassign);
+
+use default;
+
+const integer x := 1;
+
+begin
+
+x := x + 1;
+
+ end.

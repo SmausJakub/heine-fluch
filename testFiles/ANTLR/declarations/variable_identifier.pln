@@ -1,0 +1,8 @@
+program(variable_identifier);
+
+use default;
+
+integer y;
+integer x := y;
+
+begin end.

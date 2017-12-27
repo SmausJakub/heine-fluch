@@ -1,0 +1,7 @@
+program(rel4);
+
+use default;
+
+boolean x := 15 < 15;
+
+begin end.

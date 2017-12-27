@@ -1,0 +1,8 @@
+program(strict_mode_expression_variable_type_mismatch);
+
+use strict;
+
+integer y;
+real x := 3.14 / y;
+
+begin end.

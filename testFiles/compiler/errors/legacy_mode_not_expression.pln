@@ -1,0 +1,11 @@
+program(legacy_mode_not_expression);
+
+use legacy;
+
+var x;
+
+begin
+
+if not x then x := x + 1;
+
+ end.

@@ -1,0 +1,7 @@
+program(variable_legacy3);
+
+use legacy;
+
+var x, y, z := 1;
+
+begin end.

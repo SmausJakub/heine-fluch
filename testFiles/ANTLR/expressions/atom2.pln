@@ -1,0 +1,7 @@
+program(atom2);
+
+use default;
+
+real x := 3.14;
+
+begin end.

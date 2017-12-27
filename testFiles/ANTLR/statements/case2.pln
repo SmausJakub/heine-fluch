@@ -1,0 +1,15 @@
+program(case2);
+
+use default;
+
+integer x;
+
+begin 
+
+case x of
+1 do x := 2;
+2,3 do x := 4;
+else do x := 5;
+end;
+
+end.

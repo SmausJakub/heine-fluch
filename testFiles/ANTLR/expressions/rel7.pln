@@ -1,0 +1,7 @@
+program(rel7);
+
+use default;
+
+boolean x := < 3;
+
+begin end.

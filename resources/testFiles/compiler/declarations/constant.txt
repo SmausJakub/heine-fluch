@@ -1,8 +1,0 @@
-
-const integer x := 1;
-const real y := 5.5;
-const boolean ahoj := true;
-
-begin
-
-end.

@@ -1,0 +1,15 @@
+program(if3);
+
+use default;
+
+integer x;
+label 1;
+
+begin 
+
+if x < 5 then
+x := 5;
+else then
+x := 1;
+
+end.

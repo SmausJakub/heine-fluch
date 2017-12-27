@@ -1,0 +1,8 @@
+program(incompatible_types1);
+
+use default;
+
+real y,z;
+boolean x := y + z;
+
+begin end.

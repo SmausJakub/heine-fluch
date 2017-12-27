@@ -1,0 +1,15 @@
+program(compound2);
+
+use default;
+
+integer x;
+label 1;
+
+begin 
+
+1: begin 
+	x := 1;
+	x := 2;
+end;	
+
+end.

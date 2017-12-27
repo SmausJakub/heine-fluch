@@ -1,0 +1,7 @@
+program(variable_boolean4);
+
+use default;
+
+boolean x,y,z;
+
+begin end.

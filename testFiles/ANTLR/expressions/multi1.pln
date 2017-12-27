@@ -1,0 +1,7 @@
+program(multi1);
+
+use default;
+
+integer x := 1 * 2;
+
+begin end.

@@ -1,0 +1,11 @@
+program(io2);
+
+use default;
+
+integer x;
+
+begin 
+
+write x;
+
+end.

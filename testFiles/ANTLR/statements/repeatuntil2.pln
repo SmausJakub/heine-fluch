@@ -1,0 +1,14 @@
+program(repeatuntil2);
+
+use default;
+
+integer x;
+label 1;
+
+begin 
+
+1: repeat
+x := x + 1; 
+until (x > 10)
+
+end.

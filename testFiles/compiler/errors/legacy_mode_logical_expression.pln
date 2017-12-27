@@ -1,0 +1,11 @@
+program(legacy_mode_logical_expression);
+
+use legacy;
+
+var x;
+
+begin
+
+if x < 3 and x > 1 then x := x + 1;
+
+ end.

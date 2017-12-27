@@ -1,0 +1,7 @@
+program(expression_variable_type_mismatch);
+
+use default;
+
+boolean y := 14 and true;
+
+begin end.

@@ -1,0 +1,14 @@
+program(compound1);
+
+use default;
+
+integer x;
+
+begin 
+
+begin 
+	x := 1;
+	x := 2;
+end;	
+
+end.

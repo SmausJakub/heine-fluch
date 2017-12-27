@@ -1,0 +1,7 @@
+program(atom3);
+
+use default;
+
+boolean x := true;
+
+begin end.

@@ -1,0 +1,7 @@
+program(variable_boolean2);
+
+use default;
+
+boolean x := true;
+
+begin end.

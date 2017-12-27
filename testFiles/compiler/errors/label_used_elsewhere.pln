@@ -1,0 +1,16 @@
+program(label_used_elsewhere);
+
+use default;
+
+integer x;
+
+label 1;
+
+begin
+
+1: x := 1;
+
+
+1: x := 2;
+
+ end.

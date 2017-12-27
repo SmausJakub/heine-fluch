@@ -1,0 +1,7 @@
+program(variable_bad_type);
+
+use default;
+
+x;
+
+begin end.

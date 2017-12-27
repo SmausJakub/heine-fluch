@@ -108,8 +108,9 @@ public class CompilerExpression {
                 return compileExpressionRecursive(expressionPar.getExpression());
             case ATOM:
                 ExpressionAtom expressionAtom = (ExpressionAtom) exp;
+                VariableType type = getVariableTypeFromAtomType(expressionAtom.getAtom());
                 new CompilerAtom(expressionAtom.getAtom()).compileAtom();
-                return getVariableTypeFromAtomType(expressionAtom.getAtom());
+                return type;
         }
 
         return null;

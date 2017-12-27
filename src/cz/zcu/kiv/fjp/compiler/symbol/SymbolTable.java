@@ -70,6 +70,12 @@ public class SymbolTable {
         return symbolTable.containsKey(name);
     }
 
+    public void clearTable() {
+
+        symbolTable.clear();
+
+    }
+
     /**
      * prints the symbol table into a readable format
      * @return printed symbol table

@@ -1,0 +1,9 @@
+program(legacy_mode_var_type);
+
+use legacy;
+
+integer x;
+
+begin
+
+ end.

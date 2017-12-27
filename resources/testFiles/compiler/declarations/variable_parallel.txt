@@ -1,6 +1,0 @@
-
-integer a,b,c := [1, a + 1, a + 2];
-
-begin
-
-end.

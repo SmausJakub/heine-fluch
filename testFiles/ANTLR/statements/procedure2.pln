@@ -1,0 +1,13 @@
+program(procedure2);
+
+use default;
+
+label 1;
+procedure x;
+begin end;
+
+begin 
+
+1: call x;
+
+end.

@@ -1,0 +1,11 @@
+program(assignment3);
+
+use default;
+
+label 1;
+
+begin 
+
+1: x := 5;
+
+end.

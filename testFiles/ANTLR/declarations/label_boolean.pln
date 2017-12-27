@@ -1,0 +1,7 @@
+program(label_boolean);
+
+use default;
+
+label true;
+
+begin end.

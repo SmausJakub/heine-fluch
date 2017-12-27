@@ -1,0 +1,14 @@
+program(goto1);
+
+use default;
+
+label 1;
+integer x;
+
+begin 
+
+1: x := 1;
+
+goto 1;
+
+end.

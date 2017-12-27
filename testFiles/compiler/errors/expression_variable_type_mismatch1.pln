@@ -1,0 +1,7 @@
+program(expression_variable_type_mismatch);
+
+use default;
+
+integer x := true + 1;
+
+begin end.

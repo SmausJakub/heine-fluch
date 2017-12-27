@@ -1,0 +1,12 @@
+program(unknown_identifier2);
+
+use default;
+
+integer x;
+procedure y;
+integer z;
+begin end;
+
+begin
+z := x;
+ end.

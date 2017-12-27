@@ -1,0 +1,11 @@
+program(io1);
+
+use default;
+
+integer x;
+
+begin 
+
+read x;
+
+end.

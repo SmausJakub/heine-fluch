@@ -1,0 +1,9 @@
+program(legacy_mode_boolean_constant);
+
+use legacy;
+
+var x := true;
+
+begin
+
+ end.

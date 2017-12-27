@@ -1,0 +1,7 @@
+program(label_real);
+
+use default;
+
+label 3.14;
+
+begin end.

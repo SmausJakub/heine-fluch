@@ -51,7 +51,8 @@ public class Compiler {
         try {
             inputStream = CharStreams.fromFileName(inputFile);
         } catch (IOException e) {
-            System.err.println("Error while loading file " + inputFile + "\n" + e.getMessage());
+            System.err.println("Error while loading file " + inputFile);
+            System.exit(0);
         }
 
         System.out.println("OK");
@@ -108,7 +109,8 @@ public class Compiler {
 
             pw.close();
         } catch (FileNotFoundException e) {
-            System.err.println("Error while writing into files\n" + e.getMessage());
+            System.err.println("Error while writing into files");
+            System.exit(0);
         }
 
         System.out.println("Done");

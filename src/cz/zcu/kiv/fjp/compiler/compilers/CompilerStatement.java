@@ -121,6 +121,8 @@ public class CompilerStatement {
             err.throwError(new ErrorCannotAssignLoopVariable(statementFor.getIdentifier()));
         }
 
+        symbolTable.addItem(statementFor.getIdentifier(), new SymbolTableItem(statementFor.getIdentifier(), VariableType.INTEGER.getValue(), currentLevel, address, 1));
+
         // compile the from expression
         new CompilerExpression(statementFor.getFrom(), VariableType.INTEGER).compileExpression();
 

@@ -1,0 +1,7 @@
+program(variable_real3);
+
+use default;
+
+real x,y := 3.14;
+
+begin end.

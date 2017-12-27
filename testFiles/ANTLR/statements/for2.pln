@@ -1,0 +1,13 @@
+program(for2);
+
+use default;
+
+integer x;
+label 1;
+
+begin 
+
+1: for i := 1 to 5 do
+x := x + i;
+
+end.

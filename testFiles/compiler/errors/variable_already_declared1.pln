@@ -1,0 +1,8 @@
+program(variable_already_declared1);
+
+use default;
+
+integer x;
+integer x := 1;
+
+begin end.

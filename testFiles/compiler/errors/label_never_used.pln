@@ -1,0 +1,15 @@
+program(label_never_used);
+
+use default;
+
+integer x;
+
+label 1;
+
+begin
+
+goto 1;
+
+x := x + 2;
+
+ end.

@@ -1,0 +1,7 @@
+program(variable_parallel1);
+
+use default;
+
+integer x,y,z := [1, 2, 3];
+
+begin end.

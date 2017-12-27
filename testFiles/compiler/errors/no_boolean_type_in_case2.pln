@@ -1,0 +1,16 @@
+program(no_boolean_type_in_case);
+
+use default;
+
+integer x;
+
+begin
+
+case x - 1 of
+true do x := x + 1;
+false do x := x - 1;
+end;
+
+
+
+ end.

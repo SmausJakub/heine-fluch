@@ -1,0 +1,14 @@
+program(dowhile1);
+
+use default;
+
+integer x;
+label 1;
+
+begin 
+
+1: do 
+x := x + 1; 
+while (x < 10)
+
+end.

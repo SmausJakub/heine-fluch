@@ -1,0 +1,11 @@
+program(cannot_assign_loop_variable);
+
+use default;
+
+integer i;
+
+begin
+
+for i := 1 to 5 do i := 1;
+
+ end.

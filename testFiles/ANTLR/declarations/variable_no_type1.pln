@@ -1,0 +1,7 @@
+program(variable_no_type1);
+
+use default;
+
+x := 1;
+
+begin end.

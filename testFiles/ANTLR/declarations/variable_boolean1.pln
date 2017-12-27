@@ -1,0 +1,7 @@
+program(variable_boolean1);
+
+use default;
+
+boolean x;
+
+begin end.

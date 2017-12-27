@@ -1,0 +1,18 @@
+program(label_out_of_reach);
+
+use default;
+
+integer x;
+
+label 1;
+
+procedure y;
+begin
+goto 1;
+end;
+
+begin
+
+1: x := 1;
+
+ end.

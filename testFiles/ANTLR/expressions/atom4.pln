@@ -1,0 +1,8 @@
+program(atom4);
+
+use default;
+
+integer x;
+integer y := x;
+
+begin end.

@@ -1,0 +1,7 @@
+program(variable_real4);
+
+use default;
+
+real x,y,z;
+
+begin end.

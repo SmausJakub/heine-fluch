@@ -1,0 +1,14 @@
+program(case1);
+
+use default;
+
+integer x;
+
+begin 
+
+case x of
+1 do x := 2;
+2,3 do x := 4;
+end;
+
+end.

@@ -1,0 +1,7 @@
+program(variable_already_declared2);
+
+use default;
+
+label 1,1;
+
+begin end.

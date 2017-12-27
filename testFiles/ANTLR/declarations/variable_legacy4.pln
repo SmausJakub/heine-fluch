@@ -1,0 +1,7 @@
+program(variable_legacy4);
+
+use legacy;
+
+var x, y, z;
+
+begin end.

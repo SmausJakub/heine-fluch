@@ -1,0 +1,16 @@
+program(case3);
+
+use default;
+
+integer x;
+label 1;
+
+begin 
+
+1: case x of
+1 do x := 2;
+2,3 do x := 4;
+else do x := 5;
+end;
+
+end.

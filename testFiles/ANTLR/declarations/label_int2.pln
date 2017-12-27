@@ -1,0 +1,7 @@
+program(label_int2);
+
+use default;
+
+label 1,2,3,4;
+
+begin end.

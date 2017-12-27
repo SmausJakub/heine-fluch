@@ -1,0 +1,7 @@
+program(procedure1);
+
+use default;
+
+procedure x;
+
+begin end.

@@ -1,0 +1,7 @@
+program(add1);
+
+use default;
+
+integer x := 1 + 1;
+
+begin end.

@@ -1,0 +1,8 @@
+program(strict_mode_expression_variable_type_mismatch);
+
+use strict;
+
+real y;
+integer x := y + 1;
+
+begin end.

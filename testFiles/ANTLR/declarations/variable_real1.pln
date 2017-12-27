@@ -1,0 +1,7 @@
+program(variable_Real1);
+
+use default;
+
+real x;
+
+begin end.

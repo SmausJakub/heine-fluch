@@ -1,0 +1,13 @@
+program(if2);
+
+use default;
+
+integer x;
+label 1;
+
+begin 
+
+1: if x < 5 then
+x := 5;
+
+end.

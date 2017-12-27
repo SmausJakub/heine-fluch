@@ -1,0 +1,7 @@
+program(parallel_declaration_number_mismatch1);
+
+use default;
+
+integer x,y := [1, x + 1, x + 2];
+
+begin end.

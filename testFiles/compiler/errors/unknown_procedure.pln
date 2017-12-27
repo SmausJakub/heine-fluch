@@ -1,0 +1,10 @@
+program(unknown_procedure);
+
+use default;
+
+
+begin
+
+call x;
+
+ end.

@@ -1,0 +1,7 @@
+program(variable_integer3);
+
+use default;
+
+integer x,y := 1;
+
+begin end.

@@ -1,0 +1,5 @@
+program(bad_program_mode);
+
+use pascal;
+
+begin end.

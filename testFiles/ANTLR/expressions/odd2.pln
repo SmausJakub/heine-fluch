@@ -1,0 +1,7 @@
+program(odd2);
+
+use default;
+
+boolean x := odd (1 * 5);
+
+begin end.

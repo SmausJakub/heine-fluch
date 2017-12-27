@@ -1,0 +1,9 @@
+program(unknown_label);
+
+use default;
+
+begin
+
+goto 1;
+
+ end.

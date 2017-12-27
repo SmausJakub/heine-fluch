@@ -1,0 +1,9 @@
+program(legacy_mode_real_constant);
+
+use legacy;
+
+var x := 3.14;
+
+begin
+
+ end.

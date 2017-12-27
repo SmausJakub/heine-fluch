@@ -1,0 +1,7 @@
+program(variable_boolean3);
+
+use default;
+
+boolean x,y := false;
+
+begin end.

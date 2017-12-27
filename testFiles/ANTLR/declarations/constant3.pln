@@ -1,0 +1,7 @@
+program(constant3);
+
+use default;
+
+const integer x,y,z := 1;
+
+begin end.

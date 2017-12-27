@@ -1,0 +1,7 @@
+program(not2);
+
+use default;
+
+boolean x := not (x < 5);
+
+begin end.

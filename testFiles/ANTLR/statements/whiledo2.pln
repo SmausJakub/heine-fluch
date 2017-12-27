@@ -1,0 +1,13 @@
+program(whiledo2);
+
+use default;
+
+integer x;
+label 1;
+
+begin 
+
+1: while (x < 10) do 
+x := x + 1;
+
+end.
