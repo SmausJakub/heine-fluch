@@ -1,0 +1,15 @@
+program(fahrenheit);
+
+use default;
+
+real celsius, fahrenheit;
+
+begin
+
+read celsius;
+
+fahrenheit := (1.8 * celsius) + 32;
+
+write fahrenheit;
+
+end.

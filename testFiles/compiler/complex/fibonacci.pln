@@ -1,0 +1,23 @@
+program(fibonacci);
+
+use default;
+
+integer n, next, first;
+integer second := 1;
+
+begin
+
+read n;
+
+for i := 0 to n do
+    begin
+    if (i <= 1) then next := i;
+    else then
+        begin
+        next := first + second;
+        first := second;
+        second := next;
+        end;
+    write next;
+    end;
+end.

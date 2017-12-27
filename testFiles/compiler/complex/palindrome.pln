@@ -1,0 +1,28 @@
+program(palindrome);
+
+use default;
+
+integer n, reversedInteger, remainder, originalInteger;
+
+integer palindrome := 1;
+integer not_palindrome := -1;
+
+begin
+
+read n;
+
+originalInteger := n;
+
+while (n <> 0) do
+    begin
+        remainder := n % 10;
+        reversedInteger := reversedInteger * 10 + remainder;
+        n := n / 10;
+    end;
+
+if (originalInteger = reversedInteger) then
+    write palindrome;
+else then
+    write not_palindrome;
+
+end.

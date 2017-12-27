@@ -1,0 +1,27 @@
+program(prime);
+
+use default;
+
+integer n, flag;
+
+integer prime := 1;
+integer not_prime := -1;
+
+label 1;
+
+begin
+
+read n;
+
+for i := 2 to (n/2)+1 do
+    begin
+     if (n % i = 0) then
+         begin
+            flag := 1;
+            goto 1;
+         end;
+    end;
+1: if (flag = 0) then write prime;
+else then write not_prime;
+
+end.

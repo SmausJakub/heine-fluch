@@ -1,0 +1,27 @@
+program(armstrong);
+
+use default;
+
+integer n, r, sum, temp;
+
+integer armstrong := 1;
+integer not_armstrong := -1;
+
+begin
+
+read n;
+
+temp := n;
+
+while (n > 0) do
+    begin
+        r := n % 10;
+        sum := sum + (r*r*r);
+        n := n / 10;
+    end;
+
+if (temp = sum) then write armstrong;
+else then write not_armstrong;
+
+
+end.
