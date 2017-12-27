@@ -62,6 +62,8 @@ public class Interpreter {
 
         float returnFloatValue, valueFloat1, valueFloat2;
 
+        int biggestTop = 0;
+
         programCounter = 0;
         System.out.println("START Pascal0Like");
         do {
@@ -189,12 +191,14 @@ public class Interpreter {
                     stack.reduceTop(1);
                     break;
                 case "REA":
+                    System.out.println("Program ocekava na vstupu cele cislo ");
                     stack.push(sc.nextInt());
                     break;
                 case "WRI":
                     System.out.println("" + stack.pop());
                     break;
                 case "RER":
+                    System.out.println("Program ocekava na vstupu desetinne cislo");
                     stack.floatPush(sc.nextFloat());
                     break;
                 case "WRR":
@@ -318,19 +322,20 @@ public class Interpreter {
                     break;
             }
 
+            if(stack.getTop() > biggestTop){
+                biggestTop = stack.getTop();
+            }
+
         } while (programCounter != 0);
 
         System.out.println("END Pascal0Like");
 
             if (printStack) {
                 if (stackFile != null) {
-                    PrintWriter pw;
-                    System.out.println("Writing stack into " + stackFile);
-                    pw = new PrintWriter(stackFile);
-                    pw.print(Arrays.toString(stack.getStackItems()));
-                    pw.close();
+                    stack.printWritePartOfStack(0, biggestTop, stackFile);
                 } else {
-                    System.out.println("Konecny zasobnik prekladace:\n" + Arrays.toString(stack.getStackItems()));
+                    System.out.println("Konecny zasobnik prekladace:");
+                    stack.printPartOfStack(0, biggestTop);
                 }
             }
 

@@ -3,6 +3,10 @@ package cz.zcu.kiv.fjp.interpret;
 import cz.zcu.kiv.fjp.errors.ErrorStackOverflow;
 import cz.zcu.kiv.fjp.errors.ErrorStackUnderflow;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Arrays;
+
 import static cz.zcu.kiv.fjp.interpret.Interpreter.err;
 
 /**
@@ -170,6 +174,24 @@ public class Stack {
 
     public void setTop(int top) {
         this.top = top;
+    }
+
+    public void printPartOfStack(int start, int end) {
+        for (int i = start; i < end; i++){
+            System.out.print(i + " ");
+            System.out.println(stackItems[i]);
+        }
+    }
+
+    public void printWritePartOfStack(int start, int end, String file ) throws FileNotFoundException {
+        PrintWriter pw;
+        System.out.println("Writing stack into " + file);
+        pw = new PrintWriter(file);
+        for (int i = start; i < end; i++){
+            pw.print(i + " ");
+            pw.println(stackItems[i]);
+        }
+        pw.close();
     }
 
 }
