@@ -10,11 +10,11 @@ public class Main {
 
     private static void usage() {
 
-        System.out.println("PascaL0-like prekladac a interpret");
+        System.out.println("Pascal0Like prekladac a interpret");
         System.out.println("Pouziti:");
         System.out.println("-h : zobraz napovedu");
-        System.out.println("-c [vstupni soubor] [vystupni soubor] -s [symbol table soubor]: Prelozi vstupni soubor zdrojoveho kodu PascaL/0-like do instrukci jazyka PascaL0-Like. Dalsi parametry jsou dobrovolne. -s vypisuje tabulku symbolu na obrazovku, ctvrty parametr oznacuje soubor, do ktereho se tabulka symbolu ulozi.");
-        System.out.println("-i [soubor] -s [zasobnik soubor]: Interpretace instrukci PascaL/0-like. Dalsi parametry jsou dobrovolne. -s vypisuje konecnou podobu zasobniku na obrazovku, treti parametr oznacuje soubor, do ktereho se zasobnik ulozi.");
+        System.out.println("-c [vstupni soubor] [vystupni soubor] -s [symbol table soubor]: Prelozi vstupni soubor zdrojoveho kodu Pascal0Like do instrukci jazyka Pascal0Like. Dalsi parametry jsou dobrovolne. -s vypisuje tabulku symbolu na obrazovku, ctvrty parametr oznacuje soubor, do ktereho se tabulka symbolu ulozi.");
+        System.out.println("-i [soubor] -s [zasobnik soubor]: Interpretace instrukci Pascal0Like. Dalsi parametry jsou dobrovolne. -s vypisuje konecnou podobu zasobniku na obrazovku, treti parametr oznacuje soubor, do ktereho se zasobnik ulozi.");
 
     }
 

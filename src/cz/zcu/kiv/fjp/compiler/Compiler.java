@@ -36,7 +36,7 @@ public class Compiler {
     /**
      * compiles given file and prints the output to output file. Supports printing symbol table to console or a file.
      *
-     * @param inputFile   source code of PascaL0-Like
+     * @param inputFile   source code of Pascal0Like
      * @param outputFile  output file of instructions
      * @param printSymbol whether to print a symbol table
      * @param symbolFile  file for printed symbol table
