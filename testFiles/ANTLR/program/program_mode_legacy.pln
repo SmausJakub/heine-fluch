@@ -1,0 +1,5 @@
+program(legacy_mode);
+
+use legacy;
+
+begin end.

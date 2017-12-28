@@ -49,5 +49,23 @@ public class TestProgram {
         testANTLRfile();
     }
 
+    @Test
+    public void TestProgramModeLegacy() {
+        file = TestData.ANTLR_PROGRAM_LEGACY;
+        testANTLRfile();
+    }
+
+    @Test
+    public void TestProgramModeDefault() {
+        file = TestData.ANTLR_PROGRAM_STRICT;
+        testANTLRfile();
+    }
+
+    @Test
+    public void TestProgramModeStrict() {
+        file = TestData.ANTLR_PROGRAM_DEFAULT;
+        testANTLRfile();
+    }
+
 
 }

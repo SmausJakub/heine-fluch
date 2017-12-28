@@ -31,6 +31,9 @@ public class TestData {
     public static final String ANTLR_NO_PROGRAM_MODE = ANTLR_PROGRAM_TEST_SUITE + "/no_program_mode" + SOURCE_FILES;
     public static final String ANTLR_NO_PROGRAM_NAME = ANTLR_PROGRAM_TEST_SUITE + "/no_program_name" + SOURCE_FILES;
     public static final String ANTLR_NO_PROGRAM_STATEMENT = ANTLR_PROGRAM_TEST_SUITE + "/no_program_statement" + SOURCE_FILES;
+    public static final String ANTLR_PROGRAM_LEGACY = ANTLR_PROGRAM_TEST_SUITE + "/program_mode_legacy" + SOURCE_FILES;
+    public static final String ANTLR_PROGRAM_DEFAULT = ANTLR_PROGRAM_TEST_SUITE + "/program_mode_default" + SOURCE_FILES;
+    public static final String ANTLR_PROGRAM_STRICT = ANTLR_PROGRAM_TEST_SUITE + "/program_mode_strict" + SOURCE_FILES;
     // ANTLR declarations files
     public static final String ANTLR_LABEL_BOOLEAN = ANTLR_DECALARATIONS_TEST_SUITE + "/label_boolean" + SOURCE_FILES;
     public static final String ANTLR_LABEL_INT1 = ANTLR_DECALARATIONS_TEST_SUITE + "/label_int1" + SOURCE_FILES;
@@ -158,9 +161,26 @@ public class TestData {
     public static final String COMPILER_ERROR_VARIABLE_DECLARED1 = COMPILER_ERRORS_TEST_SUITE + "/variable_already_declared1" + SOURCE_FILES;
     public static final String COMPILER_ERROR_VARIABLE_DECLARED2 = COMPILER_ERRORS_TEST_SUITE + "/variable_already_declared2" + SOURCE_FILES;
     public static final String COMPILER_ERROR_VARIABLE_DECLARED3 = COMPILER_ERRORS_TEST_SUITE + "/variable_already_declared3" + SOURCE_FILES;
+    // Compiler complex files
+    public static final String COMPILER_COMPLEX_ARMSTRONG = COMPILER_COMPLEX_TEST_SUITE + "/armstrong" + SOURCE_FILES;
+    public static final String COMPILER_COMPLEX_FACTORIAL = COMPILER_COMPLEX_TEST_SUITE + "/factorial" + SOURCE_FILES;
+    public static final String COMPILER_COMPLEX_FAHRENHEIT = COMPILER_COMPLEX_TEST_SUITE + "/fahrenheit" + SOURCE_FILES;
+    public static final String COMPILER_COMPLEX_FIBONACCI = COMPILER_COMPLEX_TEST_SUITE + "/fibonacci" + SOURCE_FILES;
+    public static final String COMPILER_COMPLEX_PALINDROME = COMPILER_COMPLEX_TEST_SUITE + "/palindrome" + SOURCE_FILES;
+    public static final String COMPILER_COMPLEX_PRIME = COMPILER_COMPLEX_TEST_SUITE + "/prime" + SOURCE_FILES;
+
+
     private static final String INSTRUCTION_FILES = ".ipln";
     public static String file;
     public static ParseTree tree;
+
+    public static final int[][] ArmstrongNumbers = {{0, 1}, {1, 1}, {2, -1}, {50, -1}, {100, -1}, {370, 1}, {371, 1}, {407, 1}, {250, -1}};
+    public static final int[][] FactorialNumbers = {{0, 1}, {1, 1}, {2, 2}, {3, 6}, {4, 24}, {5, 120}, {6, 720},
+            {7, 5040}, {8, 40320}, {9, 362880}, {10, 3628800}};
+    public static final double[][] FahrenheitNumbers = {{32, 89.6}, {30, 86}, {25, 77}, {12, 53.6}, {8, 46.4}, {0, 32}};
+    public static final int[][] FibonacciNumbers = {{10, 0, 1, 1, 2, 3, 5, 8, 13, 21, 34}};
+    public static final int[][] PalindromeNumbers = {{0, 1}, {1, 1}, {2, 1}, {3, 1}, {11, 1}, {33, 1}, {44, 1}, {555, 1}, {202, 1}, {47, -1}, {51, -1}, {25, -1}};
+    public static final int[][] PrimeNumbers = {{2, 1}, {3, 1}, {17, 1}, {193, 1}, {877, 1}, {907, 1}, {353, 1}, {571, 1}, {10, -1}, {556, -1}, {192, -1}};
 
     private TestData() {
     }

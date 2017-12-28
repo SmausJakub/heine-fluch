@@ -1,0 +1,5 @@
+program(strict_mode);
+
+use strict;
+
+begin end.

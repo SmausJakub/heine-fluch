@@ -867,8 +867,49 @@ Program při vykonávání může narazit na několik různých chyb při překl
 \rule{0pt}{3ex}27 & \texttt{Program counter is out of range} & Čítač instrukcí je mimo rozsah \\ \hline
 \end{longtable}
 
+\chapter{Testování}
 
- 
+Program byl kromě pečlivého ručního otestování autorů otestován sadou automatických funkcionálních testů za podpory knihovny JUnit. Veškeré třídy se nacházejí v balíku \textit{test.zcu.cz.kiv.fjp} a veškeré testovací soubory ve složce \textit{testFiles}.
+
+\section{ANTLR}
+Testování ANTLR, potažmo analytické části překladače, je o otestování, že přijmeme správné vstupy a odmítneme nesprávné. Jde tedy o testování funkčnosti pravidel gramatiky. Správně vstupy jsou předpokladem pro další část překladu a proto byla věnována zvýšená pozornost této části testování. 
+
+Jednotlivé testovací třídy jsou v balíku \textit{ANTLR}.
+\begin{itemize}
+\item \textbf{TestProgram} - testovací sada na základní vlastnosti programu týkající se především hlavičky programu.
+\item \textbf{TestDeclarations} - testovací sada na deklarace. Důraz kladen na správné přijetí všech druhů deklarací včetně všech jejich povolených tvarů.
+\item \textbf{TestExpressions} - testování vlastností výrazů. Kontrola, že dodržují předepsaná pravidla o počtu výrazů, povolené symboly, klíčová slova apod.
+\item \textbf{TestStatements} - testovací sada na příkazy. Správné tvary všech příkazů včetně návěští.
+\item \textbf{TestSuiteANTLR} - testovací sada, která spustí všechny zmíněné testy.
+\end{itemize} 
+
+\section{Překladač}
+
+Testování samotného překladače je složitý problém. Nasnadě je využít přeložené instrukce pro další budoucí testování. Jenže to vyvolává mnohem více otázek než zodpovídá. Kde tyto instrukce vezmeme? Náš překladač podporuje velké množství příkazů, mnohem více než PL/0, navíc využívá vlastní instrukce pro převod čísel a reprezentaci reálného čísla. Musel by se tedy použít samotný překladač. To by znamenalo srovnávat starší výsledek překladače s novými výsledky překladače. Smysl takového testování je velice malý. Přes srovnávání instrukcí otestování překladače nevede. 
+
+
+Zaměřme se nejdříve na to, co testovat snadno lze - otestování chybových stavů. Překladač při naražení na problém, vyvolá chybový stav, vypíše chybovou hlášku na konzoli a ukončí program přes \textit{System.exit}. Návratová hodnota tohoto volání odpovídá číslu chyby uvedené v tabulce \ref{chyby}. Knihovna JUnit neumožňuje testovat tuto návratovou hodnotu a tak si vypomůžeme další knihovnou, která tuto funkcionalitu do JUnit doplńuje - \textit{System rules}. 
+
+V balíku \textit{compiler} se nachází \textbf{TestErrors}. Tato třída průběžne otestuje správnou reakci překladače na chybné vstupy kontrolou návratové hodnoty \textit{System.exit} pomocí výše popsané knihovny.
+
+Další třídou je \textbf{TestComplex}. Tato třída testuje komplexnější programy. Bez výpomoci třetího si zde nepomůžeme a tak toto testování probíhá za asistence interpretu. Všechny testy využívají předpřipravená data ve třídě \textbf{TestData}. Všechny programy vždy vypisují výsledek pomocí instrukcí pro I/O, a právě tyto výstupy poté kontrolujeme v testovacích sadách. 
+
+V rozhodovacích problémech odpovídají programy buď \textbf{1} (ano) nebo \textbf{-1} (ne).
+
+Testujeme následující programy:
+
+\begin{itemize}
+\item \textbf{armstrong} - Program rozhodune o zadaném čísle, jestli se jedná o Armstrongovo číslo.
+\item \textbf{factorial} - Program vypočítává faktoriál zadaného čísla.
+\item \textbf{fahrenheit} - Program převádí zadané číslo z celsia do fahrenheit.
+\item \textbf{fibonacci} - Program vypíše prvních \textit{n} čísel Fibonacciho posloupnosti.
+\item \textbf{palindrome} - Program rozhodne o zadaném čísle, jestli se jedná o palindrom.
+\item \textbf{prime} - Program rozhodne o zadaném čísle, jestli se jedná o prvočíslo.
+\end{itemize}
+
+Všechny testovací sady překladače lze spustit najednou pomocí třídy \textbf{TestSuiteCompiler}.
+
+\section{Interpret}
 
 \chapter{Uživatelská dokumentace} 
 
@@ -885,7 +926,65 @@ Od původní analýzy se implementovaný program liší ve dvou věcech.
  
  Za druhé nebyl realizován datový typ řetězec. Z důvodů časové tísně a dalších povinností byla implementace tohoto datového typu nejdříve odložena načež zrušena. 
 
+\section{Omezení}
+
+I přes implementaci některý funkcí jsou tyto funkce omezené v určitých aspektech:
+
+\begin{itemize}
+\item Návěští musí být použito pouze na začátku příkazu. To sebou nese určitá omezení v případě nutnosti skočit z cyklu ven, pokud za tímto cyklem nic není.
+\item Hlavička \textit{program(název)} je vyžadována i přesto, že v programu ničemu neslouží.
+\item I/O příkazy nepodporují konstanty
+\item Překladač nepodporuje logické konstanty v číselných výrazech (pouze v logických)
+\item Iterační proměnná \textit{for} cyklu musí být nedeklarována
+\item \textit{Case} pracuje pouze s číselnými typy
+\item Konstanta může být pouze atomická
+\item Deklarovat proměnné lze pouze v deklarační části
+\end{itemize}
+
 \section{Dosažené cíle}
+
+Hlavní předsevzatý cíl bylo splnit zadání, tedy vytvořit překladač vlastního jazyka. Tento cíl byl později doplněn o vlastní interpret. Překladač i interpret byly otestovány automatickými testy na jednoduchých i složitějších případech. Funkcionalitu programu shrňme v následujícím seznamu:
+\begin{itemize}
+\item Programový mód - \textit{legacy}, \textit{default}, \textit{strict}
+\item \textbf{Deklarace}
+\begin{itemize}
+\item Deklarace konstant
+\item Deklarace návěští
+\item Deklarace proměnných
+\item Deklarace paralelních proměnných
+\item Deklarace procedury
+\end{itemize}
+\item \textbf{Výrazy}
+\begin{itemize}
+\item Unární mínus
+\item Lichost
+\item Negace
+\item Násobení, dělení, modulo
+\item Sčítání, odčítání
+\item Srovnání
+\end{itemize}
+\item \textbf{Příkazy}
+\begin{itemize}
+\item I/O příkaz
+\item Příkaz přiřazení
+\item Ternární příkaz
+\item Goto příkaz
+\item Volání procedury
+\item Blokový příkaz (\textit{begin end})
+\item Cyklus \textit{do while}
+\item Cyklus \textit{while do}
+\item Cyklus \textit{repeat until}
+\item Cyklus \textit{for}
+\item Příkaz podmínky \textit{if}
+\item Příkaz větvení \textit{case}
+\end{itemize}
+\item \textbf{Interpret podporuje}
+\begin{itemize}
+\item Základní PL/0
+\item Rozšířená PL/0
+\item Naše instrukce pro reálná čísla
+\end{itemize}
+\end{itemize}
 
 
 \end{document}

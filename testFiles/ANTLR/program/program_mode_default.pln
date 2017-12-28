@@ -1,0 +1,5 @@
+program(default_mode);
+
+use default;
+
+begin end.

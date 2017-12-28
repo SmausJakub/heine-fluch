@@ -5,7 +5,8 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses(
-        TestErrors.class
+        {TestErrors.class,
+                TestComplex.class}
 )
 public class TestSuiteCompiler {
 }

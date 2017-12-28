@@ -8,9 +8,7 @@ import cz.zcu.kiv.fjp.instruction.Instruction;
 import cz.zcu.kiv.fjp.instruction.InstructionHandler;
 
 import java.io.File;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -40,7 +38,6 @@ public class Interpreter {
     private InstructionHandler instructionHandler;
     private List<Instruction> instructionsList;
     private Instruction instruction;
-    private Scanner sc = new Scanner(System.in);
 
     public static ErrorHandler err = ErrorHandler.getInstance();
 
@@ -51,7 +48,7 @@ public class Interpreter {
      * @param stackFile         file for printed stack
      * @throws Exception
      */
-    public void interpret(File instructions, boolean printStack, String stackFile) throws Exception {
+    public void interpret(File instructions, boolean printStack, String stackFile, boolean mute) throws Exception {
 
         instructionHandler = InstructionHandler.getInstance();
 
@@ -65,7 +62,7 @@ public class Interpreter {
         int biggestTop = 0;
 
         programCounter = 0;
-        System.out.println("START Pascal0Like");
+        if (!mute) System.out.println("START Pascal0Like");
         do {
             if (programCounter < 0 || programCounter > STACK_SIZE) {
                 err.throwError(new ErrorProgramCounter(), programCounter);
@@ -191,15 +188,15 @@ public class Interpreter {
                     stack.reduceTop(1);
                     break;
                 case "REA":
-                    System.out.println("Program ocekava na vstupu cele cislo ");
-                    stack.push(sc.nextInt());
+                    if (!mute) System.out.println("Program ocekava na vstupu cele cislo ");
+                    stack.push(Integer.parseInt(new Scanner(System.in).next()));
                     break;
                 case "WRI":
                     System.out.println("" + stack.pop());
                     break;
                 case "RER":
-                    System.out.println("Program ocekava na vstupu desetinne cislo");
-                    stack.floatPush(sc.nextFloat());
+                    if (!mute) System.out.println("Program ocekava na vstupu desetinne cislo");
+                    stack.floatPush(Float.parseFloat(new Scanner(System.in).next()));
                     break;
                 case "WRR":
                     System.out.println("" + stack.floatPop());
@@ -328,7 +325,7 @@ public class Interpreter {
 
         } while (programCounter != 0);
 
-        System.out.println("END Pascal0Like");
+        if (!mute) System.out.println("END Pascal0Like");
 
             if (printStack) {
                 if (stackFile != null) {

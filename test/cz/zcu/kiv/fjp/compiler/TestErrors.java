@@ -22,8 +22,9 @@ public class TestErrors {
     @Rule
     public final SystemErrRule systemErrRule = new SystemErrRule().muteForSuccessfulTests();
 
+
     @Before
-    public void clearCompilerData() {
+    public void setUp() {
         CompilerData.currentLevel = 0;
         CompilerData.instructionList.clear();
         CompilerData.symbolTable.clearTable();

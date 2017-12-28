@@ -88,10 +88,10 @@ public class Main {
 
                                     stackFile = args[3];
 
-                                    Interpreter.getInstance().interpret(instructionsFile, true, stackFile);
+                                    Interpreter.getInstance().interpret(instructionsFile, true, stackFile, false);
 
                                 } else {
-                                    Interpreter.getInstance().interpret(instructionsFile, true, null);
+                                    Interpreter.getInstance().interpret(instructionsFile, true, null, false);
                                 }
 
                             } else {
@@ -99,7 +99,7 @@ public class Main {
                                 usage();
                             }
                         } else {
-                            Interpreter.getInstance().interpret(instructionsFile, false, null);
+                            Interpreter.getInstance().interpret(instructionsFile, false, null, false);
                         }
                     } else {
                         System.err.println("Spatne zadane parametry.");
