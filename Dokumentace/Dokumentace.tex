@@ -103,7 +103,7 @@ Překladač který bude umět tyto základní věci bude hodnocen deseti body. D
 \item else větev
 \item datový typ boolean a logické operace s ním
 \item datový typ real (s celočíselnými instrukcemi)
-\item datový typ string (s operátory pro spojování řětezců)
+\item datový typ string (s operátory pro spojování řetězců)
 \item rozvětvená podmínka (switch, case)
 \item násobné přiřazení (a = b = c = d = 3;)
 \item podmíněné přiřazení / ternární operátor (min = (a < b) ? a : b;)
@@ -887,7 +887,6 @@ Jednotlivé testovací třídy jsou v balíku \textit{ANTLR}.
 
 Testování samotného překladače je složitý problém. Nasnadě je využít přeložené instrukce pro další budoucí testování. Jenže to vyvolává mnohem více otázek než zodpovídá. Kde tyto instrukce vezmeme? Náš překladač podporuje velké množství příkazů, mnohem více než PL/0, navíc využívá vlastní instrukce pro převod čísel a reprezentaci reálného čísla. Musel by se tedy použít samotný překladač. To by znamenalo srovnávat starší výsledek překladače s novými výsledky překladače. Smysl takového testování je velice malý. Přes srovnávání instrukcí otestování překladače nevede. 
 
-
 Zaměřme se nejdříve na to, co testovat snadno lze - otestování chybových stavů. Překladač při naražení na problém, vyvolá chybový stav, vypíše chybovou hlášku na konzoli a ukončí program přes \textit{System.exit}. Návratová hodnota tohoto volání odpovídá číslu chyby uvedené v tabulce \ref{chyby}. Knihovna JUnit neumožňuje testovat tuto návratovou hodnotu a tak si vypomůžeme další knihovnou, která tuto funkcionalitu do JUnit doplňuje - \textit{System rules}. 
 
 V balíku \textit{compiler} se nachází \textbf{TestErrors}. Tato třída průběžně otestuje správnou reakci překladače na chybné vstupy kontrolou návratové hodnoty \textit{System.exit} pomocí výše popsané knihovny.
@@ -910,6 +909,16 @@ Testujeme následující programy:
 Všechny testovací sady překladače lze spustit najednou pomocí třídy \textbf{TestSuiteCompiler}.
 
 \section{Interpret}
+
+Aby bylo co nejlépe otestováno správné fungování interpretu, je zapotřebí pro každou instrukci z instrukční sady vytvořit testovací scénář a na něm potřebnou funkcionalitu ověřit. Zároveň si sám interpret dokáže poradit i s nekorektním vstupním souborem a proto je nutné otestovat i toto.
+
+Otestování správné funkčnosti instrukcí je docíleno porovnáním vypsaného čísla ze zásobníku a správné hodnoty. Korektní hodnotu jsme zjistili pomocí ručního zpracování instrukcí a jiných dostupných interpretů. Chybové stavy jsou řešeny obdobným způsobem, jako tomu je u testové sady pro chybné vstupy u překladače. 
+
+V balíku \textit{interpreter} se proto nachází dvě třídy.
+\begin{itemize}
+\item \textbf{TestComplex} - testovací sada ověřující základní funkcionalitu interpretu.
+\item \textbf{TestErrors} - testovací sada ověřující korektní reakci programu na chybný vstupní sadu instrukcí.
+\end{itemize}
 
 \chapter{Uživatelská dokumentace} 
 
