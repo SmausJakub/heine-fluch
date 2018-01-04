@@ -517,7 +517,7 @@ Kompilátor postupuje po jedné proměnné, nejdříve vytvoří záznam v tabul
 \item \textbf{type} -- datový typ proměnných
 \end{itemize}
 
-Kompilátor postupuje po jedné proměnné, vytvoří záznam v tabulce symbolů a poté kompiluje daný výraz. V každé iteraci cyklu kompiluje výraz, jelikož je tento výraz jiný pro každou proměnnou. Počet proměnných a výrazů musí souhlasit, jinak je vyhozena chyba.
+Kompilátor postupuje po jedné proměnné, vytvoří záznam v tabulce symbolů a poté kompiluje daný výraz. V každé iteraci cyklu kompiluje výraz, jelikož je tento výraz jiný pro každou proměnnou. Počet proměnných a výrazů musí souhlasit, jinak je vyhozena chyba. Hlavním rozdílem oproti klasické deklaraci proměnných, je 
 
 \paragraph{Deklarace konstanty} -- pracuje s třídou DeclarationConstant, která obsahuje:
 \begin{itemize}
@@ -709,7 +709,7 @@ Cyklus for je zobrazen na obrázku \ref{for}.
 \end{itemize}
 \end{itemize}
 
-Příkaz case je nejsložitější příkaz v programu. Jde o obdobu příkazu if-else s tím rozdílem, že umožňuje definovat více větví s více možnostmi. Základní algoritmus pro příkaz case pascalovského typu byx mohl vypadat následovně:
+Příkaz case je nejsložitější příkaz v programu. Jde o obdobu příkazu if-else s tím rozdílem, že umožňuje definovat více větví s více možnostmi. Základní algoritmus pro příkaz case pascalovského typu by mohl vypadat následovně:
 \begin{enumerate}
 \item Vyhodnoťme kontrolní výraz
 \item Vezměme atomické hodnoty první větve. Srovnejme postupně s každou hodnotou kontrolní výraz, jestli se rovnají.
@@ -888,9 +888,9 @@ Jednotlivé testovací třídy jsou v balíku \textit{ANTLR}.
 Testování samotného překladače je složitý problém. Nasnadě je využít přeložené instrukce pro další budoucí testování. Jenže to vyvolává mnohem více otázek než zodpovídá. Kde tyto instrukce vezmeme? Náš překladač podporuje velké množství příkazů, mnohem více než PL/0, navíc využívá vlastní instrukce pro převod čísel a reprezentaci reálného čísla. Musel by se tedy použít samotný překladač. To by znamenalo srovnávat starší výsledek překladače s novými výsledky překladače. Smysl takového testování je velice malý. Přes srovnávání instrukcí otestování překladače nevede. 
 
 
-Zaměřme se nejdříve na to, co testovat snadno lze - otestování chybových stavů. Překladač při naražení na problém, vyvolá chybový stav, vypíše chybovou hlášku na konzoli a ukončí program přes \textit{System.exit}. Návratová hodnota tohoto volání odpovídá číslu chyby uvedené v tabulce \ref{chyby}. Knihovna JUnit neumožňuje testovat tuto návratovou hodnotu a tak si vypomůžeme další knihovnou, která tuto funkcionalitu do JUnit doplńuje - \textit{System rules}. 
+Zaměřme se nejdříve na to, co testovat snadno lze - otestování chybových stavů. Překladač při naražení na problém, vyvolá chybový stav, vypíše chybovou hlášku na konzoli a ukončí program přes \textit{System.exit}. Návratová hodnota tohoto volání odpovídá číslu chyby uvedené v tabulce \ref{chyby}. Knihovna JUnit neumožňuje testovat tuto návratovou hodnotu a tak si vypomůžeme další knihovnou, která tuto funkcionalitu do JUnit doplňuje - \textit{System rules}. 
 
-V balíku \textit{compiler} se nachází \textbf{TestErrors}. Tato třída průběžne otestuje správnou reakci překladače na chybné vstupy kontrolou návratové hodnoty \textit{System.exit} pomocí výše popsané knihovny.
+V balíku \textit{compiler} se nachází \textbf{TestErrors}. Tato třída průběžně otestuje správnou reakci překladače na chybné vstupy kontrolou návratové hodnoty \textit{System.exit} pomocí výše popsané knihovny.
 
 Další třídou je \textbf{TestComplex}. Tato třída testuje komplexnější programy. Bez výpomoci třetího si zde nepomůžeme a tak toto testování probíhá za asistence interpretu. Všechny testy využívají předpřipravená data ve třídě \textbf{TestData}. Všechny programy vždy vypisují výsledek pomocí instrukcí pro I/O, a právě tyto výstupy poté kontrolujeme v testovacích sadách. 
 
@@ -899,7 +899,7 @@ V rozhodovacích problémech odpovídají programy buď \textbf{1} (ano) nebo \t
 Testujeme následující programy:
 
 \begin{itemize}
-\item \textbf{armstrong} - Program rozhodune o zadaném čísle, jestli se jedná o Armstrongovo číslo.
+\item \textbf{armstrong} - Program rozhodne o zadaném čísle, jestli se jedná o Armstrongovo číslo.
 \item \textbf{factorial} - Program vypočítává faktoriál zadaného čísla.
 \item \textbf{fahrenheit} - Program převádí zadané číslo z celsia do fahrenheit.
 \item \textbf{fibonacci} - Program vypíše prvních \textit{n} čísel Fibonacciho posloupnosti.
@@ -946,6 +946,12 @@ I přes implementaci některý funkcí jsou tyto funkce omezené v určitých as
 Hlavní předsevzatý cíl bylo splnit zadání, tedy vytvořit překladač vlastního jazyka. Tento cíl byl později doplněn o vlastní interpret. Překladač i interpret byly otestovány automatickými testy na jednoduchých i složitějších případech. Funkcionalitu programu shrňme v následujícím seznamu:
 \begin{itemize}
 \item Programový mód - \textit{legacy}, \textit{default}, \textit{strict}
+\item \textbf{Datové typy}
+\begin{itemize}
+\item Celé číslo
+\item Reálné číslo
+\item Logická hodnota
+\end{itemize}
 \item \textbf{Deklarace}
 \begin{itemize}
 \item Deklarace konstant
