@@ -11,8 +11,8 @@ public enum InstructionOperation {
     SUB("SUB", 3),      // minus                   -
     MUL("MUL", 4),      // multiplication          *
     DIV("DIV", 5),      // division                /
-    MOD("MOD", 6),      // modulo                  %
-    ODD("ODD", 7),      // oddity
+    ODD("ODD", 6),      // oddity
+    MOD("MOD", 7),      // modulo                  %
     EQ("EQ", 8),        // equal                   =
     NE("NE", 9),        // unequal                 <>
     LT("LT", 10),       // less than               <

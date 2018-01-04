@@ -9,6 +9,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.io.File;
 import java.io.IOException;
 
 public class TestData {
@@ -22,6 +23,10 @@ public class TestData {
     private static final String COMPILER_TEST_SUITE = "testFiles/compiler";
     private static final String COMPILER_ERRORS_TEST_SUITE = COMPILER_TEST_SUITE + "/errors";
     private static final String COMPILER_COMPLEX_TEST_SUITE = COMPILER_TEST_SUITE + "/complex";
+    private static final String INTERPRETER_TEST_SUITE = "testFiles/interpreter";
+    private static final String INTERPRETER__ERRORS_TEST_SUITE = INTERPRETER_TEST_SUITE + "/errors";
+    private static final String INTERPRETER_COMPLEX_TEST_SUITE = INTERPRETER_TEST_SUITE + "/complex";
+
     // file extensions
     private static final String SOURCE_FILES = ".pln";
     // ANTLR program files
@@ -171,6 +176,49 @@ public class TestData {
 
 
     private static final String INSTRUCTION_FILES = ".ipln";
+
+    // Interpreter conversions files
+    public static final String INTERPRETER_ITR = INTERPRETER_COMPLEX_TEST_SUITE + "/ITR" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_RTI = INTERPRETER_COMPLEX_TEST_SUITE + "/RTI" + INSTRUCTION_FILES;
+    // Interpreter dynamic files
+    public static final String INTERPRETER_PLD = INTERPRETER_COMPLEX_TEST_SUITE + "/PLD" + INSTRUCTION_FILES;
+    // Interpreter heap files
+    public static final String INTERPRETER_DEL = INTERPRETER_COMPLEX_TEST_SUITE + "/DEL" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_NEW = INTERPRETER_COMPLEX_TEST_SUITE + "/NEW" + INSTRUCTION_FILES;
+    // Interpreter int operations files
+    public static final String INTERPRETER_OPR1 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPR1" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPR2 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPR2" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPR3 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPR3" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPR4 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPR4" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPR5 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPR5" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPR6 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPR6" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPR7 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPR7" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPR8 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPR8" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPR9 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPR9" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPR10 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPR10" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPR11 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPR11" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPR12 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPR12" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPR13 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPR13" + INSTRUCTION_FILES;
+    // Interpreter jumps files
+    public static final String INTERPRETER_JMC0 = INTERPRETER_COMPLEX_TEST_SUITE + "/JMC0" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_JMC1 = INTERPRETER_COMPLEX_TEST_SUITE + "/JMC1" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_JMP = INTERPRETER_COMPLEX_TEST_SUITE + "/JMP" + INSTRUCTION_FILES;
+    // Interpreter real operations files
+    public static final String INTERPRETER_OPF1 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPF1" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPF2 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPF2" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPF3 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPF3" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPF4 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPF4" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPF5 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPF5" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPF8 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPF8" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPF9 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPF9" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPF10 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPF10" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPF11 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPF11" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPF12 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPF12" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_OPF13 = INTERPRETER_COMPLEX_TEST_SUITE + "/OPF13" + INSTRUCTION_FILES;
+    // Interpreter errors files
+    public static final String INTERPRETER_ERROR_STACK_OVERFLOW = INTERPRETER__ERRORS_TEST_SUITE + "/stack_overflow" + INSTRUCTION_FILES;
+    public static final String INTERPRETER_ERROR_UNKNOWN_INSTRUCTION = INTERPRETER__ERRORS_TEST_SUITE + "/unknown_instruction" + INSTRUCTION_FILES;
+
     public static String file;
     public static ParseTree tree;
 
@@ -207,6 +255,13 @@ public class TestData {
         parser.addErrorListener(parserErrorListener);
 
         tree = parser.program();
+    }
+
+
+    public static File readFile(String input) {
+
+        File in = new File(input);
+        return in;
     }
 
     public static void compileTree() {

@@ -106,14 +106,14 @@ public class Interpreter {
                             value1 = stack.pop();
                             stack.push(value1 / value2);
                             break;
-                        case 6:    // MOD
+                        case 6:    // ODD
+                            value1 = stack.pop();
+                            stack.push(value1 % 2);
+                            break;
+                        case 7:    // MOD
                             value2 = stack.pop();
                             value1 = stack.pop();
                             stack.push(value1 % value2);
-                            break;
-                        case 7:    // ODD
-                            value1 = stack.pop();
-                            stack.push(value1 % 2);
                             break;
                         case 8:    // EQ
                             value2 = stack.pop();
@@ -316,6 +316,7 @@ public class Interpreter {
                     break;
                 default:
                     System.out.println("End of instructions or unknown instruction.");
+                    err.throwError(new ErrorUnknownInstruction(), instruction);
                     break;
             }
 
