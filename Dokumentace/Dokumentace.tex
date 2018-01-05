@@ -924,7 +924,54 @@ V balíku \textit{interpreter} se proto nachází dvě třídy.
 
 \section{Postup přeložení a sestavení}
 
+S produkčním nasazením programu se v této chvíli nepočítá a proto není s programem spjatý žádný skript, který by ho přeložil. Dá se toho ale stále docílit jednoduše s přiloženým \textit{pom.xml} souborem. Při nahrání do nějakého prostředí, řekněme IntelliJ IDEA, se sám postará o všechny nutné knihovny. ANTLR soubory navíc vyžadují ještě ANTLR IntelliJ plugin volně dostupný na stránkách pluginů JetBrains. 
+
+Náš tým ušetřil případnému čtenáři práci a celý projekt je již přeložený do \textit{jar} souboru Pascal0like. Odtud ho již jen stačí spouštět.
+
 \section{Používání programu}
+
+Pro spuštění je třeba mít nainstalovanou Javu verze alespoň 7. Program se pak spouští přes jednoduchý příkaz:
+\begin{itemize}
+\item java -jar Pascal0like.jar
+\end{itemize}
+
+Program disponuje různým chováním v závislosti na vstupních parametrech.
+
+\subsection{Nápověda}
+
+Pro spuštění nápovědu stačí spustit program s parametrem \textit{-h}, tedy:
+\begin{itemize}
+\item java -jar Pascal0like.jar -h
+\end{itemize}
+Program vypíše nápovědu a skončí. Nápovědu vypisuje také, když se zadá špatný parametr.
+
+\subsection{Překladač}
+
+Překladač se spouští parametrem \textit{-c}. Má tři různé možnosti, jak spustit:
+\begin{itemize}
+\item java -jar Pascal0like.jar -c [vstupní soubor] [výstupní soubor]
+\end{itemize}
+
+Tímto příkazem program přeloží zadaný vstupní soubor a výsledné instrukce uloží do výstupního souboru. Pokud má uživatel zájem o tabulku symbolů, doplní se příkaz o parametr \textit{-s}:
+\begin{itemize}
+\item java -jar Pascal0like.jar -c [vstupní soubor] [výstupní soubor] -s
+\end{itemize}
+
+Tím dosáhneme vypsání tabulky symbolů na obrazovku. V případě, že chceme tabulku symbolů do souboru, stačí přidat název souboru na konec příkazu:
+\begin{itemize}
+\item java -jar Pascal0like.jar -c [vstupní soubor] [výstupní soubor] -s [soubor tabulky symbolů]
+\end{itemize}
+
+\subsection{Interpret}
+
+Interpret je velice podobný svou strukturou překladači, kdy nabízí tři různé způsoby spuštění:
+\begin{itemize}
+\item java -jar Pascal0like.jar -i [vstupní soubor]
+\item java -jar Pascal0like.jar -i [vstupní soubor] -s
+\item java -jar Pascal0like.jar -i [vstupní soubor] -s [soubor zásobníku]
+\end{itemize}
+
+V prvním případě pouze interpretuje zadaný soubor. Ve druhém vypíše zásobník na konci programu na obrazovku a na třetím vypíše zásobník do zadaného souboru.
 
 \chapter{Závěr}
 
@@ -965,7 +1012,7 @@ Hlavní předsevzatý cíl bylo splnit zadání, tedy vytvořit překladač vlas
 \begin{itemize}
 \item Deklarace konstant
 \item Deklarace návěští
-\item Deklarace proměnných
+\item Deklarace proměnných (násobné přiřazení)
 \item Deklarace paralelních proměnných
 \item Deklarace procedury
 \end{itemize}
